@@ -1,7 +1,10 @@
 <?php
 
 /**
- * Class registration file for the Wikibase Query extension.
+ * Example configuration for the Wikibase Query extension.
+ *
+ * This file is NOT an entry point the Wikibase Query extension. Use WikibaseQuery.php.
+ * It should furthermore not be included from outside the extension.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,22 +29,10 @@
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-return call_user_func( function() {
 
-	$classes = array(
-//		'Wikibase\Query\',
-	);
+if ( !defined( 'WIKIBASE_QUERY_EXAMPLE_ENTRY' ) ) {
+	die( 'Not an entry point.' );
+}
 
-	$paths = array();
-
-	foreach ( $classes as $class ) {
-		$path = str_replace( '\\', '/', substr( $class, 9 ) ) . '.php';
-
-		$paths[$class] = $path;
-	}
-
-	$paths['Wikibase\Query'] = 'Query/Query.php';
-
-	return $paths;
-
-} );
+define( 'WB_NS_QUERY', 124 );
+define( 'WB_NS_QUERY_TALK', 125 );
