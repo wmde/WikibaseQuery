@@ -29,7 +29,8 @@
 		"data-values/data-values": "dev-master",
 		"ask/ask": "dev-master",
 		"wikibase/data-model": "dev-master",
-		"wikibase/query-engine": "dev-master"
+		"wikibase/query-engine": "dev-master",
+		"wikibase/wikibase": "dev-master"
 	},
 	"minimum-stability" : "dev",
 	"autoload": {
