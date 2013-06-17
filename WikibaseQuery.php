@@ -31,19 +31,36 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
 }
 
+if ( defined( 'WIKIBASE_QUERY_VERSION' ) ) {
+	// Do not initialize more then once.
+	return;
+}
+
 global $wgExtensionCredits, $wgExtensionMessagesFiles, $wgAutoloadClasses, $wgHooks, $wgVersion;
 
 if ( version_compare( $wgVersion, '1.20c', '<' ) ) {
 	die( '<b>Error:</b> Wikibase requires MediaWiki 1.20 or above.' );
 }
 
-// Include the WikibaseRepo extension if that hasn't been done yet, since it's required for Wikibase Query to work.
-if ( !defined( 'WB_VERSION' ) ) {
-	@include_once( __DIR__ . '/../repo/Wikibase.php' );
+if ( ( !defined( 'WB_VERSION' ) || !defined( 'WIKIBASE_QUERYENGINE_VERSION' ) )
+	&& is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
+	include_once( __DIR__ . '/vendor/autoload.php' );
 }
 
 if ( !defined( 'WB_VERSION' ) ) {
-	die( '<b>Error:</b> Wikibase Query depends on the <a href="https://www.mediawiki.org/wiki/Extension:Wikibase_Repo">Wikibase Repo</a> extension.' );
+	@include_once( __DIR__ . '/../Wikibase/repo/Wikibase.php' );
+}
+
+if ( !defined( 'WIKIBASE_QUERYENGINE_VERSION' ) ) {
+	@include_once( __DIR__ . '/../WikibaseQueryEngine/WikibaseQueryEngine.php' );
+}
+
+if ( !defined( 'WB_VERSION' ) ) {
+	throw new Exception( 'Wikibase Query depends on the Wikibase Repo extension.' );
+}
+
+if ( !defined( 'WIKIBASE_QUERYENGINE_VERSION' ) ) {
+	throw new Exception( 'Wikibase Query depends on the Wikibase QueryEngine component.' );
 }
 
 define( 'WIKIBASE_QUERY_VERSION', '0.1 alpha' );
@@ -115,3 +132,4 @@ $wgAutoloadClasses['Wikibase\SubmitQueryAction'] 		= __DIR__ . '/Query/EditQuery
 
 $wgAutoloadClasses['Wikibase\QueryContent'] 			= __DIR__ . '/Query/QueryContent.php';
 $wgAutoloadClasses['Wikibase\QueryHandler'] 			= __DIR__ . '/Query/QueryHandler.php';
+
