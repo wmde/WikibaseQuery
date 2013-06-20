@@ -28,6 +28,6 @@ script:
 notifications:
   irc:
     channels:
-      - "chat.freenode.net#semantic-mediawiki"
+      - "chat.freenode.net#wikimedia-wikidata"
     on_success: change
     on_failure: always
