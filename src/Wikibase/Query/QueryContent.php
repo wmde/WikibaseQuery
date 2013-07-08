@@ -1,7 +1,18 @@
 <?php
 
-namespace Wikibase;
-use Title, Content, ParserOptions, ParserOutput, WikiPage, User, Status, DataUpdate;
+namespace Wikibase\Query;
+
+use Title;
+use Content;
+use ParserOptions;
+use ParserOutput;
+use Wikibase\EntityContent;
+use Wikibase\EntityDeletionUpdate;
+use Wikibase\EntityModificationUpdate;
+use WikiPage;
+use User;
+use Status;
+use DataUpdate;
 
 /**
  * Content object for articles representing Wikibase queries.
@@ -34,7 +45,7 @@ class QueryContent extends EntityContent {
 
 	/**
 	 * @since 0.1
-	 * @var Query
+	 * @var QueryEntity
 	 */
 	protected $query;
 
@@ -46,9 +57,9 @@ class QueryContent extends EntityContent {
 	 *
 	 * @since 0.1
 	 *
-	 * @param Query $query
+	 * @param QueryEntity $query
 	 */
-	public function __construct( Query $query ) {
+	public function __construct( QueryEntity $query ) {
 		parent::__construct( CONTENT_MODEL_WIKIBASE_QUERY );
 
 		$this->query = $query;
@@ -59,11 +70,11 @@ class QueryContent extends EntityContent {
 	 *
 	 * @since 0.1
 	 *
-	 * @param Query $query
+	 * @param QueryEntity $query
 	 *
 	 * @return QueryContent
 	 */
-	public static function newFromQuery( Query $query ) {
+	public static function newFromQuery( QueryEntity $query ) {
 		return new static( $query );
 	}
 
@@ -77,7 +88,7 @@ class QueryContent extends EntityContent {
 	 * @return QueryContent
 	 */
 	public static function newFromArray( array $data ) {
-		return new static( new Query( $data ) );
+		return new static( new QueryEntity( $data ) );
 	}
 
 	/**
@@ -109,7 +120,7 @@ class QueryContent extends EntityContent {
 	 *
 	 * @since 0.1
 	 *
-	 * @return Query
+	 * @return QueryEntity
 	 */
 	public function getQuery() {
 		return $this->query;
@@ -120,9 +131,9 @@ class QueryContent extends EntityContent {
 	 *
 	 * @since 0.1
 	 *
-	 * @param Query $query
+	 * @param QueryEntity $query
 	 */
-	public function setQuery( Query $query ) {
+	public function setQuery( QueryEntity $query ) {
 		$this->query = $query;
 	}
 
@@ -134,7 +145,7 @@ class QueryContent extends EntityContent {
 	 * @return QueryContent
 	 */
 	public static function newEmpty() {
-		return new static( Query::newEmpty() );
+		return new static( QueryEntity::newEmpty() );
 	}
 
 	/**
@@ -142,7 +153,7 @@ class QueryContent extends EntityContent {
 	 *
 	 * @since 0.1
 	 *
-	 * @return Query
+	 * @return QueryEntity
 	 */
 	public function getEntity() {
 		return $this->query;

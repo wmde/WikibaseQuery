@@ -1,9 +1,10 @@
 <?php
 
-namespace Wikibase;
+namespace Wikibase\Query;
 
-use Ask\Language\Query as QueryDefinition;
+use Ask\Language\Query;
 use MWException;
+use Wikibase\Entity;
 
 /**
  * Represents a single Wikibase query.
@@ -32,32 +33,32 @@ use MWException;
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class Query extends Entity {
+class QueryEntity extends Entity {
 
 	const ENTITY_TYPE = 'query';
 
 	/**
-	 * @since 0.4
+	 * @since 0.1
 	 *
-	 * @var QueryDefinition|null
+	 * @var Query|null
 	 */
 	protected $queryDefinition = null;
 
 	/**
-	 * Returns the QueryDefinition of the query entity.
+	 * Returns the Query of the query entity.
 	 *
-	 * @since 0.4
+	 * @since 0.1
 	 *
-	 * @return QueryDefinition
+	 * @return Query
 	 * @throws MWException
 	 */
-	public function getQueryDefinition() {
+	public function getQuery() {
 		if ( $this->queryDefinition === null ) {
 			if ( array_key_exists( 'querydefinition', $this->data ) ) {
 				// TODO
 			}
 			else {
-				throw new MWException( 'The QueryDefinition of the query is not known' );
+				throw new MWException( 'The Query of the query is not known' );
 			}
 		}
 
@@ -65,13 +66,13 @@ class Query extends Entity {
 	}
 
 	/**
-	 * Sets the QueryDefinition of the query entity.
+	 * Sets the Query of the query entity.
 	 *
-	 * @since 0.4
+	 * @since 0.1
 	 *
-	 * @param QueryDefinition $queryDefinition
+	 * @param Query $queryDefinition
 	 */
-	public function setQueryDefinition( QueryDefinition $queryDefinition ) {
+	public function setQuery( Query $queryDefinition ) {
 		$this->queryDefinition = $queryDefinition;
 	}
 
@@ -82,7 +83,7 @@ class Query extends Entity {
 	 *
 	 * @param array $data
 	 *
-	 * @return Query
+	 * @return QueryEntity
 	 */
 	public static function newFromArray( array $data ) {
 		return new static( $data );
@@ -91,7 +92,7 @@ class Query extends Entity {
 	/**
 	 * @since 0.1
 	 *
-	 * @return Query
+	 * @return QueryEntity
 	 */
 	public static function newEmpty() {
 		return self::newFromArray( array() );
@@ -105,7 +106,7 @@ class Query extends Entity {
 	 * @return string
 	 */
 	public function getType() {
-		return Query::ENTITY_TYPE;
+		return QueryEntity::ENTITY_TYPE;
 	}
 
 }

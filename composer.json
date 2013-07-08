@@ -28,7 +28,7 @@
 		"php": ">=5.3.0",
 		"data-values/data-values": "dev-master",
 		"ask/ask": "dev-master",
-		"wikibase/data-model": "dev-master",
+		"wikibase/data-model": ">=0.4",
 		"wikibase/query-engine": "dev-master",
 		"wikibase/wikibase": "dev-master"
 	},

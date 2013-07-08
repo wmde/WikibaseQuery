@@ -36,23 +36,24 @@ if ( defined( 'WIKIBASE_QUERY_VERSION' ) ) {
 	return;
 }
 
+define( 'WIKIBASE_QUERY_VERSION', '0.1 alpha' );
+
 global $wgExtensionCredits, $wgExtensionMessagesFiles, $wgAutoloadClasses, $wgHooks, $wgVersion;
 
 if ( version_compare( $wgVersion, '1.20c', '<' ) ) {
 	die( '<b>Error:</b> Wikibase requires MediaWiki 1.20 or above.' );
 }
 
-if ( ( !defined( 'WB_VERSION' ) || !defined( 'WIKIBASE_QUERYENGINE_VERSION' ) )
-	&& is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
+if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
 	include_once( __DIR__ . '/vendor/autoload.php' );
 }
 
-if ( !defined( 'WB_VERSION' ) ) {
-	@include_once( __DIR__ . '/../Wikibase/repo/Wikibase.php' );
+if ( !defined( 'WB_VERSION' ) && is_readable( __DIR__ . '/../Wikibase/repo/Wikibase.php' ) ) {
+	include_once( __DIR__ . '/../Wikibase/repo/Wikibase.php' );
 }
 
-if ( !defined( 'WIKIBASE_QUERYENGINE_VERSION' ) ) {
-	@include_once( __DIR__ . '/../WikibaseQueryEngine/WikibaseQueryEngine.php' );
+if ( !defined( 'WIKIBASE_QUERYENGINE_VERSION' ) && is_readable( __DIR__ . '/../WikibaseQueryEngine/WikibaseQueryEngine.php' ) ) {
+	include_once( __DIR__ . '/../WikibaseQueryEngine/WikibaseQueryEngine.php' );
 }
 
 if ( !defined( 'WB_VERSION' ) ) {
@@ -62,8 +63,6 @@ if ( !defined( 'WB_VERSION' ) ) {
 if ( !defined( 'WIKIBASE_QUERYENGINE_VERSION' ) ) {
 	throw new Exception( 'Wikibase Query depends on the Wikibase QueryEngine component.' );
 }
-
-define( 'WIKIBASE_QUERY_VERSION', '0.1 alpha' );
 
 $wgExtensionCredits['wikibase'][] = array(
 	'path' => __DIR__,
@@ -78,13 +77,35 @@ $wgExtensionCredits['wikibase'][] = array(
 
 $wgExtensionMessagesFiles['WikibaseQuery'] = __DIR__ . '/WikibaseQuery.i18n.php';
 
-foreach ( include( __DIR__ . '/WikibaseQuery.classes.php' ) as $class => $file ) {
-	$wgAutoloadClasses[$class] = __DIR__ . '/' . $file;
-}
+// @codeCoverageIgnoreStart
+spl_autoload_register( function ( $className ) {
+	$className = ltrim( $className, '\\' );
+	$fileName = '';
+	$namespace = '';
+
+	if ( $lastNsPos = strripos( $className, '\\') ) {
+		$namespace = substr( $className, 0, $lastNsPos );
+		$className = substr( $className, $lastNsPos + 1 );
+		$fileName  = str_replace( '\\', '/', $namespace ) . '/';
+	}
+
+	$fileName .= str_replace( '_', '/', $className ) . '.php';
+
+	$namespaceSegments = explode( '\\', $namespace );
+
+	if ( $namespaceSegments[0] === 'Wikibase' && count( $namespaceSegments ) > 1 && $namespaceSegments[1] === 'Query' ) {
+		if ( count( $namespaceSegments ) === 2 || $namespaceSegments[2] !== 'Tests' ) {
+			require_once __DIR__ . '/src/' . $fileName;
+		}
+	}
+} );
+// @codeCoverageIgnoreEnd
 
 /**
  * Hook to add PHPUnit test cases.
  * @see https://www.mediawiki.org/wiki/Manual:Hooks/UnitTestsList
+ *
+ * @codeCoverageIgnore
  *
  * @since 0.1
  *
@@ -93,22 +114,18 @@ foreach ( include( __DIR__ . '/WikibaseQuery.classes.php' ) as $class => $file )
  * @return boolean
  */
 $wgHooks['UnitTestsList'][]	= function( array &$files ) {
-	// @codeCoverageIgnoreStart
-	$testFiles = array(
-		'Query',
+	$directoryIterator = new RecursiveDirectoryIterator( __DIR__ . '/Tests/Phpunit/' );
 
-		// TODO: below tests are disabled since the EntityContentFactory has no proper registration
-		// system for new types of entities yet
-//		'QueryContent',
-//		'QueryHandler',
-	);
-
-	foreach ( $testFiles as $file ) {
-		$files[] = __DIR__ . '/tests/phpunit/' . $file . 'Test.php';
+	/**
+	 * @var SplFileInfo $fileInfo
+	 */
+	foreach ( new RecursiveIteratorIterator( $directoryIterator ) as $fileInfo ) {
+		if ( substr( $fileInfo->getFilename(), -8 ) === 'Test.php' ) {
+			$files[] = $fileInfo->getPathname();
+		}
 	}
 
 	return true;
-	// @codeCoverageIgnoreEnd
 };
 
 $wgWBRepoSettings['entityPrefixes']['y'] = 'query';
@@ -117,19 +134,9 @@ define( 'CONTENT_MODEL_WIKIBASE_QUERY', "wikibase-query" );
 
 $wgHooks['FormatAutocomments'][] = array( 'Wikibase\Autocomment::onFormat', array( CONTENT_MODEL_WIKIBASE_QUERY, "wikibase-query" ) );
 
-$wgContentHandlers[CONTENT_MODEL_WIKIBASE_QUERY] = '\Wikibase\QueryHandler';
+$wgContentHandlers[CONTENT_MODEL_WIKIBASE_QUERY] = '\Wikibase\Query\QueryHandler';
 
 $wgExtraNamespaces[WB_NS_QUERY] = 'Query';
 $wgExtraNamespaces[WB_NS_QUERY_TALK] = 'Query_talk';
 
 $wgWBRepoSettings['entityNamespaces'][CONTENT_MODEL_WIKIBASE_QUERY] = WB_NS_QUERY;
-
-
-$wgAutoloadClasses['Wikibase\HistoryQueryAction'] 		= __DIR__ . '/Query/HistoryQueryAction.php';
-$wgAutoloadClasses['Wikibase\EditQueryAction'] 			= __DIR__ . '/Query/EditQueryAction.php';
-$wgAutoloadClasses['Wikibase\ViewQueryAction'] 			= __DIR__ . '/Query/ViewQueryAction.php';
-$wgAutoloadClasses['Wikibase\SubmitQueryAction'] 		= __DIR__ . '/Query/EditQueryAction.php';
-
-$wgAutoloadClasses['Wikibase\QueryContent'] 			= __DIR__ . '/Query/QueryContent.php';
-$wgAutoloadClasses['Wikibase\QueryHandler'] 			= __DIR__ . '/Query/QueryHandler.php';
-

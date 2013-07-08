@@ -1,7 +1,11 @@
 <?php
 
-namespace Wikibase;
-use Title, ParserOutput;
+namespace Wikibase\Query;
+
+use Title;
+use ParserOutput;
+use Wikibase\EntityFactory;
+use Wikibase\EntityHandler;
 
 /**
  * Content handler for Wikibase items.
@@ -38,12 +42,12 @@ class QueryHandler extends EntityHandler {
 	/**
 	 * @see EntityHandler::getContentClass
 	 *
-	 * @since 0.3
+	 * @since 0.1
 	 *
 	 * @return string
 	 */
 	protected function getContentClass() {
-		return '\Wikibase\QueryContent';
+		return '\Wikibase\Query\QueryContent';
 	}
 
 	/**
@@ -51,10 +55,10 @@ class QueryHandler extends EntityHandler {
 	 */
 	public function getActionOverrides() {
 		return array(
-			'history' => '\Wikibase\HistoryQueryAction',
-			'view' => '\Wikibase\ViewQueryAction',
-			'edit' => '\Wikibase\EditQueryAction',
-			'submit' => '\Wikibase\SubmitQueryAction',
+			'history' => '\Wikibase\Query\HistoryQueryAction',
+			'view' => '\Wikibase\Query\ViewQueryAction',
+			'edit' => '\Wikibase\Query\EditQueryAction',
+			'submit' => '\Wikibase\Query\SubmitQueryAction',
 		);
 	}
 
@@ -69,20 +73,9 @@ class QueryHandler extends EntityHandler {
 	 * @return QueryContent
 	 */
 	public function unserializeContent( $blob, $format = null ) {
-		$entity = EntityFactory::singleton()->newFromBlob( Query::ENTITY_TYPE, $blob, $format );
+		$entity = EntityFactory::singleton()->newFromBlob( QueryEntity::ENTITY_TYPE, $blob, $format );
 		return QueryContent::newFromQuery( $entity );
 	}
-
-	/**
-	 * @see ContentHandler::getDiffEngineClass
-	 *
-	 * @since 0.1
-	 *
-	 * @return string
-	 */
-//	protected function getDiffEngineClass() {
-//		return '\Wikibase\QueryDiffView';
-//	}
 
 }
 
