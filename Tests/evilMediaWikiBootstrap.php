@@ -11,6 +11,9 @@ if ( $IP === false ) {
 
 $self = 'foobar';
 
+global $wgShowExceptionDetails;
+$wgShowExceptionDetails = true;
+
 // Detect compiled mode
 # Get the MWInit class
 require_once "$IP/includes/Init.php";
