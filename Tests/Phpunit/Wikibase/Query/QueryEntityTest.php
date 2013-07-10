@@ -1,11 +1,12 @@
 <?php
 
-namespace Wikibase\Test;
+namespace Tests\Phpunit\Wikibase\Query;
 
 use Ask\Language\Description\AnyValue;
 use Ask\Language\Option\QueryOptions;
 use Ask\Language\Query;
 use Wikibase\Query\QueryEntity;
+use Wikibase\Test\EntityTest;
 
 /**
  * @covers Wikibase\Query\QueryEntity

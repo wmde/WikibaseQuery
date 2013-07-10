@@ -62,6 +62,30 @@ if ( !defined( 'WIKIBASE_QUERYENGINE_VERSION' ) ) {
 	throw new Exception( 'Wikibase Query depends on the Wikibase QueryEngine component.' );
 }
 
+// @codeCoverageIgnoreStart
+spl_autoload_register( function ( $className ) {
+	$className = ltrim( $className, '\\' );
+	$fileName = '';
+	$namespace = '';
+
+	if ( $lastNsPos = strripos( $className, '\\') ) {
+		$namespace = substr( $className, 0, $lastNsPos );
+		$className = substr( $className, $lastNsPos + 1 );
+		$fileName  = str_replace( '\\', '/', $namespace ) . '/';
+	}
+
+	$fileName .= str_replace( '_', '/', $className ) . '.php';
+
+	$namespaceSegments = explode( '\\', $namespace );
+
+	if ( $namespaceSegments[0] === 'Wikibase' && count( $namespaceSegments ) > 1 && $namespaceSegments[1] === 'Query' ) {
+		if ( count( $namespaceSegments ) === 2 || $namespaceSegments[2] !== 'Tests' ) {
+			require_once __DIR__ . '/src/' . $fileName;
+		}
+	}
+} );
+// @codeCoverageIgnoreEnd
+
 call_user_func( function() {
 	global $wgExtensionCredits, $wgExtensionMessagesFiles, $wgHooks, $wgWBRepoSettings;
 	global $wgExtraNamespaces, $wgContentHandlers;
@@ -78,30 +102,6 @@ call_user_func( function() {
 	);
 
 	$wgExtensionMessagesFiles['WikibaseQuery'] = __DIR__ . '/WikibaseQuery.i18n.php';
-
-	// @codeCoverageIgnoreStart
-	spl_autoload_register( function ( $className ) {
-		$className = ltrim( $className, '\\' );
-		$fileName = '';
-		$namespace = '';
-
-		if ( $lastNsPos = strripos( $className, '\\') ) {
-			$namespace = substr( $className, 0, $lastNsPos );
-			$className = substr( $className, $lastNsPos + 1 );
-			$fileName  = str_replace( '\\', '/', $namespace ) . '/';
-		}
-
-		$fileName .= str_replace( '_', '/', $className ) . '.php';
-
-		$namespaceSegments = explode( '\\', $namespace );
-
-		if ( $namespaceSegments[0] === 'Wikibase' && count( $namespaceSegments ) > 1 && $namespaceSegments[1] === 'Query' ) {
-			if ( count( $namespaceSegments ) === 2 || $namespaceSegments[2] !== 'Tests' ) {
-				require_once __DIR__ . '/src/' . $fileName;
-			}
-		}
-	} );
-	// @codeCoverageIgnoreEnd
 
 	/**
 	 * Hook to add PHPUnit test cases.
