@@ -136,6 +136,9 @@ $wgHooks['FormatAutocomments'][] = array( 'Wikibase\Autocomment::onFormat', arra
 
 $wgContentHandlers[CONTENT_MODEL_WIKIBASE_QUERY] = '\Wikibase\Query\QueryHandler';
 
+define( 'WB_NS_QUERY', 124 );
+define( 'WB_NS_QUERY_TALK', 125 );
+
 $wgExtraNamespaces[WB_NS_QUERY] = 'Query';
 $wgExtraNamespaces[WB_NS_QUERY_TALK] = 'Query_talk';
 
