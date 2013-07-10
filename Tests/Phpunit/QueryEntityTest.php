@@ -19,7 +19,7 @@ use Wikibase\Query\QueryEntity;
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class QueryTest extends EntityTest {
+class QueryEntityTest extends EntityTest {
 
 	/**
 	 * @see EntityTest::getNewEmpty

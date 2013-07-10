@@ -52,6 +52,8 @@ require_once MWInit::compiledPath( 'includes/Setup.php' );
 // Much much faster startup than creating a title object
 $wgTitle = null;
 
+global $wgAutoloadClasses;
+require_once $IP . '/tests/TestsAutoLoader.php';
 
 function loadSettings() {
 	global $wgCommandLineMode, $IP;
