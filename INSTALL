@@ -1,7 +1,6 @@
 These is the install file for the Wikibase Query extension.
 
-Extension page on mediawiki.org: https://www.mediawiki.org/wiki/Extension:Wikibase Query
-Latest version of the install file: https://gerrit.wikimedia.org/r/gitweb?p=mediawiki/extensions/Wikibase.git;a=blob;f=Query/INSTALL
+Extension page on mediawiki.org: https://www.mediawiki.org/wiki/Extension:Wikibase_Query
 
 
 == Requirements ==
@@ -12,6 +11,8 @@ Wikibase Query requires:
 * Wikibase Repo extension
 * Wikibase DataModel component
 * Wikibase QueryEngine component
+* Ask
+* DataValues
 
 And the components those are dependent on.
 
@@ -30,6 +31,6 @@ Once you have downloaded the code, place the ''Wikibase'' directory within your 
 Then add the following code to your [[Manual:LocalSettings.php|LocalSettings.php]] file:
 
 # Wikibase
-require_once( "$IP/extensions/Wikibase/Query/WikibaseQuery.php" );
+require_once( "$IP/extensions/WikibaseQuery/WikibaseQuery.php" );
 
 Run the maintenance/update.php script.
