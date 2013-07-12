@@ -2,6 +2,8 @@
 
 namespace Tests\Phpunit\Wikibase\Query\DIC;
 
+use Wikibase\Query\DIC\ExtensionAccess;
+
 /**
  * @covers Wikibase\Query\DIC\ExtensionAccess
  *
@@ -14,8 +16,10 @@ namespace Tests\Phpunit\Wikibase\Query\DIC;
  */
 class ExtensionAccessTest extends \PHPUnit_Framework_TestCase {
 
-	public function testTrue() {
-		$this->assertTrue( true ); // TODO
+	public function testCanSetAndGetRegistry() {
+		$registry = $this->getMock( 'Wikibase\Query\DIC\ExtensionRegistry' );
+		ExtensionAccess::setRegistry( $registry );
+		$this->assertEquals( $registry, ExtensionAccess::getRegistry() );
 	}
 
 }
