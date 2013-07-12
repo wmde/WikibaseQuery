@@ -2,6 +2,9 @@
 
 namespace Wikibase\Query\Api;
 
+use ApiBase;
+use Wikibase\Query\DIC\ExtensionAccess;
+
 /**
  * @since 0.1
  *
@@ -19,7 +22,7 @@ class EntitiesByPropertyValue extends \ApiBase {
 	 * @since 0.1
 	 */
 	public function execute() {
-		// TODO
+		ExtensionAccess::getWikibaseQuery()->getByPropertyValueEntityFinder(); // TODO ->findEntities()
 	}
 
 	/**
@@ -31,7 +34,19 @@ class EntitiesByPropertyValue extends \ApiBase {
 	 */
 	public function getAllowedParams() {
 		return array(
-			// TODO
+			'property' => array(
+				ApiBase::PARAM_TYPE => 'string',
+				ApiBase::PARAM_REQUIRED => true,
+			),
+			'value' => array(
+				ApiBase::PARAM_TYPE => 'string',
+				ApiBase::PARAM_REQUIRED => true,
+			),
+			'entityType' => array(
+				ApiBase::PARAM_TYPE => 'string',
+				ApiBase::PARAM_REQUIRED => false,
+				ApiBase::PARAM_DFLT => 'item',
+			),
 		);
 	}
 
@@ -44,7 +59,9 @@ class EntitiesByPropertyValue extends \ApiBase {
 	 */
 	public function getParamDescription() {
 		return array(
-			// TODO
+			'property' => 'The id of the property for which values should match',
+			'value' => 'The value to match against',
+			'entityType' => 'The type of entities to limit the search to',
 		);
 	}
 
@@ -57,7 +74,7 @@ class EntitiesByPropertyValue extends \ApiBase {
 	 */
 	public function getDescription() {
 		return array(
-			// TODO
+			'Returns a list of all entity IDs that have a statement where the main snak has the given property and the value is exactly the given value.'
 		);
 	}
 
@@ -70,6 +87,7 @@ class EntitiesByPropertyValue extends \ApiBase {
 	 */
 	protected function getExamples() {
 		return array(
+			'api.php?action=entitiesbypropertyvalue&property=p42&value={data value serialization}&entityType=item'
 			// 'ex' => 'desc' // TODO
 		);
 	}

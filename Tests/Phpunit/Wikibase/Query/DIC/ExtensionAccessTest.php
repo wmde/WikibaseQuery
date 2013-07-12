@@ -26,7 +26,7 @@ class ExtensionAccessTest extends \PHPUnit_Framework_TestCase {
 			}
 		);
 
-		$this->assertEquals( $registry, ExtensionAccess::getRegistry() );
+		$this->assertEquals( $registry, ExtensionAccess::getWikibaseQuery() );
 	}
 
 }

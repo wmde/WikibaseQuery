@@ -30,7 +30,7 @@ class ExtensionAccess {
 	/**
 	 * @return WikibaseQuery
 	 */
-	public static function getRegistry() {
+	public static function getWikibaseQuery() {
 		if ( self::$registry === null ) {
 			self::buildRegistry();
 		}

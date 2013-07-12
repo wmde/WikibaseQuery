@@ -153,5 +153,7 @@ call_user_func( function() {
 	$dependencyManager = new \Wikibase\Query\DIC\DependencyManager();
 	$dependencyManager->registerBuilder( 'byPropertyValueEntityFinder', new ByPropertyValueEntityFinderBuilder() );
 
+
+
 	return new \Wikibase\Query\DIC\WikibaseQuery( $dependencyManager );
 } );
