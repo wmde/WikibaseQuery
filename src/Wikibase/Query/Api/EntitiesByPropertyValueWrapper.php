@@ -11,7 +11,7 @@ namespace Wikibase\Query\Api;
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class EntitiesByPropertyValueWrapper extends \ApiBase {
+class EntitiesByPropertyValue extends \ApiBase {
 
 	/**
 	 * @see ApiBase::execute

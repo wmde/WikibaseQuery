@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Query\Api;
+namespace Wikibase\Query;
 
 /**
  * @since 0.1
@@ -11,7 +11,7 @@ namespace Wikibase\Query\Api;
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class EntitiesByPropertyValue {
+class ByPropertyValueEntityFinder {
 
 	// TODO
 

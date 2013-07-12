@@ -8,6 +8,8 @@ namespace Wikibase\Query\DIC;
  * Usage of this class is only allowed at entry points, such as
  * hook handlers, API modules and special pages.
  *
+ * Class based on suggestions by Tobias Schlitt.
+ *
  * @since 1.0
  *
  * @file
@@ -18,17 +20,26 @@ namespace Wikibase\Query\DIC;
  */
 class ExtensionAccess {
 
-	private static $registry;
+	private static $registry = null;
+	private static $registryBuilder;
 
-	public static function setRegistry( ExtensionRegistry $registry ) {
-		self::$registry = $registry;
+	public static function setRegistryBuilder( $registryBuilder ) {
+		self::$registryBuilder = $registryBuilder;
 	}
 
 	/**
-	 * @return ExtensionRegistry
+	 * @return WikibaseQuery
 	 */
 	public static function getRegistry() {
+		if ( self::$registry === null ) {
+			self::buildRegistry();
+		}
+
 		return self::$registry;
+	}
+
+	protected static function buildRegistry() {
+		self::$registry = call_user_func( self::$registryBuilder );
 	}
 
 }

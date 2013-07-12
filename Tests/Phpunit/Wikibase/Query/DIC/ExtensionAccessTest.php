@@ -17,8 +17,15 @@ use Wikibase\Query\DIC\ExtensionAccess;
 class ExtensionAccessTest extends \PHPUnit_Framework_TestCase {
 
 	public function testCanSetAndGetRegistry() {
-		$registry = $this->getMock( 'Wikibase\Query\DIC\ExtensionRegistry' );
-		ExtensionAccess::setRegistry( $registry );
+		$registry = $this->getMockBuilder( 'Wikibase\Query\DIC\WikibaseQuery' )
+			->disableOriginalConstructor()->getMock();
+
+		ExtensionAccess::setRegistryBuilder(
+			function() use ( $registry ) {
+				return $registry;
+			}
+		);
+
 		$this->assertEquals( $registry, ExtensionAccess::getRegistry() );
 	}
 

@@ -6,6 +6,17 @@ use InvalidArgumentException;
 use OutOfBoundsException;
 
 /**
+ * This class is responsible of dependency resolution for
+ * object construction via the registered dependency builders.
+ *
+ * This class is internal to the dependency injection mechanism
+ * and should not be used directly from the application. All
+ * access should happen through the WikibaseQuery.
+ *
+ * No caching should be done on this level.
+ *
+ * Class based on suggestions by Tobias Schlitt.
+ *
  * @since 1.0
  *
  * @file

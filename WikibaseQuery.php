@@ -27,6 +27,8 @@
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
 
+use Wikibase\Query\DIC\Builders\ByPropertyValueEntityFinderBuilder;
+
 if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
 }
@@ -145,4 +147,11 @@ call_user_func( function() {
 	$wgExtraNamespaces[WB_NS_QUERY_TALK] = 'Query_talk';
 
 	$wgWBRepoSettings['entityNamespaces'][CONTENT_MODEL_WIKIBASE_QUERY] = WB_NS_QUERY;
+} );
+
+\Wikibase\Query\DIC\ExtensionAccess::setRegistryBuilder( function() {
+	$dependencyManager = new \Wikibase\Query\DIC\DependencyManager();
+	$dependencyManager->registerBuilder( 'byPropertyValueEntityFinder', new ByPropertyValueEntityFinderBuilder() );
+
+	return new \Wikibase\Query\DIC\WikibaseQuery( $dependencyManager );
 } );
