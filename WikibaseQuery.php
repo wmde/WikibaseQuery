@@ -27,8 +27,6 @@
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
 
-use Wikibase\Query\DIC\Builders\ByPropertyValueEntityFinderBuilder;
-
 if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'Not an entry point.' );
 }
@@ -118,7 +116,7 @@ call_user_func( function() {
 	 * @return boolean
 	 */
 	$wgHooks['UnitTestsList'][]	= function( array &$files ) {
-		$directoryIterator = new RecursiveDirectoryIterator( __DIR__ . '/Tests/Phpunit/' );
+		$directoryIterator = new RecursiveDirectoryIterator( __DIR__ . '/Tests/' );
 
 		/**
 		 * @var SplFileInfo $fileInfo
@@ -151,9 +149,24 @@ call_user_func( function() {
 
 \Wikibase\Query\DIC\ExtensionAccess::setRegistryBuilder( function() {
 	$dependencyManager = new \Wikibase\Query\DIC\DependencyManager();
-	$dependencyManager->registerBuilder( 'byPropertyValueEntityFinder', new ByPropertyValueEntityFinderBuilder() );
 
+	$dependencyManager->registerBuilder(
+		'byPropertyValueEntityFinder',
+		new Wikibase\Query\DIC\Builders\ByPropertyValueEntityFinderBuilder()
+	);
 
+	$dependencyManager->registerBuilder(
+		'queryStore',
+		new \Wikibase\Query\DIC\Builders\QueryStoreBuilder()
+	);
+
+	$dependencyManager->registerBuilder(
+		'slaveQueryInterface',
+		new \Wikibase\Query\DIC\Builders\QueryInterfaceBuilder(
+			DB_SLAVE,
+			$GLOBALS['wgDBtype']
+		)
+	);
 
 	return new \Wikibase\Query\DIC\WikibaseQuery( $dependencyManager );
 } );

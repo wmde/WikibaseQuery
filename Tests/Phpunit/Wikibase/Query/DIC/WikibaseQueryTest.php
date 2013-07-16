@@ -16,21 +16,33 @@ use Wikibase\Query\DIC\WikibaseQuery;
  */
 class WikibaseQueryTest extends \PHPUnit_Framework_TestCase {
 
-	public function testGetByPropertyValueEntityFinder() {
+	/**
+	 * @dataProvider objectKeyAndMethodProvider
+	 */
+	public function testCanGetObjects( $objectKey, $registryMethodName ) {
 		$dependencyManager = $this->getMock( 'Wikibase\Query\DIC\DependencyManager' );
 
 		$expectedObject = (object)array( 'awesomeness' => 9001 );
 
 		$dependencyManager->expects( $this->once() )
 			->method( 'newObject' )
-			->with( $this->equalTo( 'byPropertyValueEntityFinder' ) )
+			->with( $this->equalTo( $objectKey ) )
 			->will( $this->returnValue( $expectedObject ) );
 
 		$registry = new WikibaseQuery( $dependencyManager );
 
-		$entityFinder = $registry->getByPropertyValueEntityFinder();
+		$actualObject = call_user_func( array( $registry, $registryMethodName ) );
 
-		$this->assertEquals( $expectedObject, $entityFinder );
+		$this->assertEquals( $expectedObject, $actualObject );
+	}
+
+	public function objectKeyAndMethodProvider() {
+		$argLists = array();
+
+		$argLists[] = array( 'byPropertyValueEntityFinder', 'getByPropertyValueEntityFinder' );
+		$argLists[] = array( 'queryStore', 'getQueryStore' );
+
+		return $argLists;
 	}
 
 }

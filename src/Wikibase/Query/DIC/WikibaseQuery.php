@@ -2,6 +2,9 @@
 
 namespace Wikibase\Query\DIC;
 
+use Wikibase\Query\ByPropertyValueEntityFinder;
+use Wikibase\QueryEngine\QueryStore;
+
 /**
  * This class exposes methods to retrieve each type of generally accessible object
  * from the dependency manager. This is the only class that should retrieve objects
@@ -29,10 +32,17 @@ class WikibaseQuery {
 	}
 
 	/**
-	 * @return mixed
+	 * @return ByPropertyValueEntityFinder
 	 */
 	public function getByPropertyValueEntityFinder() {
 		return $this->dependencyManager->newObject( 'byPropertyValueEntityFinder' );
+	}
+
+	/**
+	 * @return QueryStore
+	 */
+	public function getQueryStore() {
+		return $this->dependencyManager->newObject( 'queryStore' );
 	}
 
 }
