@@ -5,6 +5,7 @@ namespace Wikibase\Query\DIC\Builders;
 use Wikibase\Database\LazyDBConnectionProvider;
 use Wikibase\Database\MediaWikiQueryInterface;
 use Wikibase\Database\MWDB\ExtendedMySQLAbstraction;
+use Wikibase\Database\MWDB\ExtendedSQLiteAbstraction;
 use Wikibase\Query\ByPropertyValueEntityFinder;
 use Wikibase\Query\DIC\DependencyBuilder;
 use Wikibase\Query\DIC\DependencyManager;
@@ -56,6 +57,10 @@ class QueryInterfaceBuilder extends DependencyBuilder {
 	private function newExtendedAbstraction( $connectionProvider ) {
 		if ( $this->dbType === 'mysql' ) {
 			return new ExtendedMySQLAbstraction( $connectionProvider );
+		}
+
+		if ( $this->dbType === 'sqlite' ) {
+			return new ExtendedSQLiteAbstraction( $connectionProvider );
 		}
 
 		throw new \Exception( 'Support for this dbType not implemented' );

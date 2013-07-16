@@ -22,7 +22,11 @@ class EntitiesByPropertyValue extends \ApiBase {
 	 * @since 0.1
 	 */
 	public function execute() {
-		ExtensionAccess::getWikibaseQuery()->getByPropertyValueEntityFinder(); // TODO ->findEntities()
+		$entityFinder = ExtensionAccess::getWikibaseQuery()->getByPropertyValueEntityFinder();
+		$entityFinder->findEntities( $this->extractRequestParams() );
+
+		// TODO: add to API output
+		// TODO: system test
 	}
 
 	/**
