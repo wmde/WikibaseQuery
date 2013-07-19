@@ -53,6 +53,11 @@ require_once MWInit::compiledPath( 'includes/Setup.php' );
 $wgTitle = null;
 
 global $wgAutoloadClasses;
+
+if ( is_null( $wgAutoloadClasses ) ) {
+	$wgAutoloadClasses = array();
+}
+
 require_once $IP . '/tests/TestsAutoLoader.php';
 
 function loadSettings() {

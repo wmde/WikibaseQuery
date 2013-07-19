@@ -88,7 +88,7 @@ spl_autoload_register( function ( $className ) {
 
 call_user_func( function() {
 	global $wgExtensionCredits, $wgExtensionMessagesFiles, $wgHooks, $wgWBRepoSettings;
-	global $wgExtraNamespaces, $wgContentHandlers;
+	global $wgExtraNamespaces, $wgContentHandlers, $wgAPIModules;
 
 	$wgExtensionCredits['wikibase'][] = array(
 		'path' => __DIR__,
@@ -102,6 +102,8 @@ call_user_func( function() {
 	);
 
 	$wgExtensionMessagesFiles['WikibaseQuery'] = __DIR__ . '/WikibaseQuery.i18n.php';
+
+	$wgAPIModules['entitiesByPropertyValue'] = 'Wikibase\Query\Api\EntitiesByPropertyValue';
 
 	/**
 	 * Hook to add PHPUnit test cases.

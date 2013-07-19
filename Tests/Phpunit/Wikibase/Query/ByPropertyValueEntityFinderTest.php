@@ -29,9 +29,7 @@ class ByPropertyValueEntityFinderTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider queryProvider
 	 */
 	public function testFindEntities( $propertyIdString, $dataValueSerialization, Description $description, QueryOptions $options ) {
-		$expectedIds = array(
-			new EntityId( 'hax', 1337 )
-		);
+		$expectedIds = array( 'q42' );
 
 		$entityFinder = $this->newEntityFinder( $description, $options, $expectedIds, $propertyIdString );
 
@@ -67,7 +65,14 @@ class ByPropertyValueEntityFinderTest extends \PHPUnit_Framework_TestCase {
 			->with( $this->equalTo( $propertyIdString ) )
 			->will( $this->returnValue( $this->mockProperty() ) );
 
-		return new ByPropertyValueEntityFinder( $queryEngine, $dvFactory, $idParser );
+		$idFormatter = $this->getMockBuilder( 'Wikibase\Lib\EntityIdFormatter' )
+			->disableOriginalConstructor()->getMock();
+
+		$idFormatter->expects( $this->once() )
+			->method( 'format' )
+			->will( $this->returnValue( 'q42' ) );
+
+		return new ByPropertyValueEntityFinder( $queryEngine, $dvFactory, $idParser, $idFormatter );
 	}
 
 	protected function mockProperty() {
@@ -76,7 +81,7 @@ class ByPropertyValueEntityFinderTest extends \PHPUnit_Framework_TestCase {
 
 	protected function assertEntityIdsEqual( array $expected, $actual ) {
 		$this->assertInternalType( 'array', $actual );
-		$this->assertContainsOnlyInstancesOf( 'Wikibase\EntityId', $actual );
+		$this->assertContainsOnly( 'string', $actual );
 		$this->assertEquals( $expected, $actual );
 	}
 
@@ -144,7 +149,14 @@ class ByPropertyValueEntityFinderTest extends \PHPUnit_Framework_TestCase {
 			->method( 'parse' )
 			->will( $this->returnValue( $this->mockProperty() ) );
 
-		return new ByPropertyValueEntityFinder( $queryEngine, $dvFactory, $idParser );
+		$idFormatter = $this->getMockBuilder( 'Wikibase\Lib\EntityIdFormatter' )
+			->disableOriginalConstructor()->getMock();
+
+		$idFormatter->expects( $this->any() )
+			->method( 'format' )
+			->will( $this->returnValue( 'q42' ) );
+
+		return new ByPropertyValueEntityFinder( $queryEngine, $dvFactory, $idParser, $idFormatter );
 	}
 
 	public function invalidLimitProvider() {
