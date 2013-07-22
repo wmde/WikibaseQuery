@@ -16,6 +16,7 @@
         <testsuite name="WikibaseQuery">
             <directory>Tests/Phpunit</directory>
             <directory>Tests/Integration</directory>
+            <directory>Tests/System</directory>
         </testsuite>
     </testsuites>
 </phpunit>

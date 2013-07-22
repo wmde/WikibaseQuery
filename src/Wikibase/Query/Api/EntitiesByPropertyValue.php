@@ -3,6 +3,8 @@
 namespace Wikibase\Query\Api;
 
 use ApiBase;
+use InvalidArgumentException;
+use Wikibase\Lib\PropertyNotFoundException;
 use Wikibase\Query\DIC\ExtensionAccess;
 
 /**
@@ -16,6 +18,9 @@ use Wikibase\Query\DIC\ExtensionAccess;
  */
 class EntitiesByPropertyValue extends \ApiBase {
 
+	const ERR_NO_SUCH_PROPERTY = 'The specified property does not exist';
+	const ERR_INVALID_JSON = 'The provided value needs to be a serialization of a DataValue';
+
 	/**
 	 * @see ApiBase::execute
 	 *
@@ -24,13 +29,25 @@ class EntitiesByPropertyValue extends \ApiBase {
 	public function execute() {
 		$entityFinder = ExtensionAccess::getWikibaseQuery()->getByPropertyValueEntityFinder();
 
-		// TODO: handle exceptions
-		$entityIds = $entityFinder->findEntities( $this->extractRequestParams() );
+		try {
+			$entityIds = $entityFinder->findEntities( $this->extractRequestParams() );
+		}
+		catch ( InvalidArgumentException $ex ) {
+			$this->dieUsage(
+				self::ERR_INVALID_JSON,
+				'invalid-json'
+			);
+		}
+		catch ( PropertyNotFoundException $ex ) {
+			$this->dieUsage(
+				self::ERR_NO_SUCH_PROPERTY,
+				'no-such-property'
+			);
+		}
 
-		$this->getResult()->addValue( null, 'entities', $entityIds );
-
-		// TODO: add to API output
-		// TODO: system test
+		if ( isset( $entityIds ) ) {
+			$this->getResult()->addValue( null, 'entities', $entityIds );
+		}
 	}
 
 	/**
@@ -113,6 +130,26 @@ class EntitiesByPropertyValue extends \ApiBase {
 		return array(
 			'api.php?action=entitiesbypropertyvalue&property=p42&value={data value serialization}&entityType=item'
 			// 'ex' => 'desc' // TODO
+		);
+	}
+
+	/**
+	 * @see ApiBase::getPossibleErrors
+	 *
+	 * @since 0.1
+	 *
+	 * @return array
+	 */
+	public function getPossibleErrors() {
+		return array(
+			array(
+				'code' => 'invalid-json',
+				'info' => self::ERR_INVALID_JSON,
+			),
+			array(
+				'code' => 'no-such-property',
+				'info' => self::ERR_NO_SUCH_PROPERTY,
+			)
 		);
 	}
 
