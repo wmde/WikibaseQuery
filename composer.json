@@ -30,7 +30,8 @@
 		"ask/ask": "dev-master",
 		"wikibase/data-model": ">=0.4",
 		"wikibase/query-engine": "dev-master",
-		"wikibase/wikibase": "dev-master"
+		"wikibase/wikibase": "dev-master",
+		"serialization/serialization": "~1.0"
 	},
 	"minimum-stability" : "dev",
 	"autoload": {

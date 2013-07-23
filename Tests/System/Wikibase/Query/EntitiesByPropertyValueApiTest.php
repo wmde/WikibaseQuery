@@ -15,6 +15,7 @@ use Wikibase\Statement;
  * @file
  * @ingroup WikibaseQuery
  * @group WikibaseQuery
+ * @group WikibaseQuerySystem
  * @group Database
  * @group large
  *

@@ -6,7 +6,6 @@ use Ask\Language\Description\AnyValue;
 use Ask\Language\Option\QueryOptions;
 use Ask\Language\Query;
 use Wikibase\Query\QueryEntity;
-use Wikibase\Test\EntityTest;
 
 /**
  * @covers Wikibase\Query\QueryEntity
@@ -20,47 +19,67 @@ use Wikibase\Test\EntityTest;
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class QueryEntityTest extends EntityTest {
+class QueryEntityTest extends \PHPUnit_Framework_TestCase {
 
-	/**
-	 * @see EntityTest::getNewEmpty
-	 *
-	 * @since 0.1
-	 *
-	 * @return Query
-	 */
-	protected function getNewEmpty() {
-		return QueryEntity::newEmpty();
-	}
-
-	/**
-	 * @see EntityTest::getNewFromArray
-	 *
-	 * @since 0.1
-	 *
-	 * @param array $data
-	 *
-	 * @return QueryEntity
-	 */
-	protected function getNewFromArray( array $data ) {
-		return QueryEntity::newFromArray( $data );
+	protected function getNewSimpleEntity() {
+		return new QueryEntity( $this->newQuery() );
 	}
 
 	public function testSetQueryDefinition() {
-		$query = QueryEntity::newEmpty();
+		$queryEntity = $this->getNewSimpleEntity();
 
-		$queryDefinition = new Query(
+		$query = $this->newQuery();
+
+		$queryEntity->setQuery( $query );
+
+		$obtainedQuery = $queryEntity->getQuery();
+
+		$this->assertInstanceOf( 'Ask\Language\Query', $obtainedQuery );
+		$this->assertEquals( $query, $obtainedQuery );
+	}
+
+	protected function newQuery() {
+		return new Query(
 			new AnyValue(),
 			array(),
 			new QueryOptions( 1, 0 )
 		);
-
-		$query->setQuery( $queryDefinition );
-
-		$obtainedDefinition = $query->getQuery();
-
-		$this->assertInstanceOf( 'Ask\Language\Query', $obtainedDefinition );
-		$this->assertEquals( $queryDefinition, $obtainedDefinition );
 	}
+
+	public function testCanConstructWithJustAQuery() {
+		new QueryEntity( $this->newQuery() );
+
+		$this->assertTrue( true );
+	}
+
+//	public function testStubDoesNotMessThingsUp() {
+//		$queryEntity = $this->getNewSimpleEntity();
+//
+//		$query = $this->newQuery();
+//
+//		$queryEntity->setQuery( $query );
+//
+//		$queryEntity->stub();
+//		$obtainedQuery = $queryEntity->getQuery();
+//
+//		$this->assertInstanceOf( 'Ask\Language\Query', $obtainedQuery );
+//		$this->assertEquals( $query, $obtainedQuery );
+//	}
+//
+//	public function testArraySerlialzationRoundtripWithQuery() {
+//		$queryEntity = $this->getNewSimpleEntity();
+//
+//		$query = $this->newQuery();
+//
+//		$queryEntity->setQuery( $query );
+//
+//		$serialization = $queryEntity->toArray();
+//
+//		$newQueryEntity = $queryEntity::newFromArray( $serialization );
+//
+//		$queryEntity->stub();
+//
+//		$this->assertEquals( $queryEntity, $newQueryEntity );
+//	}
 
 }

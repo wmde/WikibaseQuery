@@ -2,9 +2,14 @@
 
 namespace Wikibase\Query;
 
+use Ask\DeserializerFactory;
 use Ask\Language\Query;
+use Ask\SerializerFactory;
+use InvalidArgumentException;
 use MWException;
+use RuntimeException;
 use Wikibase\Entity;
+use Wikibase\Repo\WikibaseRepo;
 
 /**
  * Represents a single Wikibase query.
@@ -40,9 +45,15 @@ class QueryEntity extends Entity {
 	/**
 	 * @since 0.1
 	 *
-	 * @var Query|null
+	 * @var Query
 	 */
-	protected $queryDefinition = null;
+	protected $query = null;
+
+	public function __construct( Query $query ) {
+		$this->query = $query;
+
+		parent::__construct( array() );
+	}
 
 	/**
 	 * Returns the Query of the query entity.
@@ -50,19 +61,10 @@ class QueryEntity extends Entity {
 	 * @since 0.1
 	 *
 	 * @return Query
-	 * @throws MWException
+	 * @throws RuntimeException
 	 */
 	public function getQuery() {
-		if ( $this->queryDefinition === null ) {
-			if ( array_key_exists( 'querydefinition', $this->data ) ) {
-				// TODO
-			}
-			else {
-				throw new MWException( 'The Query of the query is not known' );
-			}
-		}
-
-		return $this->queryDefinition;
+		return $this->query;
 	}
 
 	/**
@@ -73,29 +75,7 @@ class QueryEntity extends Entity {
 	 * @param Query $queryDefinition
 	 */
 	public function setQuery( Query $queryDefinition ) {
-		$this->queryDefinition = $queryDefinition;
-	}
-
-	/**
-	 * @see Entity::newFromArray
-	 *
-	 * @since 0.1
-	 *
-	 * @param array $data
-	 *
-	 * @return QueryEntity
-	 */
-	public static function newFromArray( array $data ) {
-		return new static( $data );
-	}
-
-	/**
-	 * @since 0.1
-	 *
-	 * @return QueryEntity
-	 */
-	public static function newEmpty() {
-		return self::newFromArray( array() );
+		$this->query = $queryDefinition;
 	}
 
 	/**
@@ -108,5 +88,30 @@ class QueryEntity extends Entity {
 	public function getType() {
 		return QueryEntity::ENTITY_TYPE;
 	}
+
+//	/**
+//	 * @see Entity::stub
+//	 */
+//	public function stub() {
+//		parent::stub();
+//
+//		if ( $this->query !== null ) {
+//			$serializerFactory = new SerializerFactory();
+//
+//			$this->data['query'] = $serializerFactory->newQuerySerializer()->serialize( $this->query );
+//			$this->query = null;
+//		}
+//	}
+//
+//	/**
+//	 * @see Entity::unstubQuery
+//	 */
+//	protected function unstubQuery() {
+//		if( $this->query === null && array_key_exists( 'query', $this->data ) ) {
+//			$deserializerFactory = new DeserializerFactory( WikibaseRepo::getDefaultInstance()->getDataValueFactory() );
+//
+//			$this->query = $deserializerFactory->newQueryDeSerializer()->deserialize( $this->data['query'] );
+//		}
+//	}
 
 }
