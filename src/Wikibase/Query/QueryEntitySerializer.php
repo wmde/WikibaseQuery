@@ -2,7 +2,9 @@
 
 namespace Wikibase\Query;
 
+use InvalidArgumentException;
 use Serializers\Serializer;
+use Wikibase\Entity;
 
 /**
  * @since 1.0
@@ -23,11 +25,29 @@ class QueryEntitySerializer {
 	}
 
 	public function serialize( $queryEntity ) {
+
+		if( !( $queryEntity instanceof QueryEntity ) ){
+			throw new InvalidArgumentException('Not instance of queryEntity');
+		}
+
 		$querySerialization = $this->querySerializer->serialize( $queryEntity );
 
 		return array(
-			'query' => $querySerialization
+			'entity' => $this->getSerializedId( $queryEntity ),
+			'description' => $queryEntity->getDescriptions(),
+			'query' => $querySerialization,
 		);
+	}
+
+	private function getSerializedId( Entity $entity ) {
+		$id = $entity->getId();
+
+		if ( $id === null ) {
+			return $id;
+		}
+		else {
+			return array( $id->getEntityType(), $id->getNumericId() );
+		}
 	}
 
 	// TODO

@@ -22,8 +22,24 @@ use Wikibase\Query\QueryEntitySerializer;
 class QueryEntitySerializerTest extends \PHPUnit_Framework_TestCase {
 
 	public function testCanConstruct() {
-		new QueryEntitySerializer( $this->getMock( 'Serializers\Serializer' ) );
+		$this->newSimpleQueryEntitySerializer();
 		$this->assertFalse( false );
+	}
+
+	protected function newSimpleQueryEntitySerializer() {
+		return new QueryEntitySerializer( $this->getMock( 'Serializers\Serializer' ) );
+	}
+
+	protected function newSimpleEntity() {
+		return new QueryEntity( $this->newQuery() );
+	}
+
+	protected function newQuery() {
+		return new Query(
+			new AnyValue(),
+			array(),
+			new QueryOptions( 1, 0 )
+		);
 	}
 
 	public function testSerializationCallsQuerySerialization() {
@@ -41,20 +57,101 @@ class QueryEntitySerializerTest extends \PHPUnit_Framework_TestCase {
 
 		$serialization = $serializer->serialize( $queryEntity );
 
+		$this->assertInternalType( 'array', $serialization );
 		$this->assertArrayHasKey( 'query', $serialization );
 		$this->assertEquals( $mockSerialization, $serialization['query'] );
 	}
 
-	protected function newSimpleEntity() {
-		return new QueryEntity( $this->newQuery() );
+	public function testSerializationOfNotSetId() {
+		$queryEntity = $this->newSimpleEntity();
+
+		$serialization = $this->newSimpleQueryEntitySerializer()->serialize( $queryEntity );
+
+		$this->assertHasSerializedId( $serialization, null );
 	}
 
-	protected function newQuery() {
-		return new Query(
-			new AnyValue(),
-			array(),
-			new QueryOptions( 1, 0 )
+	/**
+	 * @dataProvider idNumberProvider
+	 */
+	public function testSerializationContainsId( $idNumber ) {
+		$queryEntity = $this->newSimpleEntity();
+
+		$queryEntity->setId( $idNumber );
+
+		$serialization = $this->newSimpleQueryEntitySerializer()->serialize( $queryEntity );
+
+		$this->assertHasSerializedId( $serialization, array( $queryEntity->getType(), $idNumber ) );
+	}
+
+	public function idNumberProvider() {
+		return array(
+			array( 42 ),
+			array( 9001 ),
+			array( 31337 ),
 		);
+	}
+
+	protected function assertHasSerializedId( $serialization, $expectedId ) {
+		$this->assertInternalType( 'array', $serialization );
+		$this->assertArrayHasKey( 'entity', $serialization );
+		$this->assertEquals( $expectedId, $serialization['entity'] );
+	}
+
+	/**
+	 * @dataProvider descriptionListProvider
+	 */
+	public function testSerializationContainsDescriptions( array $descriptionList ) {
+		$queryEntity = $this->newSimpleEntity();
+
+		$queryEntity->setDescriptions( $descriptionList );
+
+		$serialization = $this->newSimpleQueryEntitySerializer()->serialize( $queryEntity );
+
+		$this->assertHasSerializedDescriptions( $serialization, $descriptionList );
+	}
+
+	public function descriptionListProvider() {
+		return array(
+			array( array() ),
+
+			array( array(
+				'en' => 'Test Description'
+			) ),
+
+			array( array(
+				'en' => 'Test Description',
+				'de' => 'Die Teste Descript'
+			) ),
+		);
+	}
+
+	protected function assertHasSerializedDescriptions( $serialization, array $expectedDescriptions ) {
+		$this->assertInternalType( 'array', $serialization );
+		$this->assertArrayHasKey( 'description', $serialization );
+		$this->assertEquals( $expectedDescriptions, $serialization['description'] );
+	}
+
+	/**
+	 * @dataProvider notAQueryEntityProvider
+	 */
+	public function testAttemptToSerializeANonQueryEntityCausesException( $notAQueryEntity ) {
+		$serializer = $this->newSimpleQueryEntitySerializer();
+
+		$this->setExpectedException( 'InvalidArgumentException' );
+		$serializer->serialize( $notAQueryEntity );
+	}
+
+	public function notAQueryEntityProvider() {
+		$argLists = array();
+
+		$argLists[] = array( null );
+		$argLists[] = array( true );
+		$argLists[] = array( 42 );
+		$argLists[] = array( 'foo bar baz' );
+		$argLists[] = array( array( 1, 2, '3' ) );
+		$argLists[] = array( (object)array( 1, 2, '3' ) );
+
+		return $argLists;
 	}
 
 }
