@@ -5,8 +5,13 @@ namespace Tests\Phpunit\Wikibase\Query;
 use Ask\Language\Description\AnyValue;
 use Ask\Language\Option\QueryOptions;
 use Ask\Language\Query;
+use Wikibase\Claim;
+use Wikibase\Claims;
+use Wikibase\PropertyNoValueSnak;
+use Wikibase\PropertySomeValueSnak;
 use Wikibase\Query\QueryEntity;
 use Wikibase\Query\QueryEntitySerializer;
+use Wikibase\Test\ClaimListAccessTest;
 
 /**
  * @covers Wikibase\Query\QueryEntitySerializer
@@ -42,6 +47,29 @@ class QueryEntitySerializerTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
+	/**
+	 * @dataProvider notAQueryEntityProvider
+	 */
+	public function testAttemptToSerializeANonQueryEntityCausesException( $notAQueryEntity ) {
+		$serializer = $this->newSimpleQueryEntitySerializer();
+
+		$this->setExpectedException( 'InvalidArgumentException' );
+		$serializer->serialize( $notAQueryEntity );
+	}
+
+	public function notAQueryEntityProvider() {
+		$argLists = array();
+
+		$argLists[] = array( null );
+		$argLists[] = array( true );
+		$argLists[] = array( 42 );
+		$argLists[] = array( 'foo bar baz' );
+		$argLists[] = array( array( 1, 2, '3' ) );
+		$argLists[] = array( (object)array( 1, 2, '3' ) );
+
+		return $argLists;
+	}
+
 	public function testSerializationCallsQuerySerialization() {
 		$querySerializer = $this->getMock( 'Serializers\Serializer' );
 
@@ -50,7 +78,7 @@ class QueryEntitySerializerTest extends \PHPUnit_Framework_TestCase {
 
 		$querySerializer->expects( $this->once() )
 			->method( 'serialize' )
-			->with( $this->equalTo( $queryEntity ) )
+			->with( $this->equalTo( $queryEntity->getQuery() ) )
 			->will( $this->returnValue( $mockSerialization ) );
 
 		$serializer = new QueryEntitySerializer( $querySerializer );
@@ -132,26 +160,119 @@ class QueryEntitySerializerTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @dataProvider notAQueryEntityProvider
+	 * @dataProvider labelListProvider
 	 */
-	public function testAttemptToSerializeANonQueryEntityCausesException( $notAQueryEntity ) {
-		$serializer = $this->newSimpleQueryEntitySerializer();
+	public function testSerializationContainsLabels( array $labelList ) {
+		$queryEntity = $this->newSimpleEntity();
 
-		$this->setExpectedException( 'InvalidArgumentException' );
-		$serializer->serialize( $notAQueryEntity );
+		$queryEntity->setLabels( $labelList );
+
+		$serialization = $this->newSimpleQueryEntitySerializer()->serialize( $queryEntity );
+
+		$this->assertHasSerializedLabels( $serialization, $labelList );
 	}
 
-	public function notAQueryEntityProvider() {
-		$argLists = array();
+	public function labelListProvider() {
+		return array(
+			array( array() ),
 
-		$argLists[] = array( null );
-		$argLists[] = array( true );
-		$argLists[] = array( 42 );
-		$argLists[] = array( 'foo bar baz' );
-		$argLists[] = array( array( 1, 2, '3' ) );
-		$argLists[] = array( (object)array( 1, 2, '3' ) );
+			array( array(
+				'en' => 'Test Label'
+			) ),
 
-		return $argLists;
+			array( array(
+				'en' => 'Test Label',
+				'de' => 'Die Teste Descript'
+			) ),
+		);
+	}
+
+	protected function assertHasSerializedLabels( $serialization, array $expectedLabels ) {
+		$this->assertInternalType( 'array', $serialization );
+		$this->assertArrayHasKey( 'label', $serialization );
+		$this->assertEquals( $expectedLabels, $serialization['label'] );
+	}
+
+	/**
+	 * @dataProvider aliasListProvider
+	 */
+	public function testSerializationContainsAliases( array $aliasLists ) {
+		$queryEntity = $this->newSimpleEntity();
+
+		$queryEntity->setAllAliases( $aliasLists );
+
+		$serialization = $this->newSimpleQueryEntitySerializer()->serialize( $queryEntity );
+
+		$this->assertHasSerializedAliases( $serialization, $aliasLists );
+	}
+
+	public function aliasListProvider() {
+		return array(
+			array( array() ),
+
+			array( array(
+				'en' => array( 'foo' ),
+			) ),
+
+			array( array(
+				'en' => array( 'foo', 'bar' ),
+			) ),
+
+			array( array(
+				'en' => array( 'foo', 'bar' ),
+				'de' => array( 'die', 'bar' ),
+			) ),
+		);
+	}
+
+	protected function assertHasSerializedAliases( $serialization, array $expectedLabels ) {
+		$this->assertInternalType( 'array', $serialization );
+		$this->assertArrayHasKey( 'aliases', $serialization );
+		$this->assertEquals( $expectedLabels, $serialization['aliases'] );
+	}
+
+	/**
+	 * @dataProvider claimListProvider
+	 */
+	public function testSerializationContainsClaims( array $claimList ) {
+		$queryEntity = $this->newSimpleEntity();
+
+		$queryEntity->setClaims( new Claims( $claimList ) );
+
+		$serialization = $this->newSimpleQueryEntitySerializer()->serialize( $queryEntity );
+
+		$this->assertHasSerializedClaims( $serialization, $claimList );
+	}
+
+	public function claimListProvider() {
+		return array(
+			array( array() ),
+
+			array( array(
+				new Claim( new PropertySomeValueSnak( 42 ) )
+			) ),
+
+			array( array(
+				new Claim( new PropertySomeValueSnak( 42 ) ),
+				new Claim( new PropertyNoValueSnak( 1337 ) )
+			) ),
+		);
+	}
+
+	/**
+	 * @param string $serialization
+	 * @param Claim[] $expectedClaims
+	 */
+	protected function assertHasSerializedClaims( $serialization, array $expectedClaims ) {
+		$expectedSerialization = array();
+
+		foreach ( $expectedClaims as $claim ) {
+			$expectedSerialization[] = $claim->toArray();
+		}
+
+		$this->assertInternalType( 'array', $serialization );
+		$this->assertArrayHasKey( 'claim', $serialization );
+		$this->assertEquals( $expectedSerialization, $serialization['claim'] );
 	}
 
 }

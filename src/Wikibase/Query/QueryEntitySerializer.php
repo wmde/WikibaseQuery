@@ -27,14 +27,20 @@ class QueryEntitySerializer {
 	public function serialize( $queryEntity ) {
 
 		if( !( $queryEntity instanceof QueryEntity ) ){
-			throw new InvalidArgumentException('Not instance of queryEntity');
+			throw new InvalidArgumentException( 'Not instance of queryEntity' );
 		}
 
-		$querySerialization = $this->querySerializer->serialize( $queryEntity );
+		$querySerialization = $this->querySerializer->serialize( $queryEntity->getQuery() );
 
 		return array(
 			'entity' => $this->getSerializedId( $queryEntity ),
+
 			'description' => $queryEntity->getDescriptions(),
+			'label' => $queryEntity->getLabels(),
+			'aliases' => $queryEntity->getAllAliases(),
+
+			'claim' => $this->getSerializedClaims( $queryEntity ),
+
 			'query' => $querySerialization,
 		);
 	}
@@ -50,6 +56,14 @@ class QueryEntitySerializer {
 		}
 	}
 
-	// TODO
+	protected function getSerializedClaims( Entity $entity ){
+		$serializedClaims = array();
+
+		foreach ( $entity->getClaims() as $claim ){
+			$serializedClaims[] = $claim->toArray();
+		}
+
+		return $serializedClaims;
+	}
 
 }
