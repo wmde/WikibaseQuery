@@ -3,10 +3,8 @@
 namespace Wikibase\Query\DIC\Builders;
 
 use Wikibase\Database\LazyDBConnectionProvider;
-use Wikibase\Database\MediaWikiQueryInterface;
-use Wikibase\Database\MWDB\ExtendedMySQLAbstraction;
-use Wikibase\Database\MWDB\ExtendedSQLiteAbstraction;
-use Wikibase\Query\ByPropertyValueEntityFinder;
+use Wikibase\Database\MediaWiki\MWQueryInterfaceBuilder;
+use Wikibase\Database\QueryInterface;
 use Wikibase\Query\DIC\DependencyBuilder;
 use Wikibase\Query\DIC\DependencyManager;
 
@@ -38,32 +36,19 @@ class QueryInterfaceBuilder extends DependencyBuilder {
 	 *
 	 * @param DependencyManager $dependencyManager
 	 *
-	 * @return ByPropertyValueEntityFinder
+	 * @return QueryInterface
 	 */
 	public function buildObject( DependencyManager $dependencyManager ) {
 		$connectionProvider = $this->newConnectionProvider();
 
-		return new MediaWikiQueryInterface(
-			$connectionProvider,
-			$this->newExtendedAbstraction( $connectionProvider )
-		);
+		$qiBuilder = new MWQueryInterfaceBuilder();
+		$queryInterface = $qiBuilder->setConnection( $connectionProvider )->getQueryInterface();
+
+		return $queryInterface;
 	}
 
 	protected function newConnectionProvider() {
 		return new LazyDBConnectionProvider( $this->connectionId );
-	}
-
-	// TODO: there should be a factory for this in the Wikibase Database component
-	private function newExtendedAbstraction( $connectionProvider ) {
-		if ( $this->dbType === 'mysql' ) {
-			return new ExtendedMySQLAbstraction( $connectionProvider );
-		}
-
-		if ( $this->dbType === 'sqlite' ) {
-			return new ExtendedSQLiteAbstraction( $connectionProvider );
-		}
-
-		throw new \Exception( 'Support for this dbType not implemented' );
 	}
 
 }
