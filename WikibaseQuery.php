@@ -87,8 +87,8 @@ spl_autoload_register( function ( $className ) {
 // @codeCoverageIgnoreEnd
 
 call_user_func( function() {
-	global $wgExtensionCredits, $wgExtensionMessagesFiles, $wgHooks, $wgWBRepoSettings;
-	global $wgExtraNamespaces, $wgContentHandlers, $wgAPIModules;
+	global $wgExtensionCredits, $wgExtensionMessagesFiles, $wgHooks;
+	global $wgAPIModules;
 
 	$wgExtensionCredits['wikibase'][] = array(
 		'path' => __DIR__,
@@ -131,22 +131,6 @@ call_user_func( function() {
 
 		return true;
 	};
-
-	$wgWBRepoSettings['entityPrefixes']['y'] = 'query';
-
-	define( 'CONTENT_MODEL_WIKIBASE_QUERY', "wikibase-query" );
-
-	$wgHooks['FormatAutocomments'][] = array( 'Wikibase\Autocomment::onFormat', array( CONTENT_MODEL_WIKIBASE_QUERY, "wikibase-query" ) );
-
-	$wgContentHandlers[CONTENT_MODEL_WIKIBASE_QUERY] = '\Wikibase\Query\QueryHandler';
-
-	define( 'WB_NS_QUERY', 124 );
-	define( 'WB_NS_QUERY_TALK', 125 );
-
-	$wgExtraNamespaces[WB_NS_QUERY] = 'Query';
-	$wgExtraNamespaces[WB_NS_QUERY_TALK] = 'Query_talk';
-
-	$wgWBRepoSettings['entityNamespaces'][CONTENT_MODEL_WIKIBASE_QUERY] = WB_NS_QUERY;
 } );
 
 \Wikibase\Query\DIC\ExtensionAccess::setRegistryBuilder( function() {
