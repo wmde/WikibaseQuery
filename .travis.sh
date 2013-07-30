@@ -15,6 +15,9 @@ cd extensions
 composer create-project wikibase/query:dev-master WikibaseQuery --keep-vcs
 
 cd ..
+
+echo 'require_once( __DIR__ . "/extensions/Wikibase/repo/Wikibase.php" );' >> LocalSettings.php
+echo 'require_once( __DIR__ . "/extensions/Wikibase/repo/ExampleSettings.php" );' >> LocalSettings.php
 echo 'require_once( __DIR__ . "/extensions/WikibaseQuery/WikibaseQuery.php" );' >> LocalSettings.php
 
 echo 'error_reporting(E_ALL| E_STRICT);' >> LocalSettings.php
