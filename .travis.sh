@@ -13,7 +13,7 @@ cd phase3
 mysql -e 'create database its_a_mw;'
 php maintenance/install.php --dbtype $DBTYPE --dbuser root --dbname its_a_mw --dbpath $(pwd) --pass nyan TravisWiki admin
 
-composer require wikibase/query:dev-master WikibaseQuery --keep-vcs
+composer require wikibase/query:dev-master
 
 # Replace WikibaseQuery with the version that should be tested
 rm -rf WikibaseQuery
