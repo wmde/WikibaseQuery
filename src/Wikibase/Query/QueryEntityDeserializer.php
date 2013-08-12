@@ -4,8 +4,6 @@ namespace Wikibase\Query;
 
 use Deserializers\Deserializer;
 use Deserializers\Exceptions\DeserializationException;
-use Wikibase\Claim;
-use Wikibase\EntityId;
 
 /**
  * @since 1.0
@@ -21,82 +19,22 @@ class QueryEntityDeserializer {
 
 	protected $queryDeserializer;
 
-	protected $serialization;
-
-	/**
-	 * @var QueryEntity
-	 */
-	protected $queryEntity;
-
 	public function __construct( Deserializer $queryDeserializer ) {
 		$this->queryDeserializer = $queryDeserializer;
 	}
 
 	public function deserialize( $serialization ) {
-		$this->serialization = $serialization;
+		$this->assertCanSerialize( $serialization );
 
-		$this->assertCanDeserialize();
-		$this->constructQueryEntity();
+		$query = $this->queryDeserializer->deserialize( $serialization['query'] );
+		$queryEntity = new QueryEntity( $query );
 
-		$this->deserializeId();
-
-		$this->deserializeLabels();
-		$this->deserializeDescriptions();
-		$this->deserializeAliases();
-
-		$this->deserializeClaims();
-
-		return $this->queryEntity;
+		return $queryEntity;
 	}
 
-	protected function assertCanDeserialize() {
-		if( !$this->canDeserialize( $this->serialization ) ) {
+	protected function assertCanSerialize( $serialization ) {
+		if( !$this->canDeserialize( $serialization ) ) {
 			throw new DeserializationException( 'Cannot deserialize.' );
-		}
-	}
-
-	protected function constructQueryEntity() {
-		$query = $this->queryDeserializer->deserialize( $this->serialization['query'] );
-
-		$this->queryEntity = new QueryEntity( $query );
-	}
-
-	protected function deserializeId() {
-		// TODO: verify key exists
-		// TODO: value validation
-		$idSerialization = $this->serialization['entity'];
-		$this->queryEntity->setId( new EntityId( $idSerialization[0], $idSerialization[1] ) );
-	}
-
-	protected function deserializeLabels() {
-		// TODO: verify key exists
-		// TODO: value validation
-		foreach ( $this->serialization['label'] as $languageCode => $labelText ) {
-			$this->queryEntity->setLabel( $languageCode, $labelText );
-		}
-	}
-
-	protected function deserializeDescriptions() {
-		// TODO: verify key exists
-		// TODO: value validation
-		foreach ( $this->serialization['description'] as $languageCode => $descriptionText ) {
-			$this->queryEntity->setDescription( $languageCode, $descriptionText );
-		}
-	}
-
-	protected function deserializeAliases() {
-		// TODO: verify key exists
-		// TODO: value validation
-		foreach ( $this->serialization['aliases'] as $languageCode => $aliases ) {
-			$this->queryEntity->setAliases( $languageCode, $aliases );
-		}
-	}
-
-	protected function deserializeClaims() {
-		// TODO: verify key exists
-		// TODO: value validation
-		foreach ( $this->serialization['claim'] as $claimSerialization ) {
-			$this->queryEntity->addClaim( Claim::newFromArray( $claimSerialization ) );
 		}
 	}
 
