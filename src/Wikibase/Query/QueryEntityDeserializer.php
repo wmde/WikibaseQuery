@@ -4,6 +4,7 @@ namespace Wikibase\Query;
 
 use Deserializers\Deserializer;
 use Deserializers\Exceptions\DeserializationException;
+use Deserializers\Exceptions\MissingAttributeException;
 use Wikibase\Claim;
 use Wikibase\EntityId;
 
@@ -62,52 +63,104 @@ class QueryEntityDeserializer implements Deserializer {
 	}
 
 	protected function deserializeId() {
-		// TODO: verify key exists
-		// TODO: value validation
 		$idSerialization = $this->serialization['entity'];
+
+		if ( !is_array( $idSerialization ) || count( $idSerialization ) !== 2
+			|| !is_string( $idSerialization[0] ) || !is_int( $idSerialization[1] ) ) {
+			throw new DeserializationException( 'Invalid entity id provided' );
+		}
+
 		$this->queryEntity->setId( new EntityId( $idSerialization[0], $idSerialization[1] ) );
 	}
 
 	protected function deserializeLabels() {
-		// TODO: verify key exists
-		// TODO: value validation
-		foreach ( $this->serialization['label'] as $languageCode => $labelText ) {
+		$labels = $this->serialization['label'];
+
+		if ( !is_array( $labels ) ) {
+			throw new DeserializationException( 'Invalid labels provided' );
+		}
+
+		foreach ( $labels as $languageCode => $labelText ) {
+			if ( !is_string( $languageCode ) || !is_string( $labelText ) ) {
+				throw new DeserializationException( 'Invalid labels provided' );
+			}
+
 			$this->queryEntity->setLabel( $languageCode, $labelText );
 		}
 	}
 
 	protected function deserializeDescriptions() {
-		// TODO: verify key exists
-		// TODO: value validation
+		$descriptions = $this->serialization['description'];
+
+		if ( !is_array( $descriptions ) ) {
+			throw new DeserializationException( 'Invalid descriptions provided' );
+		}
+
 		foreach ( $this->serialization['description'] as $languageCode => $descriptionText ) {
+			if ( !is_string( $languageCode ) || !is_string( $descriptionText ) ) {
+				throw new DeserializationException( 'Invalid descriptions provided' );
+			}
+
 			$this->queryEntity->setDescription( $languageCode, $descriptionText );
 		}
 	}
 
 	protected function deserializeAliases() {
-		// TODO: verify key exists
-		// TODO: value validation
-		foreach ( $this->serialization['aliases'] as $languageCode => $aliases ) {
+		$aliasLists = $this->serialization['aliases'];
+
+		if ( !is_array( $aliasLists ) ) {
+			throw new DeserializationException( 'Invalid aliases provided' );
+		}
+
+		foreach ( $aliasLists as $languageCode => $aliases ) {
+			if ( !is_string( $languageCode ) || !is_array( $aliases ) ) {
+				// TODO: each alias should be a string
+				throw new DeserializationException( 'Invalid aliases provided' );
+			}
+
 			$this->queryEntity->setAliases( $languageCode, $aliases );
 		}
 	}
 
 	protected function deserializeClaims() {
-		// TODO: verify key exists
-		// TODO: value validation
-		foreach ( $this->serialization['claim'] as $claimSerialization ) {
-			$this->queryEntity->addClaim( Claim::newFromArray( $claimSerialization ) );
+		$claims = $this->serialization['claim'];
+
+		if ( !is_array( $claims ) ) {
+			throw new DeserializationException( 'Invalid claims provided' );
+		}
+
+		foreach ( $claims as $claimSerialization ) {
+			if ( !is_array( $claimSerialization ) ) {
+				throw new DeserializationException( 'Invalid claims provided' );
+			}
+
+			$claim = Claim::newFromArray( $claimSerialization );
+			$this->queryEntity->addClaim( $claim );
+
+			// TODO: try catch around Claim::newFromArray as soon as it actually throws exceptions
 		}
 	}
 
 	public function canDeserialize( $serialization ) {
-		if( !is_array( $serialization ) || !array_key_exists( 'query', $serialization ) ) {
+		if( !is_array( $serialization ) ) {
 			return false;
+		}
+
+		foreach ( array( 'query', 'entity', 'label', 'description', 'aliases', 'claim' ) as $requiredKey ) {
+			if ( !array_key_exists( $requiredKey, $serialization ) ) {
+				return false;
+			}
 		}
 
 		return $this->queryDeserializer->canDeserialize( $serialization['query'] );
 	}
 
-	// TODO: finish implementation
+	protected function requireAttribute( $attributeName ) {
+		if ( !array_key_exists( $attributeName, $this->serialization ) ) {
+			throw new MissingAttributeException(
+				$attributeName
+			);
+		}
+	}
 
 }
