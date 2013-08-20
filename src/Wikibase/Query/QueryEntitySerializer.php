@@ -16,7 +16,7 @@ use Wikibase\Entity;
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author Adam Shorland < adamshorland@gmail.com >
  */
-class QueryEntitySerializer {
+class QueryEntitySerializer implements Serializer {
 
 	protected $querySerializer;
 
@@ -64,6 +64,11 @@ class QueryEntitySerializer {
 		}
 
 		return $serializedClaims;
+	}
+
+
+	public function canSerialize( $mixed ) {
+		return $mixed instanceof QueryEntity;
 	}
 
 }

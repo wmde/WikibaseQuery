@@ -70,6 +70,21 @@ class QueryEntitySerializerTest extends \PHPUnit_Framework_TestCase {
 		return $argLists;
 	}
 
+	/**
+	 * @dataProvider notAQueryEntityProvider
+	 */
+	public function testCannotSerialize( $notAQueryEntity ) {
+		$serializer = $this->newSimpleQueryEntitySerializer();
+
+		$this->assertFalse( $serializer->canSerialize( $notAQueryEntity ) );
+	}
+
+	public function testCanSerialize() {
+		$queryEntity = $this->newSimpleEntity();
+		$serializer = $this->newSimpleQueryEntitySerializer();
+		$this->assertTrue( $serializer->canSerialize( $queryEntity ) );
+	}
+
 	public function testSerializationCallsQuerySerialization() {
 		$querySerializer = $this->getMock( 'Serializers\Serializer' );
 

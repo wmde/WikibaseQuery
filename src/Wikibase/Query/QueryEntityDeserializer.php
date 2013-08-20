@@ -17,7 +17,7 @@ use Wikibase\EntityId;
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author Adam Shorland < adamshorland@gmail.com >
  */
-class QueryEntityDeserializer {
+class QueryEntityDeserializer implements Deserializer {
 
 	protected $queryDeserializer;
 
