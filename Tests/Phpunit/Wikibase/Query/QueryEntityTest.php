@@ -52,34 +52,18 @@ class QueryEntityTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue( true );
 	}
 
-//	public function testStubDoesNotMessThingsUp() {
-//		$queryEntity = $this->getNewSimpleEntity();
-//
-//		$query = $this->newQuery();
-//
-//		$queryEntity->setQuery( $query );
-//
-//		$queryEntity->stub();
-//		$obtainedQuery = $queryEntity->getQuery();
-//
-//		$this->assertInstanceOf( 'Ask\Language\Query', $obtainedQuery );
-//		$this->assertEquals( $query, $obtainedQuery );
-//	}
-//
-//	public function testArraySerlialzationRoundtripWithQuery() {
-//		$queryEntity = $this->getNewSimpleEntity();
-//
-//		$query = $this->newQuery();
-//
-//		$queryEntity->setQuery( $query );
-//
-//		$serialization = $queryEntity->toArray();
-//
-//		$newQueryEntity = $queryEntity::newFromArray( $serialization );
-//
-//		$queryEntity->stub();
-//
-//		$this->assertEquals( $queryEntity, $newQueryEntity );
-//	}
+	public function testStubDoesNotMessThingsUp() {
+		$queryEntity = $this->getNewSimpleEntity();
+
+		$query = $this->newQuery();
+
+		$queryEntity->setQuery( $query );
+
+		$queryEntity->stub();
+		$obtainedQuery = $queryEntity->getQuery();
+
+		$this->assertInstanceOf( 'Ask\Language\Query', $obtainedQuery );
+		$this->assertEquals( $query, $obtainedQuery );
+	}
 
 }

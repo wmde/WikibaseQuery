@@ -5,7 +5,6 @@ namespace Wikibase\Query;
 use Ask\DeserializerFactory;
 use Ask\Language\Query;
 use Ask\SerializerFactory;
-use InvalidArgumentException;
 use MWException;
 use RuntimeException;
 use Wikibase\Entity;
@@ -49,6 +48,8 @@ class QueryEntity extends Entity {
 	 * @throws RuntimeException
 	 */
 	public function getQuery() {
+		$this->unstubQuery();
+
 		return $this->query;
 	}
 
@@ -74,29 +75,29 @@ class QueryEntity extends Entity {
 		return QueryEntity::ENTITY_TYPE;
 	}
 
-//	/**
-//	 * @see Entity::stub
-//	 */
-//	public function stub() {
-//		parent::stub();
-//
-//		if ( $this->query !== null ) {
-//			$serializerFactory = new SerializerFactory();
-//
-//			$this->data['query'] = $serializerFactory->newQuerySerializer()->serialize( $this->query );
-//			$this->query = null;
-//		}
-//	}
-//
-//	/**
-//	 * @see Entity::unstubQuery
-//	 */
-//	protected function unstubQuery() {
-//		if( $this->query === null && array_key_exists( 'query', $this->data ) ) {
-//			$deserializerFactory = new DeserializerFactory( WikibaseRepo::getDefaultInstance()->getDataValueFactory() );
-//
-//			$this->query = $deserializerFactory->newQueryDeSerializer()->deserialize( $this->data['query'] );
-//		}
-//	}
+	/**
+	 * @see Entity::stub
+	 */
+	public function stub() {
+		parent::stub();
+
+		if ( $this->query !== null ) {
+			$serializerFactory = new SerializerFactory();
+
+			$this->data['query'] = $serializerFactory->newQuerySerializer()->serialize( $this->query );
+			$this->query = null;
+		}
+	}
+
+	/**
+	 * @see Entity::unstubQuery
+	 */
+	protected function unstubQuery() {
+		if( $this->query === null && array_key_exists( 'query', $this->data ) ) {
+			$deserializerFactory = new DeserializerFactory( WikibaseRepo::getDefaultInstance()->getDataValueFactory() );
+
+			$this->query = $deserializerFactory->newQueryDeSerializer()->deserialize( $this->data['query'] );
+		}
+	}
 
 }
