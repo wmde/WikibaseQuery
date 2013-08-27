@@ -251,4 +251,204 @@ class QueryEntityDeserializerTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
+	/**
+	 * @dataProvider invalidIdProvider
+	 */
+	public function testCannotDeserializeWithInvalidId( $invalidIdSerialization ) {
+		$serialization = $this->newQueryEntitySerialization();
+		$serialization['entity'] = $invalidIdSerialization;
+
+		$this->setExpectedException( 'Deserializers\Exceptions\DeserializationException' );
+		$this->newQueryEntityDeserializer()->deserialize( $serialization );
+	}
+
+	public function invalidIdProvider() {
+		$argLists = array();
+
+		$argLists[] = array(
+			'foo'
+		);
+
+		$argLists[] = array(
+			array()
+		);
+
+		$argLists[] = array(
+			array( 'item' )
+		);
+
+		$argLists[] = array(
+			array( 'item', '42' )
+		);
+
+		$argLists[] = array(
+			array( 42, 42 )
+		);
+
+		$argLists[] = array(
+			array( 'item', 42, 'foo' )
+		);
+
+		$argLists[] = array(
+			array( array(), false )
+		);
+
+		return $argLists;
+	}
+
+	/**
+	 * @dataProvider invalidLabelsProvider
+	 */
+	public function testCannotDeserializeWithInvalidLabels( $invalidLabelsSerialization ) {
+		$serialization = $this->newQueryEntitySerialization();
+		$serialization['label'] = $invalidLabelsSerialization;
+
+		$this->setExpectedException( 'Deserializers\Exceptions\DeserializationException' );
+		$this->newQueryEntityDeserializer()->deserialize( $serialization );
+	}
+
+	public function invalidLabelsProvider() {
+		$argLists = array();
+
+		$argLists[] = array(
+			'foo'
+		);
+
+		$argLists[] = array(
+			array( array() )
+		);
+
+		$argLists[] = array(
+			array( 'de' => array( 'foo' ) )
+		);
+
+		$argLists[] = array(
+			42 => 'foo'
+		);
+
+		$argLists[] = array(
+			'en' => 'foo',
+			'bar'
+		);
+
+		$argLists[] = array(
+			'en' => 'foo',
+			'de' => false
+		);
+
+		return $argLists;
+	}
+
+	/**
+	 * @dataProvider invalidLabelsProvider
+	 */
+	public function testCannotDeserializeWithInvalidDescriptions( $invalidDescriptionsSerialization ) {
+		$serialization = $this->newQueryEntitySerialization();
+		$serialization['description'] = $invalidDescriptionsSerialization;
+
+		$this->setExpectedException( 'Deserializers\Exceptions\DeserializationException' );
+		$this->newQueryEntityDeserializer()->deserialize( $serialization );
+	}
+
+	/**
+	 * @dataProvider invalidAliasesProvider
+	 */
+	public function testCannotDeserializeWithInvalidAliases( $invalidAliasesSerialization ) {
+		$serialization = $this->newQueryEntitySerialization();
+		$serialization['aliases'] = $invalidAliasesSerialization;
+
+		$this->setExpectedException( 'Deserializers\Exceptions\DeserializationException' );
+		$this->newQueryEntityDeserializer()->deserialize( $serialization );
+	}
+
+	public function invalidAliasesProvider() {
+		$argLists = array();
+
+		$argLists[] = array(
+			'foo'
+		);
+
+		$argLists[] = array(
+			array( array() )
+		);
+
+		$argLists[] = array(
+			array( 'de' => 'foo' )
+		);
+
+		$argLists[] = array(
+			array( 'foo' )
+		);
+
+		$argLists[] = array(
+			'en' => array( 'foo' ),
+			'bar'
+		);
+
+		$argLists[] = array(
+			'en' => array( 'foo' ),
+			'de' => 'bar'
+		);
+
+		return $argLists;
+	}
+
+	/**
+	 * @dataProvider invalidClaimsProvider
+	 */
+	public function testCannotDeserializeWithInvalidClaims( $invalidClaimsSerialization ) {
+		$serialization = $this->newQueryEntitySerialization();
+		$serialization['claim'] = $invalidClaimsSerialization;
+
+		$this->setExpectedException( 'Deserializers\Exceptions\DeserializationException' );
+		$this->newQueryEntityDeserializer()->deserialize( $serialization );
+	}
+
+	public function invalidClaimsProvider() {
+		$argLists = array();
+
+		$argLists[] = array(
+			'foo'
+		);
+
+		$argLists[] = array(
+			null
+		);
+
+		$argLists[] = array(
+			array(
+				'foo'
+			)
+		);
+
+		$argLists[] = array(
+			array(
+				array(
+					'm' => array( 'somevalue', 42 ),
+					'q' => array(),
+					'g' => null,
+				),
+				'foo'
+			)
+		);
+
+//		$argLists[] = array(
+//			array(
+//				array(
+//				),
+//			)
+//		);
+//
+//		$argLists[] = array(
+//			array(
+//				array(
+//					'q' => array(),
+//					'g' => null,
+//				),
+//			)
+//		);
+
+		return $argLists;
+	}
+
 }
