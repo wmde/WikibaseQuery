@@ -63,6 +63,8 @@ class ByPropertyValueEntityFinder {
 	 *
 	 * @return EntityId[]
 	 * @throws InvalidArgumentException
+	 *
+	 * TODO: Throw more specific exceptions.
 	 */
 	protected function findEntitiesGivenRawArguments( $propertyIdString, $valueString, $limit, $offset ) {
 		$this->assertIsValidLimit( $limit );

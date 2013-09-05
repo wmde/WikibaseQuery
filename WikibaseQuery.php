@@ -68,7 +68,7 @@ spl_autoload_register( function ( $className ) {
 
 call_user_func( function() {
 	global $wgExtensionCredits, $wgExtensionMessagesFiles, $wgHooks;
-	global $wgAPIModules;
+	global $wgAPIModules, $wgSpecialPages, $wgSpecialPageGroups, $wgResourceModules;
 
 	$wgExtensionCredits['wikibase'][] = array(
 		'path' => __DIR__,
@@ -81,9 +81,17 @@ call_user_func( function() {
 		'descriptionmsg' => 'wikibasequery-desc'
 	);
 
-	$wgExtensionMessagesFiles['WikibaseQuery'] = __DIR__ . '/WikibaseQuery.i18n.php';
+	$wgExtensionMessagesFiles['WikibaseQuery']        = __DIR__ . '/WikibaseQuery.i18n.php';
+	$wgExtensionMessagesFiles['WikibaseQueryAliases'] = __DIR__ . '/WikibaseQuery.i18n.aliases.php';
 
+	// API modules registration
 	$wgAPIModules['entitiesByPropertyValue'] = 'Wikibase\Query\Api\EntitiesByPropertyValue';
+
+	// Special page registration
+	$wgSpecialPages['SimpleQuery'] = 'Wikibase\Query\Specials\SimpleQuery';
+
+	// Special page groups
+	$wgSpecialPageGroups['SimpleQuery'] = 'wikibaserepo';
 
 	/**
 	 * Hook to add PHPUnit test cases.
