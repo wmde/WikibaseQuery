@@ -11,12 +11,14 @@ use Ask\Language\Selection\PropertySelection;
 use Ask\SerializerFactory;
 use DataValues\StringValue;
 use Wikibase\Claim;
-use Wikibase\EntityId;
+use Wikibase\DataModel\Entity\EntityIdValue;
+use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\PropertySomeValueSnak;
 use Wikibase\PropertyValueSnak;
 use Wikibase\Query\DIC\ExtensionAccess;
 use Wikibase\Query\QueryEntity;
 use Wikibase\Query\QueryEntitySerializer;
+use Wikibase\Query\QueryId;
 use Wikibase\SnakList;
 
 /**
@@ -43,7 +45,7 @@ class QueryEntitySerializationTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	protected function newQueryEntity() {
-		$awesomePropertyId = new EntityId( 'property', 42 );
+		$awesomePropertyId = new EntityIdValue( new PropertyId( 'P42' ) );
 
 		$query = new Query(
 			new SomeProperty(
@@ -61,7 +63,7 @@ class QueryEntitySerializationTest extends \PHPUnit_Framework_TestCase {
 
 		$queryEntity = new QueryEntity( $query );
 
-		$queryEntity->setId( 1337 );
+		$queryEntity->setId( new QueryId( 'Y1337' ) );
 
 		$queryEntity->setLabel( 'en', 'Awesome' );
 		$queryEntity->setLabel( 'de', 'Awesome' );
@@ -90,10 +92,10 @@ class QueryEntitySerializationTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	private function newQueryEntitySerialization() {
-		$awesomePropertyId = new EntityId( 'property', 42 );
+		$awesomePropertyId = new EntityIdValue( new PropertyId( 'P42' ) );
 
 		return array(
-			'entity' => array( 'query', 1337 ),
+			'entity' => 'Y1337',
 
 			'label' => array(
 				'en' => 'Awesome',

@@ -2,17 +2,17 @@
 
 namespace Wikibase\Query;
 
-use Title;
 use Content;
+use DataUpdate;
 use ParserOptions;
 use ParserOutput;
+use Status;
+use Title;
+use User;
 use Wikibase\EntityContent;
 use Wikibase\EntityDeletionUpdate;
 use Wikibase\EntityModificationUpdate;
 use WikiPage;
-use User;
-use Status;
-use DataUpdate;
 
 /**
  * Content object for articles representing Wikibase queries.

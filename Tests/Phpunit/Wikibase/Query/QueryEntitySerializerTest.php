@@ -11,13 +11,11 @@ use Wikibase\PropertyNoValueSnak;
 use Wikibase\PropertySomeValueSnak;
 use Wikibase\Query\QueryEntity;
 use Wikibase\Query\QueryEntitySerializer;
-use Wikibase\Test\ClaimListAccessTest;
+use Wikibase\Query\QueryId;
 
 /**
  * @covers Wikibase\Query\QueryEntitySerializer
  *
- * @file
- * @ingroup WikibaseQuery
  * @group WikibaseQuery
  *
  * @licence GNU GPL v2+
@@ -76,13 +74,13 @@ class QueryEntitySerializerTest extends \PHPUnit_Framework_TestCase {
 	public function testCannotSerialize( $notAQueryEntity ) {
 		$serializer = $this->newSimpleQueryEntitySerializer();
 
-		$this->assertFalse( $serializer->canSerialize( $notAQueryEntity ) );
+		$this->assertFalse( $serializer->isSerializerFor( $notAQueryEntity ) );
 	}
 
 	public function testCanSerialize() {
 		$queryEntity = $this->newSimpleEntity();
 		$serializer = $this->newSimpleQueryEntitySerializer();
-		$this->assertTrue( $serializer->canSerialize( $queryEntity ) );
+		$this->assertTrue( $serializer->isSerializerFor( $queryEntity ) );
 	}
 
 	public function testSerializationCallsQuerySerialization() {
@@ -110,34 +108,28 @@ class QueryEntitySerializerTest extends \PHPUnit_Framework_TestCase {
 
 		$serialization = $this->newSimpleQueryEntitySerializer()->serialize( $queryEntity );
 
-		$this->assertHasSerializedId( $serialization, null );
+		$this->assertNull( $serialization['entity'] );
 	}
 
 	/**
-	 * @dataProvider idNumberProvider
+	 * @dataProvider idProvider
 	 */
-	public function testSerializationContainsId( $idNumber ) {
+	public function testSerializationContainsId( QueryId $id ) {
 		$queryEntity = $this->newSimpleEntity();
 
-		$queryEntity->setId( $idNumber );
+		$queryEntity->setId( $id );
 
 		$serialization = $this->newSimpleQueryEntitySerializer()->serialize( $queryEntity );
 
-		$this->assertHasSerializedId( $serialization, array( $queryEntity->getType(), $idNumber ) );
+		$this->assertEquals( $serialization['entity'], $id );
 	}
 
-	public function idNumberProvider() {
+	public function idProvider() {
 		return array(
-			array( 42 ),
-			array( 9001 ),
-			array( 31337 ),
+			array( new QueryId( 'Y42' ) ),
+			array( new QueryId( 'Y9001' ) ),
+			array( new QueryId( 'Y31337' ) ),
 		);
-	}
-
-	protected function assertHasSerializedId( $serialization, $expectedId ) {
-		$this->assertInternalType( 'array', $serialization );
-		$this->assertArrayHasKey( 'entity', $serialization );
-		$this->assertEquals( $expectedId, $serialization['entity'] );
 	}
 
 	/**

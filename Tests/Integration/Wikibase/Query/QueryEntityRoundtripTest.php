@@ -10,16 +10,17 @@ use Ask\Language\Option\QueryOptions;
 use Ask\Language\Query;
 use Ask\Language\Selection\PropertySelection;
 use Ask\SerializerFactory;
-use DataValues\DataValueFactory;
 use DataValues\StringValue;
 use Wikibase\Claim;
-use Wikibase\EntityId;
+use Wikibase\DataModel\Entity\EntityIdValue;
+use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\PropertySomeValueSnak;
 use Wikibase\PropertyValueSnak;
 use Wikibase\Query\DIC\ExtensionAccess;
 use Wikibase\Query\QueryEntity;
 use Wikibase\Query\QueryEntityDeserializer;
 use Wikibase\Query\QueryEntitySerializer;
+use Wikibase\Query\QueryId;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\SnakList;
 
@@ -51,7 +52,7 @@ class QueryEntityRoundtripTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	protected function newQueryEntity() {
-		$awesomePropertyId = new EntityId( 'property', 42 );
+		$awesomePropertyId = new EntityIdValue( new PropertyId( 'P42' ) );
 
 		$query = new Query(
 			new SomeProperty(
@@ -69,7 +70,7 @@ class QueryEntityRoundtripTest extends \PHPUnit_Framework_TestCase {
 
 		$queryEntity = new QueryEntity( $query );
 
-		$queryEntity->setId( 1337 );
+		$queryEntity->setId( new QueryId( 'Y1337' ) );
 
 		$queryEntity->setLabel( 'en', 'Awesome' );
 		$queryEntity->setLabel( 'de', 'Awesome' );

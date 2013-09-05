@@ -10,10 +10,6 @@ use Wikibase\Query\QueryEntity;
 /**
  * @covers Wikibase\Query\QueryEntity
  *
- * @file
- * @since 0.1
- *
- * @ingroup WikibaseQuery
  * @group WikibaseQuery
  *
  * @licence GNU GPL v2+

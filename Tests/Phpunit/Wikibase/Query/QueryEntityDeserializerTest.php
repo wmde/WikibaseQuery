@@ -9,12 +9,11 @@ use Wikibase\Claim;
 use Wikibase\EntityId;
 use Wikibase\Query\QueryEntity;
 use Wikibase\Query\QueryEntityDeserializer;
+use Wikibase\Query\QueryId;
 
 /**
  * @covers Wikibase\Query\QueryEntityDeserializer
  *
- * @file
- * @ingroup WikibaseQuery
  * @group WikibaseQuery
  *
  * @licence GNU GPL v2+
@@ -73,7 +72,7 @@ class QueryEntityDeserializerTest extends \PHPUnit_Framework_TestCase {
 	public function testCanNotDeserializeInvalidSerialization( $notAQueryEntitySerialization ){
 		$deserializer = $this->newSimpleQueryEntityDeserializer();
 
-		$canDeserialize = $deserializer->canDeserialize( $notAQueryEntitySerialization );
+		$canDeserialize = $deserializer->isDeserializerFor( $notAQueryEntitySerialization );
 
 		$this->assertFalse( $canDeserialize );
 
@@ -91,7 +90,7 @@ class QueryEntityDeserializerTest extends \PHPUnit_Framework_TestCase {
 			->will( $this->returnValue( $mockQuery ) );
 
 		$queryDeserializer->expects( $this->once() )
-			->method( 'canDeserialize' )
+			->method( 'isDeserializerFor' )
 			->with( $this->equalTo( $queryEntitySerialzation['query'] ) )
 			->will( $this->returnValue( true ) );
 
@@ -105,9 +104,9 @@ class QueryEntityDeserializerTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function newQueryEntitySerialization(){
+	public function newQueryEntitySerialization() {
 		return array(
-			'entity' => array( 'query', 1337 ),
+			'entity' => 'Y1337',
 
 			'query' => array(
 				'objectType' => 'query',
@@ -200,7 +199,7 @@ class QueryEntityDeserializerTest extends \PHPUnit_Framework_TestCase {
 			->will( $this->returnValue( $this->newQuery() ) );
 
 		$queryDeserializer->expects( $this->once() )
-			->method( 'canDeserialize' )
+			->method( 'isDeserializerFor' )
 			->will( $this->returnValue( true ) );
 
 		return $deserializer;
@@ -242,8 +241,7 @@ class QueryEntityDeserializerTest extends \PHPUnit_Framework_TestCase {
 			$deserialization
 		);
 
-		$idSerialization = $queryEntitySerialzation['entity'];
-		$expectedId = new EntityId( $idSerialization[0], $idSerialization[1] );
+		$expectedId = new QueryId( $queryEntitySerialzation['entity'] );
 
 		$this->assertEquals(
 			$expectedId,
@@ -267,6 +265,18 @@ class QueryEntityDeserializerTest extends \PHPUnit_Framework_TestCase {
 
 		$argLists[] = array(
 			'foo'
+		);
+
+		$argLists[] = array(
+			'Q42'
+		);
+
+		$argLists[] = array(
+			'Y 1'
+		);
+
+		$argLists[] = array(
+			'Y1.42'
 		);
 
 		$argLists[] = array(

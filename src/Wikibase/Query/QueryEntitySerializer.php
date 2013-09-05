@@ -52,7 +52,7 @@ class QueryEntitySerializer implements Serializer {
 			return $id;
 		}
 		else {
-			return array( $id->getEntityType(), $id->getNumericId() );
+			return $id->getSerialization();
 		}
 	}
 
@@ -67,7 +67,7 @@ class QueryEntitySerializer implements Serializer {
 	}
 
 
-	public function canSerialize( $mixed ) {
+	public function isSerializerFor( $mixed ) {
 		return $mixed instanceof QueryEntity;
 	}
 

@@ -2,15 +2,15 @@
 
 namespace Tests\Phpunit\Wikibase\Query;
 
-use Ask\Language\Description\AnyValue;
 use Ask\Language\Description\Description;
 use Ask\Language\Description\SomeProperty;
 use Ask\Language\Description\ValueDescription;
 use Ask\Language\Option\QueryOptions;
-use DataValues\DataValue;
 use DataValues\DataValueFactory;
 use DataValues\StringValue;
-use Wikibase\EntityId;
+use Wikibase\DataModel\Entity\EntityIdValue;
+use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\Query\ByPropertyValueEntityFinder;
 
 /**
@@ -76,7 +76,7 @@ class ByPropertyValueEntityFinderTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	protected function mockProperty() {
-		return new EntityId( 'property', 4242 );
+		return new PropertyId( 'P4242' );
 	}
 
 	protected function assertEntityIdsEqual( array $expected, $actual ) {
@@ -95,7 +95,7 @@ class ByPropertyValueEntityFinderTest extends \PHPUnit_Framework_TestCase {
 			'p42',
 			$fooString->toArray(),
 			new SomeProperty(
-				$this->mockProperty(),
+				$this->mockPropertyValue(),
 				new ValueDescription( $fooString )
 			),
 			new QueryOptions( 10, 0 )
@@ -105,7 +105,7 @@ class ByPropertyValueEntityFinderTest extends \PHPUnit_Framework_TestCase {
 			'p9001',
 			$barString->toArray(),
 			new SomeProperty(
-				$this->mockProperty(),
+				$this->mockPropertyValue(),
 				new ValueDescription( $barString )
 			),
 			new QueryOptions( 42, 100 )
@@ -124,7 +124,7 @@ class ByPropertyValueEntityFinderTest extends \PHPUnit_Framework_TestCase {
 
 		$this->newSimpleEntityIdFiner()->findEntities(
 			array(
-				'property' => $this->mockProperty()->toArray(),
+				'property' => $this->mockPropertyValue()->toArray(),
 				'value' => json_encode( $fooString->toArray() ),
 				'limit' => $limit,
 				'offset' => '0'
@@ -180,7 +180,7 @@ class ByPropertyValueEntityFinderTest extends \PHPUnit_Framework_TestCase {
 
 		$this->newSimpleEntityIdFiner()->findEntities(
 			array(
-				'property' => $this->mockProperty()->toArray(),
+				'property' => $this->mockPropertyValue()->toArray(),
 				'value' => json_encode( $fooString->toArray() ),
 				'limit' => '100',
 				'offset' => $offset
@@ -206,12 +206,16 @@ class ByPropertyValueEntityFinderTest extends \PHPUnit_Framework_TestCase {
 
 		$this->newSimpleEntityIdFiner()->findEntities(
 			array(
-				'property' => $this->mockProperty()->toArray(),
+				'property' => $this->mockPropertyValue()->toArray(),
 				'value' => $value,
 				'limit' => '100',
 				'offset' => '0'
 			)
 		);
+	}
+
+	protected function mockPropertyValue() {
+		return new EntityIdValue( $this->mockProperty() );
 	}
 
 	public function invalidValueProvider() {

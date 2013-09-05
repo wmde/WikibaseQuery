@@ -5,6 +5,7 @@ namespace Wikibase\Query;
 use Ask\DeserializerFactory;
 use Ask\Language\Query;
 use Ask\SerializerFactory;
+use InvalidArgumentException;
 use MWException;
 use RuntimeException;
 use Wikibase\Entity;
@@ -76,6 +77,21 @@ class QueryEntity extends Entity {
 	}
 
 	/**
+	 * @see Entity::setId
+	 *
+	 * @param QueryId $id
+	 *
+	 * @throws InvalidArgumentException
+	 */
+	public function setId( $id ) {
+		if ( !is_object( $id ) || !( $id instanceof QueryId ) ) {
+			throw new InvalidArgumentException( 'The id of a QueryEntity can only be of type QueryId' );
+		}
+
+		parent::setId( $id );
+	}
+
+	/**
 	 * @see Entity::stub
 	 */
 	public function stub() {
@@ -98,6 +114,17 @@ class QueryEntity extends Entity {
 
 			$this->query = $deserializerFactory->newQueryDeSerializer()->deserialize( $this->data['query'] );
 		}
+	}
+
+	/**
+	 * @since 0.1
+	 *
+	 * @param string $idSerialization
+	 *
+	 * @return QueryId
+	 */
+	protected function idFromSerialization( $idSerialization ) {
+		return new QueryId( $idSerialization );
 	}
 
 }

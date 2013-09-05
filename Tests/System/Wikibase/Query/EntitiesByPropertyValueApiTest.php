@@ -3,7 +3,8 @@
 namespace Tests\Integration\Wikibase\Query;
 
 use DataValues\StringValue;
-use Wikibase\EntityId;
+use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\Item;
 use Wikibase\Property;
 use Wikibase\PropertyContent;
@@ -25,10 +26,11 @@ use Wikibase\Statement;
 class EntitiesByPropertyValueApiTest extends \ApiTestCase {
 
 	const MODULE_NAME = 'entitiesByPropertyValue';
-	const PROPERTY_ID = 31337;
-	const ITEM_ID = 42;
-	const PROPERTY_ID_STRING = 'p31337';
-	const ITEM_ID_STRING = 'q42';
+	const PROPERTY_ID_STRING = 'P31337';
+	const ITEM_ID_STRING = 'Q42';
+
+	protected $itemId;
+	protected $propertyId;
 
 	protected function getQueryStore() {
 		return ExtensionAccess::getWikibaseQuery()->getQueryStore();
@@ -44,6 +46,10 @@ class EntitiesByPropertyValueApiTest extends \ApiTestCase {
 
 	public function setUp() {
 		parent::setUp();
+
+		$this->itemId = new ItemId( self::ITEM_ID_STRING );
+		$this->propertyId = new PropertyId( self::PROPERTY_ID_STRING );
+
 		$this->reinitializeStore();
 
 		$this->createNewProperty();
@@ -57,7 +63,7 @@ class EntitiesByPropertyValueApiTest extends \ApiTestCase {
 
 	protected function createNewProperty() {
 		$property = Property::newEmpty();
-		$property->setId( new EntityId( 'property', self::PROPERTY_ID ) );
+		$property->setId( $this->propertyId );
 		$property->setDataTypeId( 'string' );
 
 		$propertyContent = PropertyContent::newFromProperty( $property );
@@ -76,11 +82,11 @@ class EntitiesByPropertyValueApiTest extends \ApiTestCase {
 	protected function newMockItem() {
 		$item = Item::newEmpty();
 
-		$item->setId( new EntityId( 'item', self::ITEM_ID ) );
+		$item->setId( $this->itemId );
 
 		$item->addClaim( new Statement(
 			new PropertyValueSnak(
-				new EntityId( 'property', self::PROPERTY_ID ),
+				$this->propertyId,
 				$this->newMockValue()
 			)
 		) );

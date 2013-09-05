@@ -9,7 +9,9 @@ use DataValues\DataValue;
 use DataValues\DataValueFactory;
 use InvalidArgumentException;
 use RuntimeException;
-use Wikibase\EntityId;
+use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\DataModel\Entity\EntityIdValue;
+use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\Lib\EntityIdFormatter;
 use Wikibase\Lib\EntityIdParser;
 use Wikibase\QueryEngine\QueryEngine;
@@ -89,23 +91,27 @@ class ByPropertyValueEntityFinder {
 			$value = $this->dvFactory->newFromArray( $valueSerialization );
 		}
 		catch ( RuntimeException $ex ) {
-			throw new InvalidArgumentException( '', 0, $ex );
+			throw new InvalidArgumentException( $ex->getMessage(), 0, $ex );
+		}
+
+		if ( !( $propertyId instanceof PropertyId ) ) {
+			throw new InvalidArgumentException( 'The provided EntityId needs to be a PropertyId' );
 		}
 
 		return $this->findByPropertyValue( $propertyId, $value, $limit, $offset );
 	}
 
 	/**
-	 * @param EntityId $propertyId
+	 * @param PropertyId $propertyId
 	 * @param DataValue $value
 	 * @param int $limit
 	 * @param int $offset
 	 *
 	 * @return EntityId[]
 	 */
-	protected function findByPropertyValue( EntityId $propertyId, DataValue $value, $limit, $offset ) {
+	protected function findByPropertyValue( PropertyId $propertyId, DataValue $value, $limit, $offset ) {
 		$description = new SomeProperty(
-			$propertyId,
+			new EntityIdValue( $propertyId ),
 			new ValueDescription( $value )
 		);
 

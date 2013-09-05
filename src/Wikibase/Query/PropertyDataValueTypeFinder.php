@@ -3,7 +3,7 @@
 namespace Wikibase\Query;
 
 use DataTypes\DataTypeFactory;
-use DataValues\DataValue;
+use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\Lib\PropertyDataTypeLookup;
 use Wikibase\QueryEngine\PropertyDataValueTypeLookup;
 
@@ -29,13 +29,11 @@ class PropertyDataValueTypeFinder implements PropertyDataValueTypeLookup {
 	/**
 	 * @see PropertyDataValueTypeLookup::getDataValueTypeForProperty
 	 *
-	 * @param DataValue $propertyId
+	 * @param PropertyId $propertyId
 	 *
 	 * @return string
 	 */
-	public function getDataValueTypeForProperty( DataValue $propertyId ) {
-		// TODO: verify is EntityId
-
+	public function getDataValueTypeForProperty( PropertyId $propertyId ) {
 		$dataTypeId = $this->propertyDtLookup->getDataTypeIdForProperty( $propertyId );
 
 		// TODO: catch OutOfBoundsException

@@ -2,14 +2,12 @@
 
 namespace Tests\Phpunit\Wikibase\Query;
 
-use Wikibase\EntityId;
+use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\Query\PropertyDataValueTypeFinder;
 
 /**
  * @covers Wikibase\Query\PropertyDataValueTypeFinder
  *
- * @file
- * @ingroup WikibaseQuery
  * @group WikibaseQuery
  *
  * @licence GNU GPL v2+
@@ -18,7 +16,7 @@ use Wikibase\Query\PropertyDataValueTypeFinder;
 class PropertyDataValueTypeFinderTest extends \PHPUnit_Framework_TestCase {
 
 	public function testGetDataValueTypeForProperty() {
-		$propertyId = new EntityId( 'property', 1337 );
+		$propertyId = new PropertyId( 'P1337' );
 		$dataTypeId = 'awesomeType';
 		$dataValueType = 'awesomeDvType';
 

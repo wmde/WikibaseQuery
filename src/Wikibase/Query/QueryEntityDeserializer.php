@@ -5,10 +5,15 @@ namespace Wikibase\Query;
 use Deserializers\Deserializer;
 use Deserializers\Exceptions\DeserializationException;
 use Deserializers\Exceptions\MissingAttributeException;
+use InvalidArgumentException;
 use Wikibase\Claim;
-use Wikibase\EntityId;
 
 /**
+ * Deserialization for the internal representation of QueryEntity objects.
+ *
+ * TODO: The term deserialization code can become a strategy so this class
+ * can be used for external representation deserialization as well.
+ *
  * @since 1.0
  *
  * @file
@@ -51,7 +56,7 @@ class QueryEntityDeserializer implements Deserializer {
 	}
 
 	protected function assertCanDeserialize() {
-		if( !$this->canDeserialize( $this->serialization ) ) {
+		if( !$this->isDeserializerFor( $this->serialization ) ) {
 			throw new DeserializationException( 'Cannot deserialize.' );
 		}
 	}
@@ -63,14 +68,14 @@ class QueryEntityDeserializer implements Deserializer {
 	}
 
 	protected function deserializeId() {
-		$idSerialization = $this->serialization['entity'];
-
-		if ( !is_array( $idSerialization ) || count( $idSerialization ) !== 2
-			|| !is_string( $idSerialization[0] ) || !is_int( $idSerialization[1] ) ) {
-			throw new DeserializationException( 'Invalid entity id provided' );
+		try {
+			$id = new QueryId( $this->serialization['entity'] );
+		}
+		catch ( InvalidArgumentException $ex ) {
+			throw new DeserializationException( $ex->getMessage(), $ex );
 		}
 
-		$this->queryEntity->setId( new EntityId( $idSerialization[0], $idSerialization[1] ) );
+		$this->queryEntity->setId( $id );
 	}
 
 	protected function deserializeLabels() {
@@ -141,7 +146,7 @@ class QueryEntityDeserializer implements Deserializer {
 		}
 	}
 
-	public function canDeserialize( $serialization ) {
+	public function isDeserializerFor( $serialization ) {
 		if( !is_array( $serialization ) ) {
 			return false;
 		}
@@ -152,7 +157,7 @@ class QueryEntityDeserializer implements Deserializer {
 			}
 		}
 
-		return $this->queryDeserializer->canDeserialize( $serialization['query'] );
+		return $this->queryDeserializer->isDeserializerFor( $serialization['query'] );
 	}
 
 	protected function requireAttribute( $attributeName ) {
