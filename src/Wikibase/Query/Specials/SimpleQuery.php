@@ -15,12 +15,7 @@ use Html;
  * @author Daniel Werner < daniel.werner@wikimedia.de >
  */
 class SimpleQuery extends SpecialWikibaseQueryPage {
-	/**
-	 * Max server side caching time in seconds.
-	 * @type integer
-	 */
-	const CACHE_TTL_IN_SECONDS = 10;
-
+	
 	protected $propertyId;
 	protected $valueJson;
 
@@ -52,8 +47,7 @@ class SimpleQuery extends SpecialWikibaseQueryPage {
 		);
 
 		$this->showQuery();
-
-		$output->setSquidMaxage( static::CACHE_TTL_IN_SECONDS );
+		return true;
 	}
 
 	/**
