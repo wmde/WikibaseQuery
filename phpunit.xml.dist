@@ -19,9 +19,6 @@
         <testsuite name="WikibaseQueryIntegration">
             <directory>Tests/Integration</directory>
         </testsuite>
-        <testsuite name="WikibaseQuerySystem">
-            <directory>Tests/System</directory>
-        </testsuite>
     </testsuites>
 
     <filter>
