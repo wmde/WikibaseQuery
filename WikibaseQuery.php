@@ -128,7 +128,10 @@ call_user_func( function() {
 
 	$dependencyManager->registerBuilder(
 		'queryStore',
-		new \Wikibase\Query\DIC\Builders\QueryStoreBuilder()
+		new \Wikibase\Query\DIC\Builders\QueryStoreBuilder(
+			DB_SLAVE,
+			$GLOBALS['wgDBtype']
+		)
 	);
 
 	$dependencyManager->registerBuilder(

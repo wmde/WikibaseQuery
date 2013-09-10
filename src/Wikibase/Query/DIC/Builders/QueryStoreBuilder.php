@@ -2,6 +2,8 @@
 
 namespace Wikibase\Query\DIC\Builders;
 
+use Wikibase\Database\LazyDBConnectionProvider;
+use Wikibase\Database\MediaWiki\MWTableBuilderBuilder;
 use Wikibase\Query\ByPropertyValueEntityFinder;
 use Wikibase\Query\DIC\DependencyBuilder;
 use Wikibase\Query\DIC\DependencyManager;
@@ -21,6 +23,18 @@ use Wikibase\Repo\WikibaseRepo;
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
 class QueryStoreBuilder extends DependencyBuilder {
+
+	protected $connectionId;
+	protected $dbType;
+
+	/**
+	 * @param int $connectionId ie DB_MASTER, DB_SLAVE
+	 * @param string $dbType ie mysql, sqlite
+	 */
+	public function __construct( $connectionId, $dbType ) {
+		$this->connectionId = $connectionId;
+		$this->dbType = $dbType;
+	}
 
 	/**
 	 * @see DependencyBuilder::buildObject
@@ -46,10 +60,18 @@ class QueryStoreBuilder extends DependencyBuilder {
 
 		$config->setPropertyDataValueTypeLookup( $dvtLookup );
 
+		$tbBuilder = new MWTableBuilderBuilder();
+		$tbBuilder->setConnection( $this->newConnectionProvider() );
+
 		return new Store(
 			$config,
-			$dependencyManager->newObject( 'slaveQueryInterface' )
+			$dependencyManager->newObject( 'slaveQueryInterface' ),
+			$tbBuilder->getTableBuilder()
 		);
+	}
+
+	protected function newConnectionProvider() {
+		return new LazyDBConnectionProvider( $this->connectionId );
 	}
 
 }

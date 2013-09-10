@@ -3,8 +3,8 @@
 namespace Wikibase\Query\DIC\Builders;
 
 use Wikibase\Database\LazyDBConnectionProvider;
-use Wikibase\Database\MediaWiki\MWQueryInterfaceBuilder;
-use Wikibase\Database\QueryInterface;
+use Wikibase\Database\MediaWiki\MediaWikiQueryInterface;
+use Wikibase\Database\QueryInterface\QueryInterface;
 use Wikibase\Query\DIC\DependencyBuilder;
 use Wikibase\Query\DIC\DependencyManager;
 
@@ -39,12 +39,7 @@ class QueryInterfaceBuilder extends DependencyBuilder {
 	 * @return QueryInterface
 	 */
 	public function buildObject( DependencyManager $dependencyManager ) {
-		$connectionProvider = $this->newConnectionProvider();
-
-		$qiBuilder = new MWQueryInterfaceBuilder();
-		$queryInterface = $qiBuilder->setConnection( $connectionProvider )->getQueryInterface();
-
-		return $queryInterface;
+		return new MediaWikiQueryInterface( $this->newConnectionProvider() );
 	}
 
 	protected function newConnectionProvider() {
