@@ -68,14 +68,39 @@ class ByPropertyValueEntityFinder {
 	 * @throws InvalidArgumentException
 	 */
 	protected function findEntitiesGivenRawArguments( $propertyIdString, $valueString, $limit, $offset ) {
+		$this->assertIsValidLimit( $limit );
+		$this->assertIsValidOffset( $offset );
+
+		$value = $this->getValueFromString( $valueString );
+		$propertyId = $this->getPropertyIdFromString( $propertyIdString );
+
+		return $this->findByPropertyValue( $propertyId, $value, $limit, $offset );
+	}
+
+	protected function assertIsValidLimit( $limit ) {
 		if ( !is_string( $limit ) || !ctype_digit( $limit ) || (int)$limit < 1 ) {
 			throw new InvalidArgumentException( '$limit needs to be a string representing a strictly positive integer' );
 		}
+	}
 
+	protected function assertIsValidOffset( $offset ) {
 		if ( !is_string( $offset ) || !ctype_digit( $offset ) ) {
 			throw new InvalidArgumentException( '$offset needs to be a string representing a positive integer' );
 		}
+	}
 
+	protected function getValueFromString( $valueString ) {
+		$valueSerialization = $this->getValueSerialization( $valueString );
+
+		try {
+			return $this->dvFactory->newFromArray( $valueSerialization );
+		}
+		catch ( RuntimeException $ex ) {
+			throw new InvalidArgumentException( $ex->getMessage(), 0, $ex );
+		}
+	}
+
+	protected function getValueSerialization( $valueString ) {
 		if ( !is_string( $valueString ) ) {
 			throw new InvalidArgumentException( '$valueString needs to be a string serialization of a DataValue' );
 		}
@@ -86,9 +111,12 @@ class ByPropertyValueEntityFinder {
 			throw new InvalidArgumentException( 'The provided value needs to be a serialization of a DataValue' );
 		}
 
+		return $valueSerialization;
+	}
+
+	protected function getPropertyIdFromString( $propertyIdString ) {
 		try {
 			$propertyId = $this->idParser->parse( $propertyIdString );
-			$value = $this->dvFactory->newFromArray( $valueSerialization );
 		}
 		catch ( RuntimeException $ex ) {
 			throw new InvalidArgumentException( $ex->getMessage(), 0, $ex );
@@ -98,7 +126,7 @@ class ByPropertyValueEntityFinder {
 			throw new InvalidArgumentException( 'The provided EntityId needs to be a PropertyId' );
 		}
 
-		return $this->findByPropertyValue( $propertyId, $value, $limit, $offset );
+		return $propertyId;
 	}
 
 	/**
