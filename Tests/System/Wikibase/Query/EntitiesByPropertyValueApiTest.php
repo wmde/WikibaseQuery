@@ -36,28 +36,20 @@ class EntitiesByPropertyValueApiTest extends \ApiTestCase {
 		return ExtensionAccess::getWikibaseQuery()->getQueryStore();
 	}
 
-	protected function reinitializeStore() {
-		$queryStore = $this->getQueryStore();
-		$setup = $queryStore->newSetup();
-
-		$setup->uninstall();
-		$setup->install();
-	}
-
 	public function setUp() {
 		parent::setUp();
 
 		$this->itemId = new ItemId( self::ITEM_ID_STRING );
 		$this->propertyId = new PropertyId( self::PROPERTY_ID_STRING );
 
-		$this->reinitializeStore();
+		$this->getQueryStore()->newSetup()->install();
 
 		$this->createNewProperty();
 		$this->insertNewItem();
 	}
 
 	public function tearDown() {
-		$this->reinitializeStore();
+		$this->getQueryStore()->newSetup()->uninstall();
 		parent::tearDown();
 	}
 
