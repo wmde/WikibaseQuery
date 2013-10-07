@@ -17,6 +17,12 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class ByPropertyValueEntityFinderBuilder extends DependencyBuilder {
 
+	protected $repo;
+
+	public function __construct( WikibaseRepo $repo ) {
+		$this->repo = $repo;
+	}
+
 	/**
 	 * @see DependencyBuilder::buildObject
 	 *
@@ -32,9 +38,9 @@ class ByPropertyValueEntityFinderBuilder extends DependencyBuilder {
 
 		return new ByPropertyValueEntityFinder(
 			$queryStore->getQueryEngine(),
-			DataValueFactory::singleton(), // TODO: get instance from repo factory
-			WikibaseRepo::getDefaultInstance()->getEntityIdParser(),
-			WikibaseRepo::getDefaultInstance()->getEntityIdFormatter()
+			$this->repo->getDataValueFactory(),
+			$this->repo->getEntityIdParser(),
+			$this->repo->getEntityIdFormatter()
 		);
 	}
 
