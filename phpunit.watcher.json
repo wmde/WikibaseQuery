@@ -1,0 +1,14 @@
+{
+	"rootPath": ".",
+	"fileOrDirectoriesToWatch": [
+		"src",
+		"Tests/Phpunit",
+		"WikibaseQuery.php"
+	],
+	"commandArguments": [
+		"-c",
+		"phpunit.xml.dist",
+		"--testsuite",
+		"WikibaseQueryUnit"
+	]
+}
