@@ -118,7 +118,9 @@ call_user_func( function() {
 
 	$dependencyManager->registerBuilder(
 		'byPropertyValueEntityFinder',
-		new Wikibase\Query\DIC\Builders\ByPropertyValueEntityFinderBuilder()
+		new Wikibase\Query\DIC\Builders\ByPropertyValueEntityFinderBuilder(
+			\Wikibase\Repo\WikibaseRepo::getDefaultInstance()
+		)
 	);
 
 	$dependencyManager->registerBuilder(
