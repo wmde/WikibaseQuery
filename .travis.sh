@@ -23,9 +23,9 @@ cd extensions/WikibaseQuery
 composer install
 
 cd ../..
-echo 'require_once( __DIR__ . "/vendor/wikibase/wikibase/repo/Wikibase.php" );' >> LocalSettings.php
-echo 'require_once( __DIR__ . "/vendor/wikibase/wikibase/repo/ExampleSettings.php" );' >> LocalSettings.php
-echo 'require_once( __DIR__ . "/vendor/wikibase/query/WikibaseQuery.php" );' >> LocalSettings.php
+echo 'require_once( __DIR__ . "/extensions/WikibaseQuery/vendor/wikibase/wikibase/repo/Wikibase.php" );' >> LocalSettings.php
+echo 'require_once( __DIR__ . "/extensions/WikibaseQuery/vendor/wikibase/wikibase/repo/ExampleSettings.php" );' >> LocalSettings.php
+echo 'require_once( __DIR__ . "/extensions/WikibaseQuery/WikibaseQuery.php" );' >> LocalSettings.php
 
 echo 'error_reporting(E_ALL| E_STRICT);' >> LocalSettings.php
 echo 'ini_set("display_errors", 1);' >> LocalSettings.php
