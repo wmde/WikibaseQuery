@@ -33,6 +33,9 @@
 		"wikibase/wikibase": "dev-master",
 		"serialization/serialization": "~2.0"
 	},
+	"require-dev": {
+		"satooshi/php-coveralls": "dev-master"
+	},
 	"minimum-stability" : "dev",
 	"autoload": {
 		"files" : [

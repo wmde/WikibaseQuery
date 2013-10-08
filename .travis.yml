@@ -25,6 +25,11 @@ script:
   - cd ../phase3/tests/phpunit
   - ./phpunit.php --group WikibaseQuery
 
+after_script:
+  - pwd
+  - ls -lap
+  - php vendor/bin/coveralls -v
+
 notifications:
   irc:
     channels:
