@@ -10,8 +10,13 @@ class ExtensionSetup {
 	protected $rootDirectory;
 	protected $dicRegistrant;
 
+	/**
+	 * @param array $globalVars
+	 * @param string $rootDirectory
+	 * @param callable $dicRegistrant Same format as ExtensionAccess::setRegistryBuilder
+	 */
 	public function __construct( array $globalVars, $rootDirectory, $dicRegistrant ) {
-		$this->globalVars = $globalVars;
+		$this->globalVars =& $globalVars;
 		$this->rootDirectory = $rootDirectory;
 		$this->dicRegistrant = $dicRegistrant;
 	}
