@@ -21,7 +21,7 @@ class ExtensionSetup {
 	 * @param string $rootDirectory
 	 * @param callable $dicRegistrant Same format as ExtensionAccess::setRegistryBuilder
 	 */
-	public function __construct( array $globalVars, $rootDirectory, $dicRegistrant ) {
+	public function __construct( array &$globalVars, $rootDirectory, $dicRegistrant ) {
 		$this->globalVars =& $globalVars;
 		$this->rootDirectory = $rootDirectory;
 		$this->dicRegistrant = $dicRegistrant;
