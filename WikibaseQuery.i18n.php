@@ -27,14 +27,16 @@ $messages['en'] = array(
 );
 
 /** Message documentation (Message documentation)
- * @author Shirayuki
  * @author Daniel Werner
+ * @author Shirayuki
  */
 $messages['qqq'] = array(
 	'wikibasequery-desc' => '{{desc|name=Wikibase Query|url=http://www.mediawiki.org/wiki/Extension:Wikibase}}',
-	'special-simplequery' => 'Name of the special page for simple property-value queries on wikibase entities.',
+	'special-simplequery' => '{{doc-special|SimpleQuery}}
+The special page is for simple property-value queries on wikibase entities.',
 	'wikibase-specialsimplequery-legend' => 'Describes what the input form is good for.',
-	'wikibase-specialsimplequery-label-property' => 'Label for the property input field.',
+	'wikibase-specialsimplequery-label-property' => 'Label for the property input field.
+{{Identical|Property}}',
 	'wikibase-specialsimplequery-label-valuejson' => 'Label for the value JSON input field. The field allows the user to specify a property value to search for. The value has to be given in its serialized form.',
 );
 
@@ -64,6 +66,10 @@ $messages['da'] = array(
  */
 $messages['de'] = array(
 	'wikibasequery-desc' => 'Ergänzt Abfragemöglichkeiten zu Wikibase',
+	'special-simplequery' => 'Einfache Abfrage',
+	'wikibase-specialsimplequery-legend' => 'Objekte mit einem Eigenschaften-Werte-Paar finden',
+	'wikibase-specialsimplequery-label-property' => 'Eigenschaft:',
+	'wikibase-specialsimplequery-label-valuejson' => 'Wert (als JSON):',
 );
 
 /** Finnish (suomi)
@@ -74,10 +80,15 @@ $messages['fi'] = array(
 );
 
 /** French (français)
+ * @author Gomoko
  * @author Metroitendo
  */
 $messages['fr'] = array(
 	'wikibasequery-desc' => 'Ajoute des capacités de requête à Wikibase',
+	'special-simplequery' => 'Requête simple',
+	'wikibase-specialsimplequery-legend' => 'Trouver des entités avec une paire propriété-valeur',
+	'wikibase-specialsimplequery-label-property' => 'Propriété :',
+	'wikibase-specialsimplequery-label-valuejson' => 'Valeur (en JSON) :',
 );
 
 /** Galician (galego)
@@ -113,14 +124,19 @@ $messages['it'] = array(
  */
 $messages['ja'] = array(
 	'wikibasequery-desc' => 'ウィキベースにクエリ機能を追加する',
+	'special-simplequery' => '単純なクエリ',
+	'wikibase-specialsimplequery-label-property' => 'プロパティ:',
+	'wikibase-specialsimplequery-label-valuejson' => '値 (JSON 形式で):',
 );
 
 /** Korean (한국어)
+ * @author Hym411
  * @author Kwj2772
  * @author 아라
  */
 $messages['ko'] = array(
 	'wikibasequery-desc' => '위키베이스에 쿼리 기능을 추가합니다',
+	'wikibase-specialsimplequery-label-property' => '속성:',
 );
 
 /** Colognian (Ripoarisch)
@@ -139,9 +155,11 @@ $messages['mk'] = array(
 
 /** Dutch (Nederlands)
  * @author Siebrand
+ * @author Sjoerddebruin
  */
 $messages['nl'] = array(
 	'wikibasequery-desc' => 'Voegt zoekmogelijkheden toe aan Wikibase',
+	'wikibase-specialsimplequery-label-property' => 'Eigenschap:',
 );
 
 /** tarandíne (tarandíne)
