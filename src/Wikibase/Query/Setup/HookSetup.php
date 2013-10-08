@@ -7,10 +7,16 @@ use RecursiveIteratorIterator;
 use SplFileInfo;
 use Wikibase\Query\DIC\ExtensionAccess;
 
+/**
+ * @since 0.1
+ *
+ * @licence GNU GPL v2+
+ * @author Jeroen De Dauw < jeroendedauw@gmail.com >
+ */
 class HookSetup {
 
 	/**
-	 * @param array $hooks
+	 * @param array $hooks Same format as $wgHooks
 	 * @param string $rootDirectory
 	 */
 	public function __construct( array &$hooks, $rootDirectory ) {
@@ -26,18 +32,7 @@ class HookSetup {
 	protected function registerUnitTests() {
 		$rootDir = $this->rootDirectory;
 
-		/**
-		 * Hook to add PHPUnit test cases.
-		 * @see https://www.mediawiki.org/wiki/Manual:Hooks/UnitTestsList
-		 *
-		 * @codeCoverageIgnore
-		 *
-		 * @since 0.1
-		 *
-		 * @param array $files
-		 *
-		 * @return boolean
-		 */
+		// https://www.mediawiki.org/wiki/Manual:Hooks/UnitTestsList
 		$this->hooks['UnitTestsList'][]	= function( array &$files ) use ( $rootDir ) {
 			$directoryIterator = new RecursiveDirectoryIterator( $rootDir . '/Tests/' );
 
@@ -55,6 +50,7 @@ class HookSetup {
 	}
 
 	protected function registerExtensionSchemaUpdates() {
+		// https://www.mediawiki.org/wiki/Manual:Hooks/LoadExtensionSchemaUpdates
 		$this->hooks['LoadExtensionSchemaUpdates'][] = function( \DatabaseUpdater $updater ) {
 			// TODO: ExtensionAccess::getWikibaseQuery()->
 		};
