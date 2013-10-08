@@ -5,7 +5,7 @@ namespace Tests\Unit\Wikibase\Query;
 use Wikibase\Query\Setup\HookSetup;
 
 /**
- * @covers Wikibase\Query\QueryId
+ * @covers Wikibase\Query\Setup\HookSetup
  *
  * @group Wikibase
  * @group WikibaseQuery
