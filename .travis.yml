@@ -23,7 +23,7 @@ before_script:
 
 script:
   - cd ../phase3/tests/phpunit
-  - ./phpunit.php --group WikibaseQuery
+  - ./phpunit.php --group WikibaseQuery --coverage-clover ../../extensions/WikibaseQuery/build/logs/clover.xml
 
 after_script:
   - cd ../../extensions/WikibaseQuery
