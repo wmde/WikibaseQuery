@@ -64,88 +64,14 @@ spl_autoload_register( function ( $className ) {
 		}
 	}
 } );
-// @codeCoverageIgnoreEnd
 
 call_user_func( function() {
-	global $wgExtensionCredits, $wgExtensionMessagesFiles, $wgHooks;
-	global $wgAPIModules, $wgSpecialPages, $wgSpecialPageGroups, $wgResourceModules;
-
-	$wgExtensionCredits['wikibase'][] = array(
-		'path' => __DIR__,
-		'name' => 'Wikibase Query',
-		'version' => WIKIBASE_QUERY_VERSION,
-		'author' => array(
-			'[https://www.mediawiki.org/wiki/User:Jeroen_De_Dauw Jeroen De Dauw]',
-		),
-		'url' => 'https://www.mediawiki.org/wiki/Extension:Wikibase_Query',
-		'descriptionmsg' => 'wikibasequery-desc'
+	$setup = new \Wikibase\Query\Setup\ExtensionSetup(
+		$GLOBALS,
+		__DIR__,
+		'Wikibase\Query\DIC\ExtensionAccess::setRegistryBuilder'
 	);
 
-	$wgExtensionMessagesFiles['WikibaseQuery']        = __DIR__ . '/WikibaseQuery.i18n.php';
-	$wgExtensionMessagesFiles['WikibaseQueryAliases'] = __DIR__ . '/WikibaseQuery.i18n.aliases.php';
-
-	// API modules registration
-	$wgAPIModules['entitiesByPropertyValue'] = 'Wikibase\Query\Api\EntitiesByPropertyValue';
-
-	// Special page registration
-	$wgSpecialPages['SimpleQuery'] = 'Wikibase\Query\Specials\SimpleQuery';
-
-	// Special page groups
-	$wgSpecialPageGroups['SimpleQuery'] = 'wikibaserepo';
-
-	/**
-	 * Hook to add PHPUnit test cases.
-	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/UnitTestsList
-	 *
-	 * @codeCoverageIgnore
-	 *
-	 * @since 0.1
-	 *
-	 * @param array $files
-	 *
-	 * @return boolean
-	 */
-	$wgHooks['UnitTestsList'][]	= function( array &$files ) {
-		$directoryIterator = new RecursiveDirectoryIterator( __DIR__ . '/Tests/' );
-
-		/**
-		 * @var SplFileInfo $fileInfo
-		 */
-		foreach ( new RecursiveIteratorIterator( $directoryIterator ) as $fileInfo ) {
-			if ( substr( $fileInfo->getFilename(), -8 ) === 'Test.php' ) {
-				$files[] = $fileInfo->getPathname();
-			}
-		}
-
-		return true;
-	};
+	$setup->run();
 } );
-
-\Wikibase\Query\DIC\ExtensionAccess::setRegistryBuilder( function() {
-	$dependencyManager = new \Wikibase\Query\DIC\DependencyManager();
-
-	$dependencyManager->registerBuilder(
-		'byPropertyValueEntityFinder',
-		new Wikibase\Query\DIC\Builders\ByPropertyValueEntityFinderBuilder(
-			\Wikibase\Repo\WikibaseRepo::getDefaultInstance()
-		)
-	);
-
-	$dependencyManager->registerBuilder(
-		'queryStore',
-		new \Wikibase\Query\DIC\Builders\QueryStoreBuilder(
-			DB_SLAVE,
-			$GLOBALS['wgDBtype']
-		)
-	);
-
-	$dependencyManager->registerBuilder(
-		'slaveQueryInterface',
-		new \Wikibase\Query\DIC\Builders\QueryInterfaceBuilder(
-			DB_SLAVE,
-			$GLOBALS['wgDBtype']
-		)
-	);
-
-	return new \Wikibase\Query\DIC\WikibaseQuery( $dependencyManager );
-} );
+// @codeCoverageIgnoreEnd
