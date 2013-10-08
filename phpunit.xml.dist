@@ -13,11 +13,12 @@
          strict="true"
          verbose="true">
     <testsuites>
-        <testsuite name="WikibaseQueryUnit">
-            <directory>Tests/Phpunit</directory>
-        </testsuite>
-        <testsuite name="WikibaseQueryIntegration">
+        <testsuite name="WikibaseQueryFast">
+            <directory>Tests/Unit</directory>
             <directory>Tests/Integration</directory>
+        </testsuite>
+        <testsuite name="WikibaseQuerySlow">
+            <directory>Tests/System</directory>
         </testsuite>
     </testsuites>
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Phpunit\Wikibase\Query;
+namespace Tests\Unit\Wikibase\Query;
 
 use Ask\Language\Description\AnyValue;
 use Ask\Language\Option\QueryOptions;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Phpunit\Wikibase\Query\DIC;
+namespace Tests\Unit\Wikibase\Query\DIC;
 
 use Wikibase\Query\DIC\WikibaseQuery;
 

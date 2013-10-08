@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Phpunit\Wikibase\Query;
+namespace Tests\Unit\Wikibase\Query;
 
 use Ask\Language\Description\Description;
 use Ask\Language\Description\SomeProperty;
