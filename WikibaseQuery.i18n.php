@@ -16,16 +16,26 @@ $messages = array();
 
 /** English
  * @author Jeroen De Dauw
+ * @author Daniel Werner
  */
 $messages['en'] = array(
 	'wikibasequery-desc' => 'Adds query capabilities to Wikibase',
+	'special-simplequery' => 'Simple query',
+	'wikibase-specialsimplequery-legend' => 'Find entities with property-value pair',
+	'wikibase-specialsimplequery-label-property' => 'Property:',
+	'wikibase-specialsimplequery-label-valuejson' => 'Value (as JSON):',
 );
 
 /** Message documentation (Message documentation)
  * @author Shirayuki
+ * @author Daniel Werner
  */
 $messages['qqq'] = array(
 	'wikibasequery-desc' => '{{desc|name=Wikibase Query|url=http://www.mediawiki.org/wiki/Extension:Wikibase}}',
+	'special-simplequery' => 'Name of the special page for simple property-value queries on wikibase entities.',
+	'wikibase-specialsimplequery-legend' => 'Describes what the input form is good for.',
+	'wikibase-specialsimplequery-label-property' => 'Label for the property input field.',
+	'wikibase-specialsimplequery-label-valuejson' => 'Label for the value JSON input field. The field allows the user to specify a property value to search for. The value has to be given in its serialized form.',
 );
 
 /** Afrikaans (Afrikaans)
