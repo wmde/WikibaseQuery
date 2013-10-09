@@ -7,7 +7,7 @@ use Serializers\Serializer;
 use Wikibase\Entity;
 
 /**
- * @since 1.0
+ * @since 0.1
  *
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >

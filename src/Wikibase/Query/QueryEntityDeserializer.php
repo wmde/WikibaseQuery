@@ -14,7 +14,7 @@ use Wikibase\Claim;
  * TODO: The term deserialization code can become a strategy so this class
  * can be used for external representation deserialization as well.
  *
- * @since 1.0
+ * @since 0.1
  *
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >

@@ -17,11 +17,12 @@ Features:
 ## Requirements
 
 * PHP 5.3 or later
+* [Wikibase DataModel](https://github.com/wikimedia/mediawiki-extensions-WikibaseDataModel/blob/master/README.md) 0.5 or later
 * Wikibase Repo 0.5 or later
-* Wikibase QueryEngine 0.1 or later
-* Ask 1.x
-* DataValues 0.1 or later
-* Serialization 2.x
+* [Wikibase QueryEngine](https://github.com/wikimedia/mediawiki-extensions-WikibaseQueryEngine/blob/master/README.md) 0.1 or later
+* [Ask](https://github.com/wikimedia/mediawiki-extensions-Ask/blob/master/README.md) 1.x
+* [DataValues](https://www.mediawiki.org/wiki/Extension:DataValues) 0.1 or later
+* [Serialization](https://github.com/wikimedia/mediawiki-extensions-Serialization/blob/master/README.md) 2.x
 
 ## Installation
 
@@ -41,6 +42,13 @@ Wikibase Query 1.0:
             "wikibase/query": "1.0.*"
         }
     }
+
+## Technical documentation
+
+All classes provided by WikibaseQuery reside in the Wikibase\Query namespace.
+
+Public classes and interfaces have an @since tag denoting the version since which they can be accessed.
+Constructs without an @since tag are package private and should not be used by extensions.
 
 ## Tests
 
