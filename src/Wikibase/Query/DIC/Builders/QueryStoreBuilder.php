@@ -2,8 +2,12 @@
 
 namespace Wikibase\Query\DIC\Builders;
 
+use Wikibase\Database\DBConnectionProvider;
 use Wikibase\Database\LazyDBConnectionProvider;
+use Wikibase\Database\MediaWiki\MediaWikiSchemaModifierBuilder;
 use Wikibase\Database\MediaWiki\MWTableBuilderBuilder;
+use Wikibase\Database\MediaWiki\MWTableDefinitionReaderBuilder;
+use Wikibase\Database\QueryInterface\QueryInterface;
 use Wikibase\Query\ByPropertyValueEntityFinder;
 use Wikibase\Query\DIC\DependencyBuilder;
 use Wikibase\Query\DIC\DependencyManager;
@@ -23,6 +27,16 @@ class QueryStoreBuilder extends DependencyBuilder {
 	protected $dbType;
 
 	/**
+	 * @var DBConnectionProvider
+	 */
+	protected $connectionProvider;
+
+	/**
+	 * @var QueryInterface
+	 */
+	protected $queryInterface;
+
+	/**
 	 * @param int $connectionId ie DB_MASTER, DB_SLAVE
 	 * @param string $dbType ie mysql, sqlite
 	 */
@@ -39,6 +53,19 @@ class QueryStoreBuilder extends DependencyBuilder {
 	 * @return ByPropertyValueEntityFinder
 	 */
 	public function buildObject( DependencyManager $dependencyManager ) {
+		$this->connectionProvider = $this->newConnectionProvider();
+		$this->queryInterface = $dependencyManager->newObject( 'slaveQueryInterface' );
+
+		return new Store(
+			$this->newStoreConfig(),
+			$this->queryInterface,
+			$this->newTableBuilder(),
+			$this->newTableDefinitionReader(),
+			$this->newSchemaModifier()
+		);
+	}
+
+	protected function newStoreConfig() {
 		// TODO: provide an extension mechanism for the DV handlers
 		$dvHandlers = new DataValueHandlers();
 
@@ -55,18 +82,34 @@ class QueryStoreBuilder extends DependencyBuilder {
 
 		$config->setPropertyDataValueTypeLookup( $dvtLookup );
 
-		$tbBuilder = new MWTableBuilderBuilder();
-		$tbBuilder->setConnection( $this->newConnectionProvider() );
-
-		return new Store(
-			$config,
-			$dependencyManager->newObject( 'slaveQueryInterface' ),
-			$tbBuilder->getTableBuilder()
-		);
+		return $config;
 	}
 
 	protected function newConnectionProvider() {
 		return new LazyDBConnectionProvider( $this->connectionId );
+	}
+
+	protected function newTableBuilder() {
+		$tbBuilder = new MWTableBuilderBuilder();
+
+		return $tbBuilder->setConnection( $this->connectionProvider )
+			->getTableBuilder();
+	}
+
+	protected function newTableDefinitionReader() {
+		$drBuilder = new MWTableDefinitionReaderBuilder();
+
+		return $drBuilder->setConnection( $this->connectionProvider )
+			->setQueryInterface( $this->queryInterface )
+			->getTableDefinitionReader();
+	}
+
+	protected function newSchemaModifier() {
+		$smBuilder = new MediaWikiSchemaModifierBuilder();
+
+		return $smBuilder->setConnection( $this->connectionProvider )
+			->setQueryInterface( $this->queryInterface )
+			->getSchemaModifier();
 	}
 
 }

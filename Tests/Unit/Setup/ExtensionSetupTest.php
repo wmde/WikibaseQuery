@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Wikibase\Query;
+namespace Tests\Unit\Wikibase\Query\Setup;
 
 use Wikibase\Query\Setup\ExtensionSetup;
 

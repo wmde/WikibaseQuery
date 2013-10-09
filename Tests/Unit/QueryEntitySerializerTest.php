@@ -252,16 +252,22 @@ class QueryEntitySerializerTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function claimListProvider() {
+		$claimOne = new Claim( new PropertySomeValueSnak( 42 ) );
+		$claimOne->setGuid( 'one' );
+
+		$claimTwo = new Claim( new PropertyNoValueSnak( 1337 ) );
+		$claimTwo->setGuid( 'two' );
+
 		return array(
 			array( array() ),
 
 			array( array(
-				new Claim( new PropertySomeValueSnak( 42 ) )
+				$claimOne
 			) ),
 
 			array( array(
-				new Claim( new PropertySomeValueSnak( 42 ) ),
-				new Claim( new PropertyNoValueSnak( 1337 ) )
+				$claimOne,
+				$claimTwo
 			) ),
 		);
 	}

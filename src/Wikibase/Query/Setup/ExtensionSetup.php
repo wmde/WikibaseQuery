@@ -3,6 +3,7 @@
 namespace Wikibase\Query\Setup;
 
 use Wikibase\Query\DIC\ExtensionAccess;
+use Wikibase\Query\DIC\WikibaseQueryBuilder;
 
 /**
  * @licence GNU GPL v2+

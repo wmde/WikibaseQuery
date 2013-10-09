@@ -5,8 +5,6 @@ namespace Tests\Integration\Wikibase\Query;
 use Wikibase\Query\DIC\ExtensionAccess;
 
 /**
- * @file
- * @ingroup WikibaseQuery
  * @group WikibaseQuery
  * @group WikibaseQueryIntegration
  *
@@ -18,6 +16,16 @@ class ObjectConstructionTest extends \PHPUnit_Framework_TestCase {
 	public function testConstructQueryStore() {
 		$queryStore = ExtensionAccess::getWikibaseQuery()->getQueryStore();
 		$this->assertInstanceOf( 'Wikibase\QueryEngine\QueryStore', $queryStore );
+	}
+
+	public function testConstructByPropertyValueEntityFinder() {
+		$byPropertyValueEntityFinder = ExtensionAccess::getWikibaseQuery()->getByPropertyValueEntityFinder();
+		$this->assertInstanceOf( 'Wikibase\Query\ByPropertyValueEntityFinder', $byPropertyValueEntityFinder );
+	}
+
+	public function testConstructExtensionUpdater() {
+		$updater = ExtensionAccess::getWikibaseQuery()->getExtensionUpdater();
+		$this->assertInstanceOf( 'Wikibase\Query\Setup\ExtensionUpdater', $updater );
 	}
 
 }

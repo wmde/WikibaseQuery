@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Unit\Wikibase\Query;
+namespace Tests\Unit\Wikibase\Query\DIC;
 
-use Wikibase\Query\Setup\WikibaseQueryBuilder;
+use Wikibase\Query\DIC\WikibaseQueryBuilder;
 
 /**
  * @covers Wikibase\Query\Setup\WikibaseQueryBuilder

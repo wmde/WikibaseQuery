@@ -13,8 +13,6 @@ use Wikibase\Query\DIC\ExtensionAccess;
 use Wikibase\Statement;
 
 /**
- * @file
- * @ingroup WikibaseQuery
  * @group WikibaseQuery
  * @group WikibaseQuerySystem
  * @group Database
@@ -76,12 +74,16 @@ class EntitiesByPropertyValueApiTest extends \ApiTestCase {
 
 		$item->setId( $this->itemId );
 
-		$item->addClaim( new Statement(
+		$claim = new Statement(
 			new PropertyValueSnak(
 				$this->propertyId,
 				$this->newMockValue()
 			)
-		) );
+		);
+
+		$claim->setGuid( 'foo' );
+
+		$item->addClaim( $claim );
 
 		return $item;
 	}

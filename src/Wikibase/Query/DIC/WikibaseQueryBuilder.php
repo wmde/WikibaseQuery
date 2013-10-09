@@ -1,13 +1,11 @@
 <?php
 
-namespace Wikibase\Query\Setup;
+namespace Wikibase\Query\DIC;
 
 use Wikibase\Query\DIC\Builders\ByPropertyValueEntityFinderBuilder;
+use Wikibase\Query\DIC\Builders\ExtensionUpdaterBuilder;
 use Wikibase\Query\DIC\Builders\QueryInterfaceBuilder;
 use Wikibase\Query\DIC\Builders\QueryStoreBuilder;
-use Wikibase\Query\DIC\DependencyManager;
-use Wikibase\Query\DIC\ExtensionAccess;
-use Wikibase\Query\DIC\WikibaseQuery;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
@@ -43,6 +41,11 @@ class WikibaseQueryBuilder {
 				DB_SLAVE,
 				$GLOBALS['wgDBtype']
 			)
+		);
+
+		$dependencyManager->registerBuilder(
+			'extensionUpdater',
+			new ExtensionUpdaterBuilder()
 		);
 
 		return new WikibaseQuery( $dependencyManager );

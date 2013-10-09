@@ -3,6 +3,7 @@
 namespace Wikibase\Query\DIC;
 
 use Wikibase\Query\ByPropertyValueEntityFinder;
+use Wikibase\Query\Setup\ExtensionUpdater;
 use Wikibase\QueryEngine\QueryStore;
 
 /**
@@ -40,6 +41,13 @@ class WikibaseQuery {
 	 */
 	public function getQueryStore() {
 		return $this->dependencyManager->newObject( 'queryStore' );
+	}
+
+	/**
+	 * @return ExtensionUpdater
+	 */
+	public function getExtensionUpdater() {
+		return $this->dependencyManager->newObject( 'extensionUpdater' );
 	}
 
 }

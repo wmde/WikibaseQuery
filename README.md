@@ -50,6 +50,13 @@ All classes provided by WikibaseQuery reside in the Wikibase\Query namespace.
 Public classes and interfaces have an @since tag denoting the version since which they can be accessed.
 Constructs without an @since tag are package private and should not be used by extensions.
 
+Object graph construction is done via the dependency injection container defined in Wikibase\Query\DIC.
+Individual builders reside in Wikibase\Query\DIC\Builders. Builders are registered in
+Wikibase\Query\DIC\WikibaseQueryBuilder. All access to the DIC from outside the DIC happens via
+Wikibase\Query\DIC\WikibaseQuery. When requiring access to this class from a legacy API,
+the ExtensionAccess::getWikibaseQuery method should be used. Usage of this method is forbidden
+outside of legacy APIs in which we cannot achieve proper dependency construction.
+
 ## Tests
 
 This library comes with a set up PHPUnit tests that cover all non-trivial code. You can run these

@@ -22,8 +22,6 @@ use Wikibase\Query\QueryId;
 use Wikibase\SnakList;
 
 /**
- * @file
- * @ingroup WikibaseQuery
  * @group WikibaseQuery
  * @group WikibaseQueryIntegration
  *
@@ -72,21 +70,33 @@ class QueryEntitySerializationTest extends \PHPUnit_Framework_TestCase {
 		$queryEntity->addAliases( 'en', array( 'foo', 'bar' ) );
 		$queryEntity->addAliases( 'nl', array( 'baz', 'hax' ) );
 
-		$queryEntity->addClaim( new Claim(
+		$claim = new Claim(
 			new PropertySomeValueSnak( 42 )
-		) );
+		);
 
-		$queryEntity->addClaim( new Claim(
+		$claim->setGuid( 'foo' );
+
+		$queryEntity->addClaim( $claim );
+
+		$secondClaim = new Claim(
 			new PropertyValueSnak( 42, new StringValue( 'baz' ) )
-		) );
+		);
 
-		$queryEntity->addClaim( new Claim(
+		$secondClaim->setGuid( 'bar' );
+
+		$queryEntity->addClaim( $secondClaim );
+
+		$thirdClaim = new Claim(
 			new PropertyValueSnak( 123, new StringValue( 'baz' ) ),
 			new SnakList( array(
 				new PropertySomeValueSnak( 42 ),
 				new PropertySomeValueSnak( 43 )
 			) )
-		) );
+		);
+
+		$thirdClaim->setGuid( 'baz' );
+
+		$queryEntity->addClaim( $thirdClaim );
 
 		return $queryEntity;
 	}
@@ -116,12 +126,12 @@ class QueryEntitySerializationTest extends \PHPUnit_Framework_TestCase {
 				array(
 					'm' => array( 'somevalue', 42 ),
 					'q' => array(),
-					'g' => null,
+					'g' => 'foo',
 				),
 				array(
 					'm' => array( 'value', 42, 'string', 'baz' ),
 					'q' => array(),
-					'g' => null,
+					'g' => 'bar',
 				),
 				array(
 					'm' => array( 'value', 123, 'string', 'baz' ),
@@ -129,7 +139,7 @@ class QueryEntitySerializationTest extends \PHPUnit_Framework_TestCase {
 						array( 'somevalue', 42 ),
 						array( 'somevalue', 43 ),
 					),
-					'g' => null,
+					'g' => 'baz',
 				)
 			),
 

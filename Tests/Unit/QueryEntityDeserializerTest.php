@@ -147,7 +147,7 @@ class QueryEntityDeserializerTest extends \PHPUnit_Framework_TestCase {
 				array(
 					'm' => array( 'somevalue', 42 ),
 					'q' => array(),
-					'g' => null,
+					'g' => 'foo',
 				),
 				array(
 					'm' => array( 'value', 123, 'string', 'baz' ),
@@ -155,7 +155,7 @@ class QueryEntityDeserializerTest extends \PHPUnit_Framework_TestCase {
 						array( 'somevalue', 42 ),
 						array( 'somevalue', 43 ),
 					),
-					'g' => null,
+					'g' => 'baz',
 				)
 			),
 		);
@@ -436,7 +436,7 @@ class QueryEntityDeserializerTest extends \PHPUnit_Framework_TestCase {
 				array(
 					'm' => array( 'somevalue', 42 ),
 					'q' => array(),
-					'g' => null,
+					'g' => 'foo',
 				),
 				'foo'
 			)
