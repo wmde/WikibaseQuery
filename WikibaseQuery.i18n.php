@@ -117,6 +117,10 @@ $messages['id'] = array(
  */
 $messages['it'] = array(
 	'wikibasequery-desc' => 'Aggiunge le funzionalità di interrogazioni a Wikibase',
+	'special-simplequery' => 'Interrogazione semplice',
+	'wikibase-specialsimplequery-legend' => 'Trova entità con la coppia proprietà/valore',
+	'wikibase-specialsimplequery-label-property' => 'Proprietà:',
+	'wikibase-specialsimplequery-label-valuejson' => 'Valore (come JSON):',
 );
 
 /** Japanese (日本語)
@@ -151,6 +155,10 @@ $messages['ksh'] = array(
  */
 $messages['mk'] = array(
 	'wikibasequery-desc' => 'Додава можност за пребарување на Викибазата',
+	'special-simplequery' => 'Просто барање',
+	'wikibase-specialsimplequery-legend' => 'Наоѓа единици со пар „својство-вредност“',
+	'wikibase-specialsimplequery-label-property' => 'Својство:',
+	'wikibase-specialsimplequery-label-valuejson' => 'Вредност (како JSON):',
 );
 
 /** Dutch (Nederlands)
@@ -171,9 +179,14 @@ $messages['roa-tara'] = array(
 
 /** Russian (русский)
  * @author Kaganer
+ * @author Okras
  */
 $messages['ru'] = array(
 	'wikibasequery-desc' => 'Добавляет возможности запросов к Вики-базе',
+	'special-simplequery' => 'Простой запрос',
+	'wikibase-specialsimplequery-legend' => 'Найти объекты с парами свойство-значение',
+	'wikibase-specialsimplequery-label-property' => 'Свойство:',
+	'wikibase-specialsimplequery-label-valuejson' => 'Значение (как JSON):',
 );
 
 /** Serbian (Cyrillic script) (српски (ћирилица)‎)
@@ -184,10 +197,15 @@ $messages['sr-ec'] = array(
 );
 
 /** Ukrainian (українська)
+ * @author Andriykopanytsia
  * @author Base
  */
 $messages['uk'] = array(
 	'wikibasequery-desc' => 'Додає можливості запитів до Вікібази',
+	'special-simplequery' => 'Простий запит',
+	'wikibase-specialsimplequery-legend' => 'Знайти осіб з парою значення-властивість',
+	'wikibase-specialsimplequery-label-property' => 'Властивість:',
+	'wikibase-specialsimplequery-label-valuejson' => 'Значення (у JSON):',
 );
 
 /** Vietnamese (Tiếng Việt)
@@ -199,9 +217,11 @@ $messages['vi'] = array(
 
 /** Simplified Chinese (中文（简体）‎)
  * @author Li3939108
+ * @author Liuxinyu970226
  */
 $messages['zh-hans'] = array(
 	'wikibasequery-desc' => '将查询功能添加到维基数据库',
+	'wikibase-specialsimplequery-label-property' => '属性：',
 );
 
 /** Traditional Chinese (中文（繁體）‎)
