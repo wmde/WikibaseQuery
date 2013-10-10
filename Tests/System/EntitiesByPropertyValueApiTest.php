@@ -64,7 +64,7 @@ class EntitiesByPropertyValueApiTest extends \ApiTestCase {
 	}
 
 	protected function insertNewItem() {
-		$storeUpdater = $this->getQueryStore()->getUpdater();
+		$storeUpdater = $this->getQueryStore()->getWriter();
 
 		$item = $this->newMockItem();
 
