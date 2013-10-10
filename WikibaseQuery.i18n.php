@@ -140,6 +140,7 @@ $messages['ja'] = array(
  */
 $messages['ko'] = array(
 	'wikibasequery-desc' => '위키베이스에 쿼리 기능을 추가합니다',
+	'special-simplequery' => '단순 쿼리',
 	'wikibase-specialsimplequery-label-property' => '속성:',
 );
 
@@ -148,6 +149,13 @@ $messages['ko'] = array(
  */
 $messages['ksh'] = array(
 	'wikibasequery-desc' => 'Brängk de Möjeleschkeit för ze Söhke zom <i lang="en">Wikibase</i> dohzoh.',
+);
+
+/** Luxembourgish (Lëtzebuergesch)
+ * @author Robby
+ */
+$messages['lb'] = array(
+	'wikibase-specialsimplequery-label-property' => 'Eegeschaft:',
 );
 
 /** Macedonian (македонски)
