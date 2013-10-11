@@ -96,6 +96,10 @@ $messages['fr'] = array(
  */
 $messages['gl'] = array(
 	'wikibasequery-desc' => 'Engade capacidades de pescuda a Wikibase',
+	'special-simplequery' => 'Pescuda simple',
+	'wikibase-specialsimplequery-legend' => 'Atopar entidades cun par propiedade-valor',
+	'wikibase-specialsimplequery-label-property' => 'Propiedade:',
+	'wikibase-specialsimplequery-label-valuejson' => 'Valor (en JSON):',
 );
 
 /** Hebrew (עברית)
@@ -156,6 +160,15 @@ $messages['ksh'] = array(
  */
 $messages['lb'] = array(
 	'wikibase-specialsimplequery-label-property' => 'Eegeschaft:',
+);
+
+/** Latvian (latviešu)
+ * @author Papuass
+ */
+$messages['lv'] = array(
+	'special-simplequery' => 'Vienkāršs vaicājums',
+	'wikibase-specialsimplequery-label-property' => 'Īpašība:',
+	'wikibase-specialsimplequery-label-valuejson' => 'Vērtība (kā JSON):',
 );
 
 /** Macedonian (македонски)
