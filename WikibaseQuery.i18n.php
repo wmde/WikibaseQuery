@@ -145,7 +145,9 @@ $messages['ja'] = array(
 $messages['ko'] = array(
 	'wikibasequery-desc' => '위키베이스에 쿼리 기능을 추가합니다',
 	'special-simplequery' => '단순 쿼리',
+	'wikibase-specialsimplequery-legend' => '속성-값 순서쌍으로 개체 찾기',
 	'wikibase-specialsimplequery-label-property' => '속성:',
+	'wikibase-specialsimplequery-label-valuejson' => '값 (JSON 형식):',
 );
 
 /** Colognian (Ripoarisch)
@@ -191,6 +193,17 @@ $messages['nl'] = array(
 	'wikibase-specialsimplequery-label-property' => 'Eigenschap:',
 );
 
+/** Polish (polski)
+ * @author Chrumps
+ */
+$messages['pl'] = array(
+	'wikibasequery-desc' => 'Dodaje możliwości zapytań do Wikibase',
+	'special-simplequery' => 'Proste zapytanie',
+	'wikibase-specialsimplequery-legend' => 'Znajdź encje z parą właściwość-wartość',
+	'wikibase-specialsimplequery-label-property' => 'Właściwość:',
+	'wikibase-specialsimplequery-label-valuejson' => 'Wartość (jak JSON):',
+);
+
 /** tarandíne (tarandíne)
  * @author Joetaras
  */
@@ -234,6 +247,10 @@ $messages['uk'] = array(
  */
 $messages['vi'] = array(
 	'wikibasequery-desc' => 'Thêm khả năng truy vấn vào Wikibase',
+	'special-simplequery' => 'Truy vấn đơn giản',
+	'wikibase-specialsimplequery-legend' => 'Tìm các thực thể có đôi thuộc tính–giá trị',
+	'wikibase-specialsimplequery-label-property' => 'Thuộc tính:',
+	'wikibase-specialsimplequery-label-valuejson' => 'Giá trị (dưới dạng JSON):',
 );
 
 /** Simplified Chinese (中文（简体）‎)
