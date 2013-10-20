@@ -107,6 +107,10 @@ $messages['gl'] = array(
  */
 $messages['he'] = array(
 	'wikibasequery-desc' => 'הוספת יכולות הרצת שאילתות לוויקיבייס',
+	'special-simplequery' => 'שאילתה פשוטה',
+	'wikibase-specialsimplequery-legend' => 'מציאת ישויות עם זוג מאפיין–ערך',
+	'wikibase-specialsimplequery-label-property' => 'מאפיין:',
+	'wikibase-specialsimplequery-label-valuejson' => 'ערך (כ־JSON):',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -260,6 +264,7 @@ $messages['vi'] = array(
 $messages['zh-hans'] = array(
 	'wikibasequery-desc' => '将查询功能添加到维基数据库',
 	'wikibase-specialsimplequery-label-property' => '属性：',
+	'wikibase-specialsimplequery-label-valuejson' => '值（作为JSON）：',
 );
 
 /** Traditional Chinese (中文（繁體）‎)
