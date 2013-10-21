@@ -263,6 +263,8 @@ $messages['vi'] = array(
  */
 $messages['zh-hans'] = array(
 	'wikibasequery-desc' => '将查询功能添加到维基数据库',
+	'special-simplequery' => '简单查询',
+	'wikibase-specialsimplequery-legend' => '通过属性值对查找实体',
 	'wikibase-specialsimplequery-label-property' => '属性：',
 	'wikibase-specialsimplequery-label-valuejson' => '值（作为JSON）：',
 );
