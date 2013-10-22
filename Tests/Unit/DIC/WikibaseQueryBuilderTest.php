@@ -5,7 +5,7 @@ namespace Tests\Unit\Wikibase\Query\DIC;
 use Wikibase\Query\DIC\WikibaseQueryBuilder;
 
 /**
- * @covers Wikibase\Query\Setup\WikibaseQueryBuilder
+ * @covers Wikibase\Query\DIC\WikibaseQueryBuilder
  *
  * @group Wikibase
  * @group WikibaseQuery
