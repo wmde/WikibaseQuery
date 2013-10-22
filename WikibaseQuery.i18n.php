@@ -52,6 +52,10 @@ $messages['af'] = array(
  */
 $messages['ast'] = array(
 	'wikibasequery-desc' => 'Amiesta capacidaes de consulta a Wikibase',
+	'special-simplequery' => 'Consulta simple',
+	'wikibase-specialsimplequery-legend' => 'Alcontrar entidaes con un par propiedá-valor',
+	'wikibase-specialsimplequery-label-property' => 'Propiedá:',
+	'wikibase-specialsimplequery-label-valuejson' => 'Valor (como JSON):',
 );
 
 /** Danish (dansk)
