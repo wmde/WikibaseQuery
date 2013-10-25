@@ -2,11 +2,11 @@
 
 namespace Wikibase\Query\DIC\Builders;
 
-use DataValues\DataValueFactory;
+use Wikibase\Database\QueryInterface\QueryInterface;
 use Wikibase\Query\ByPropertyValueEntityFinder;
 use Wikibase\Query\DIC\DependencyBuilder;
 use Wikibase\Query\DIC\DependencyManager;
-use Wikibase\QueryEngine\QueryStore;
+use Wikibase\QueryEngine\SQLStore\SQLStore;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
@@ -30,12 +30,17 @@ class ByPropertyValueEntityFinderBuilder extends DependencyBuilder {
 	 */
 	public function buildObject( DependencyManager $dependencyManager ) {
 		/**
-		 * @var QueryStore $queryStore
+		 * @var SQLStore $queryStore
 		 */
-		$queryStore = $dependencyManager->newObject( 'queryStore' );
+		$queryStore = $dependencyManager->newObject( 'sqlStore' );
+
+		/**
+		 * @var QueryInterface $queryInterface
+		 */
+		$queryInterface = $dependencyManager->newObject( 'slaveQueryInterface' );
 
 		return new ByPropertyValueEntityFinder(
-			$queryStore->getQueryEngine(),
+			$queryStore->newQueryEngine( $queryInterface ),
 			$this->repo->getDataValueFactory(),
 			$this->repo->getEntityIdParser(),
 			$this->repo->getEntityIdFormatter()

@@ -3,9 +3,11 @@
 namespace Wikibase\Query\DIC;
 
 use Wikibase\Query\DIC\Builders\ByPropertyValueEntityFinderBuilder;
+use Wikibase\Query\DIC\Builders\DatabaseConnectionBuilder;
 use Wikibase\Query\DIC\Builders\ExtensionUpdaterBuilder;
 use Wikibase\Query\DIC\Builders\QueryInterfaceBuilder;
-use Wikibase\Query\DIC\Builders\QueryStoreBuilder;
+use Wikibase\Query\DIC\Builders\QueryStoreWithDependenciesBuilder;
+use Wikibase\Query\DIC\Builders\SQLStoreBuilder;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
@@ -27,25 +29,61 @@ class WikibaseQueryBuilder {
 			)
 		);
 
+		if ( defined( 'MW_PHPUNIT_TEST' ) ) {
+			$dependencyManager->registerBuilder(
+				'sqlStore',
+				new SQLStoreBuilder(
+					'WikibaseQuery test store',
+					'test_wbq_'
+				)
+			);
+		}
+		else {
+			$dependencyManager->registerBuilder(
+				'sqlStore',
+				new SQLStoreBuilder(
+					'WikibaseQuery SQLStore 0.1 alpha',
+					'wbq_'
+				)
+			);
+		}
+
 		$dependencyManager->registerBuilder(
-			'queryStore',
-			new QueryStoreBuilder(
-				DB_SLAVE,
-				$GLOBALS['wgDBtype']
-			)
+			'extensionUpdater',
+			new ExtensionUpdaterBuilder()
+		);
+
+		$dependencyManager->registerBuilder(
+			'queryStoreWithDependencies',
+			new QueryStoreWithDependenciesBuilder()
 		);
 
 		$dependencyManager->registerBuilder(
 			'slaveQueryInterface',
 			new QueryInterfaceBuilder(
-				DB_SLAVE,
-				$GLOBALS['wgDBtype']
+				'slaveConnectionProvider'
 			)
 		);
 
 		$dependencyManager->registerBuilder(
-			'extensionUpdater',
-			new ExtensionUpdaterBuilder()
+			'masterQueryInterface',
+			new QueryInterfaceBuilder(
+				'masterConnectionProvider'
+			)
+		);
+
+		$dependencyManager->registerBuilder(
+			'slaveConnectionProvider',
+			new DatabaseConnectionBuilder(
+				DB_SLAVE
+			)
+		);
+
+		$dependencyManager->registerBuilder(
+			'masterConnectionProvider',
+			new DatabaseConnectionBuilder(
+				DB_MASTER
+			)
 		);
 
 		return new WikibaseQuery( $dependencyManager );

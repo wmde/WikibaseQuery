@@ -14,16 +14,10 @@ use Wikibase\Query\DIC\DependencyManager;
  */
 class QueryInterfaceBuilder extends DependencyBuilder {
 
-	protected $connectionId;
-	protected $dbType;
+	protected $queryInterfaceBuilderKey;
 
-	/**
-	 * @param int $connectionId ie DB_MASTER, DB_SLAVE
-	 * @param string $dbType ie mysql, sqlite
-	 */
-	public function __construct( $connectionId, $dbType ) {
-		$this->connectionId = $connectionId;
-		$this->dbType = $dbType;
+	public function __construct( $queryInterfaceBuilderKey ) {
+		$this->queryInterfaceBuilderKey = $queryInterfaceBuilderKey;
 	}
 
 	/**
@@ -34,11 +28,9 @@ class QueryInterfaceBuilder extends DependencyBuilder {
 	 * @return QueryInterface
 	 */
 	public function buildObject( DependencyManager $dependencyManager ) {
-		return new MediaWikiQueryInterface( $this->newConnectionProvider() );
-	}
-
-	protected function newConnectionProvider() {
-		return new LazyDBConnectionProvider( $this->connectionId );
+		return new MediaWikiQueryInterface(
+			$dependencyManager->newObject( $this->queryInterfaceBuilderKey )
+		);
 	}
 
 }

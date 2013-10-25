@@ -4,7 +4,7 @@ namespace Wikibase\Query\DIC;
 
 use Wikibase\Query\ByPropertyValueEntityFinder;
 use Wikibase\Query\Setup\ExtensionUpdater;
-use Wikibase\QueryEngine\QueryStore;
+use Wikibase\QueryEngine\QueryStoreWithDependencies;
 
 /**
  * This class exposes methods to retrieve each type of generally accessible object
@@ -37,17 +37,20 @@ class WikibaseQuery {
 	}
 
 	/**
-	 * @return QueryStore
-	 */
-	public function getQueryStore() {
-		return $this->dependencyManager->newObject( 'queryStore' );
-	}
-
-	/**
 	 * @return ExtensionUpdater
 	 */
 	public function getExtensionUpdater() {
 		return $this->dependencyManager->newObject( 'extensionUpdater' );
+	}
+
+	/**
+	 * This initializes all dependencies of the QueryStore.
+	 * Do not use in production code if only part of the QueryStore is needed.
+	 *
+	 * @return QueryStoreWithDependencies
+	 */
+	public function getQueryStoreWithDependencies() {
+		return $this->dependencyManager->newObject( 'queryStoreWithDependencies' );
 	}
 
 }

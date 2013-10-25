@@ -50,7 +50,7 @@ class HookSetup {
 	protected function registerExtensionSchemaUpdates() {
 		// https://www.mediawiki.org/wiki/Manual:Hooks/LoadExtensionSchemaUpdates
 		$this->hooks['LoadExtensionSchemaUpdates'][] = function( \DatabaseUpdater $updater ) {
-			// TODO: ExtensionAccess::getWikibaseQuery()->
+			ExtensionAccess::getWikibaseQuery()->getExtensionUpdater()->run( $updater );
 		};
 	}
 
