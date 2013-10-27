@@ -169,6 +169,7 @@ $messages['ksh'] = array(
  * @author Robby
  */
 $messages['lb'] = array(
+	'special-simplequery' => 'Einfach Ufro',
 	'wikibase-specialsimplequery-label-property' => 'Eegeschaft:',
 );
 
