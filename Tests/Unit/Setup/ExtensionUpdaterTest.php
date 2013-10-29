@@ -16,13 +16,14 @@ use Wikibase\Query\Setup\ExtensionUpdater;
 class ExtensionUpdaterTest extends \PHPUnit_Framework_TestCase {
 
 	public function testRunForNewInstall() {
-		$queryStoreSetup = $this->getMock( 'Wikibase\QueryEngine\QueryStoreSetup' );
+		$queryStoreInstaller = $this->getMock( 'Wikibase\QueryEngine\QueryStoreInstaller' );
+		$queryStoreUpdater = $this->getMock( 'Wikibase\QueryEngine\QueryStoreUpdater' );
 
-		$queryStoreSetup->expects( $this->once() )
-			->method( 'update' );
-
-		$queryStoreSetup->expects( $this->once() )
+		$queryStoreInstaller->expects( $this->once() )
 			->method( 'install' );
+
+		$queryStoreUpdater->expects( $this->once() )
+			->method( 'update' );
 
 		$dbUpdater = $this->getMockBuilder( 'MysqlUpdater' )
 			->disableOriginalConstructor()->getMock();
@@ -34,18 +35,19 @@ class ExtensionUpdaterTest extends \PHPUnit_Framework_TestCase {
 		$dbUpdater->expects( $this->exactly( 1 ) )
 			->method( 'insertUpdateRow' );
 
-		$updater = new ExtensionUpdater( $queryStoreSetup );
+		$updater = new ExtensionUpdater( $queryStoreInstaller, $queryStoreUpdater );
 		$updater->run( $dbUpdater );
 	}
 
 	public function testRunForExistingInstall() {
-		$queryStoreSetup = $this->getMock( 'Wikibase\QueryEngine\QueryStoreSetup' );
+		$queryStoreInstaller = $this->getMock( 'Wikibase\QueryEngine\QueryStoreInstaller' );
+		$queryStoreUpdater = $this->getMock( 'Wikibase\QueryEngine\QueryStoreUpdater' );
 
-		$queryStoreSetup->expects( $this->once() )
-			->method( 'update' );
-
-		$queryStoreSetup->expects( $this->never() )
+		$queryStoreInstaller->expects( $this->never() )
 			->method( 'install' );
+
+		$queryStoreUpdater->expects( $this->once() )
+			->method( 'update' );
 
 		$dbUpdater = $this->getMockBuilder( 'MysqlUpdater' )
 			->disableOriginalConstructor()->getMock();
@@ -57,7 +59,7 @@ class ExtensionUpdaterTest extends \PHPUnit_Framework_TestCase {
 		$dbUpdater->expects( $this->never() )
 			->method( 'insertUpdateRow' );
 
-		$updater = new ExtensionUpdater( $queryStoreSetup );
+		$updater = new ExtensionUpdater( $queryStoreInstaller, $queryStoreUpdater );
 		$updater->run( $dbUpdater );
 	}
 

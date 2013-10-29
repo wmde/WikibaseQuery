@@ -13,11 +13,6 @@ use Wikibase\Query\DIC\ExtensionAccess;
  */
 class ObjectConstructionTest extends \PHPUnit_Framework_TestCase {
 
-	public function testConstructQueryStore() {
-		$queryStore = ExtensionAccess::getWikibaseQuery()->getQueryStore();
-		$this->assertInstanceOf( 'Wikibase\QueryEngine\QueryStore', $queryStore );
-	}
-
 	public function testConstructByPropertyValueEntityFinder() {
 		$byPropertyValueEntityFinder = ExtensionAccess::getWikibaseQuery()->getByPropertyValueEntityFinder();
 		$this->assertInstanceOf( 'Wikibase\Query\ByPropertyValueEntityFinder', $byPropertyValueEntityFinder );

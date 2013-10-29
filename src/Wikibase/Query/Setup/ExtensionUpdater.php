@@ -3,7 +3,8 @@
 namespace Wikibase\Query\Setup;
 
 use DatabaseUpdater;
-use Wikibase\QueryEngine\QueryStoreSetup;
+use Wikibase\QueryEngine\QueryStoreInstaller;
+use Wikibase\QueryEngine\QueryStoreUpdater;
 
 /**
  * @licence GNU GPL v2+
@@ -11,18 +12,17 @@ use Wikibase\QueryEngine\QueryStoreSetup;
  */
 class ExtensionUpdater {
 
-	/**
-	 * @var QueryStoreSetup
-	 */
-	protected $queryStoreSetup;
+	protected $queryStoreInstaller;
+	protected $queryStoreUpdater;
 
 	/**
 	 * @var DatabaseUpdater
 	 */
 	protected $updater;
 
-	public function __construct( QueryStoreSetup $queryStoreSetup ) {
-		$this->queryStoreSetup = $queryStoreSetup;
+	public function __construct( QueryStoreInstaller $installer, QueryStoreUpdater $updater ) {
+		$this->queryStoreInstaller = $installer;
+		$this->queryStoreUpdater = $updater;
 	}
 
 	public function run( DatabaseUpdater $updater ) {
@@ -43,11 +43,15 @@ class ExtensionUpdater {
 	}
 
 	protected function installStore() {
-		$this->queryStoreSetup->install();
+		$this->queryStoreInstaller->install();
 	}
 
 	protected function updateStore() {
-		$this->queryStoreSetup->update();
+		$this->queryStoreUpdater->update();
+	}
+
+	protected function reportMessage( $message ) {
+		$this->updater->output( $message );
 	}
 
 }
