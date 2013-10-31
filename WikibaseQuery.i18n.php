@@ -76,6 +76,16 @@ $messages['de'] = array(
 	'wikibase-specialsimplequery-label-valuejson' => 'Wert (als JSON):',
 );
 
+/** Spanish (español)
+ * @author Fitoschido
+ */
+$messages['es'] = array(
+	'special-simplequery' => 'Consulta sencilla',
+	'wikibase-specialsimplequery-legend' => 'Encontrar entidades con par propiedad-valor',
+	'wikibase-specialsimplequery-label-property' => 'Propiedad:',
+	'wikibase-specialsimplequery-label-valuejson' => 'Valor (como JSON):',
+);
+
 /** Finnish (suomi)
  * @author Silvonen
  */
@@ -200,6 +210,17 @@ $messages['mk'] = array(
 $messages['nl'] = array(
 	'wikibasequery-desc' => 'Voegt zoekmogelijkheden toe aan Wikibase',
 	'wikibase-specialsimplequery-label-property' => 'Eigenschap:',
+);
+
+/** Occitan (occitan)
+ * @author Cedric31
+ */
+$messages['oc'] = array(
+	'wikibasequery-desc' => 'Apond de capacitats de requèsta a Wikibase',
+	'special-simplequery' => 'Requèsta simpla',
+	'wikibase-specialsimplequery-legend' => "Trobar d'entitats amb una para proprietat-valor",
+	'wikibase-specialsimplequery-label-property' => 'Proprietat :',
+	'wikibase-specialsimplequery-label-valuejson' => 'Valor (en JSON) :',
 );
 
 /** Polish (polski)
