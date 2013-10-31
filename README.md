@@ -18,7 +18,7 @@ Features:
 
 * PHP 5.3 or later
 * [Wikibase DataModel](https://github.com/wikimedia/mediawiki-extensions-WikibaseDataModel/blob/master/README.md) 0.5 or later
-* Wikibase Repo 0.5 or later
+* [Wikibase Repo](https://www.mediawiki.org/wiki/Extension:Wikibase_Repo) 0.5 or later
 * [Wikibase QueryEngine](https://github.com/wikimedia/mediawiki-extensions-WikibaseQueryEngine/blob/master/README.md) 0.1 or later
 * [Ask](https://github.com/wikimedia/mediawiki-extensions-Ask/blob/master/README.md) 1.x
 * [DataValues](https://www.mediawiki.org/wiki/Extension:DataValues) 0.1 or later
