@@ -173,6 +173,10 @@ $messages['ko'] = array(
  */
 $messages['ksh'] = array(
 	'wikibasequery-desc' => 'Brängk de Möjeleschkeit för ze Söhke zom <i lang="en">Wikibase</i> dohzoh.',
+	'special-simplequery' => 'Eijfache Froore aan de Daatebangk',
+	'wikibase-specialsimplequery-legend' => 'Fengk Enndrääsch met Paare vun Eijeschavv un Wäät',
+	'wikibase-specialsimplequery-label-property' => 'Eijeschaff:',
+	'wikibase-specialsimplequery-label-valuejson' => 'Dä Wäät en JSON:',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
