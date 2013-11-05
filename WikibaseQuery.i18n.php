@@ -86,6 +86,17 @@ $messages['es'] = array(
 	'wikibase-specialsimplequery-label-valuejson' => 'Valor (como JSON):',
 );
 
+/** Basque (euskara)
+ * @author Theklan
+ */
+$messages['eu'] = array(
+	'wikibasequery-desc' => 'Query gaitasunak ematen dizkio Wikibaseri',
+	'special-simplequery' => 'Eskari sinplea',
+	'wikibase-specialsimplequery-legend' => 'Aurkitu propietate-balioa bikotea duten entitateak',
+	'wikibase-specialsimplequery-label-property' => 'Propietatea:',
+	'wikibase-specialsimplequery-label-valuejson' => 'Baioa (JSON gisa):',
+);
+
 /** Finnish (suomi)
  * @author Silvonen
  */
