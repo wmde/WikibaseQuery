@@ -42,6 +42,7 @@ class WikibaseQueryTest extends \PHPUnit_Framework_TestCase {
 		$argLists[] = array( 'byPropertyValueEntityFinder', 'getByPropertyValueEntityFinder' );
 		$argLists[] = array( 'queryStoreWithDependencies', 'getQueryStoreWithDependencies' );
 		$argLists[] = array( 'extensionUpdater', 'getExtensionUpdater' );
+		$argLists[] = array( 'queryStoreWriter', 'getQueryStoreWriter' );
 
 		return $argLists;
 	}

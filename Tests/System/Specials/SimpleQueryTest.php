@@ -1,6 +1,7 @@
 <?php
 
 namespace Tests\Integration\Wikibase\Query\Special;
+
 use \Wikibase\Test\SpecialPageTestBase;
 use \Wikibase\Query\Specials\SimpleQuery;
 
@@ -8,6 +9,7 @@ use \Wikibase\Query\Specials\SimpleQuery;
  * @group Wikibase
  * @group SpecialPage
  * @group WikibaseSpecialPage
+ * @group medium
  *
  * @since 0.1
  * @licence GNU GPL v2+

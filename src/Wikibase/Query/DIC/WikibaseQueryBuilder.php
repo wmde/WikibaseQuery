@@ -7,6 +7,7 @@ use Wikibase\Query\DIC\Builders\DatabaseConnectionBuilder;
 use Wikibase\Query\DIC\Builders\ExtensionUpdaterBuilder;
 use Wikibase\Query\DIC\Builders\QueryInterfaceBuilder;
 use Wikibase\Query\DIC\Builders\QueryStoreWithDependenciesBuilder;
+use Wikibase\Query\DIC\Builders\QueryStoreWriterBuilder;
 use Wikibase\Query\DIC\Builders\SQLStoreBuilder;
 use Wikibase\Repo\WikibaseRepo;
 
@@ -84,6 +85,11 @@ class WikibaseQueryBuilder {
 			new DatabaseConnectionBuilder(
 				DB_MASTER
 			)
+		);
+
+		$dependencyManager->registerBuilder(
+			'queryStoreWriter',
+			new QueryStoreWriterBuilder()
 		);
 
 		return new WikibaseQuery( $dependencyManager );

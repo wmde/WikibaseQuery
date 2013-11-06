@@ -59,7 +59,7 @@ class ExtensionSetupTest extends \PHPUnit_Framework_TestCase {
 
 	public function testInternationalizationRegistration() {
 		$this->runSetup();
-		$this->assertHooksAreRegistered();
+		$this->assertInternationalizationIsRegistered();
 	}
 
 	protected function assertInternationalizationIsRegistered() {

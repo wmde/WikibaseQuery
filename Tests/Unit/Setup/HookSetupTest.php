@@ -18,6 +18,9 @@ class HookSetupTest extends \PHPUnit_Framework_TestCase {
 	protected $expectedHooks = array(
 		'UnitTestsList',
 		'LoadExtensionSchemaUpdates',
+		'WikibaseEntityInsertionUpdate',
+		'WikibaseEntityModificationUpdate',
+		'WikibaseEntityDeletionUpdate',
 	);
 
 	public function testRegistersHooks() {

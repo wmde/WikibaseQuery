@@ -6,6 +6,7 @@ use DataValues\StringValue;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\Item;
+use Wikibase\ItemContent;
 use Wikibase\Property;
 use Wikibase\PropertyContent;
 use Wikibase\PropertyValueSnak;
@@ -16,7 +17,7 @@ use Wikibase\Statement;
  * @group WikibaseQuery
  * @group WikibaseQuerySystem
  * @group Database
- * @group large
+ * @group medium
  *
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
@@ -62,11 +63,10 @@ class EntitiesByPropertyValueApiTest extends \ApiTestCase {
 	}
 
 	protected function insertNewItem() {
-		$storeUpdater = $this->getQueryStore()->newWriter();
-
 		$item = $this->newMockItem();
 
-		$storeUpdater->insertEntity( $item );
+		$itemContent = ItemContent::newFromItem( $item );
+		$itemContent->save();
 	}
 
 	protected function newMockItem() {

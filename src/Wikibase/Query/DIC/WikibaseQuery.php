@@ -5,6 +5,7 @@ namespace Wikibase\Query\DIC;
 use Wikibase\Query\ByPropertyValueEntityFinder;
 use Wikibase\Query\Setup\ExtensionUpdater;
 use Wikibase\QueryEngine\QueryStoreWithDependencies;
+use Wikibase\QueryEngine\QueryStoreWriter;
 
 /**
  * This class exposes methods to retrieve each type of generally accessible object
@@ -51,6 +52,13 @@ class WikibaseQuery {
 	 */
 	public function getQueryStoreWithDependencies() {
 		return $this->dependencyManager->newObject( 'queryStoreWithDependencies' );
+	}
+
+	/**
+	 * @return QueryStoreWriter
+	 */
+	public function getQueryStoreWriter() {
+		return $this->dependencyManager->newObject( 'queryStoreWriter' );
 	}
 
 }
