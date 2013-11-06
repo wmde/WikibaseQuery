@@ -68,7 +68,7 @@ class ExtensionSetup {
 	}
 
 	protected function registerWebAPI() {
-		$this->globalVars['wgAPIModules']['entitiesByPropertyValue'] = 'Wikibase\Query\Api\EntitiesByPropertyValue';
+		$this->globalVars['wgAPIModules']['entitiesbypropertyvalue'] = 'Wikibase\Query\Api\EntitiesByPropertyValue';
 	}
 
 	protected function registerSpecialPages() {
