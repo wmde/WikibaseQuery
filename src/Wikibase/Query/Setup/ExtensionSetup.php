@@ -31,6 +31,7 @@ class ExtensionSetup {
 		$this->registerHooks();
 
 		$this->registerCredits();
+		$this->registerPermissions();
 		$this->registerInternationalization();
 		$this->registerWebAPI();
 		$this->registerSpecialPages();
@@ -77,6 +78,11 @@ class ExtensionSetup {
 
 		// Special page groups
 		$this->globalVars['wgSpecialPageGroups']['SimpleQuery'] = 'wikibaserepo';
+	}
+
+	private function registerPermissions() {
+		//wikibasequery permission
+		$this->globalVars['wgGroupPermissions']['*']['wikibase-query-run'] = true;
 	}
 
 }

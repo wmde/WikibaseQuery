@@ -1,30 +1,30 @@
 <?php
 
-namespace Tests\Integration\Wikibase\Query;
+namespace Tests\Integration\Wikibase\Query\Api;
 
 use DataValues\StringValue;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\Item;
-use Wikibase\ItemContent;
 use Wikibase\Property;
 use Wikibase\PropertyContent;
 use Wikibase\PropertyValueSnak;
 use Wikibase\Query\DIC\ExtensionAccess;
 use Wikibase\Statement;
+use Wikibase\Test\Api\PermissionsTestCase;
 
 /**
  * @group WikibaseQuery
  * @group WikibaseQuerySystem
  * @group Database
- * @group medium
+ * @group large
+ * @group Api
  *
  * @licence GNU GPL v2+
- * @author Jeroen De Dauw < jeroendedauw@gmail.com >
+ * @author Adam Shorland
  */
-class EntitiesByPropertyValueApiTest extends \ApiTestCase {
+class PermissionsTest extends PermissionsTestCase {
 
-	const MODULE_NAME = 'entitiesbypropertyvalue';
 	const PROPERTY_ID_STRING = 'P31337';
 	const ITEM_ID_STRING = 'Q42';
 
@@ -63,10 +63,11 @@ class EntitiesByPropertyValueApiTest extends \ApiTestCase {
 	}
 
 	protected function insertNewItem() {
+		$storeUpdater = $this->getQueryStore()->newWriter();
+
 		$item = $this->newMockItem();
 
-		$itemContent = ItemContent::newFromItem( $item );
-		$itemContent->save();
+		$storeUpdater->insertEntity( $item );
 	}
 
 	protected function newMockItem() {
@@ -96,54 +97,37 @@ class EntitiesByPropertyValueApiTest extends \ApiTestCase {
 		return '{"value":"API tests really suck","type":"string"}';
 	}
 
-	public function testMakeApiRequest() {
-		$resultArray = $this->getResultForRequestWithValue( $this->newMockValueString() );
-
-		$this->assertArrayHasKey( 'entities', $resultArray );
-
-		$entities = $resultArray['entities'];
-
-		$this->assertEquals( array( self::ITEM_ID_STRING ), $entities );
-	}
-
-	protected function getResultForRequestWithValue( $value ) {
+	/**
+	 * @dataProvider provideTestEntitiesByPropertyValue
+	 */
+	public function testEntitiesByPropertyValue( $permissions, $expectedError ) {
 		$params = array(
-			'action' => self::MODULE_NAME,
 			'property' => self::PROPERTY_ID_STRING,
-			'value' => $value,
+			'value' => '{"value":"API tests really suck","type":"string"}',
 		);
 
-		return $this->getResultForRequest( $params );
+		$this->doPermissionsTest( 'entitiesbypropertyvalue', $params, $permissions, $expectedError );
+		//TODO the below check should be pushed into the above method
+		if( $expectedError === null ) {
+			$this->assertTrue( true );
+		}
 	}
 
-	protected function getResultForRequest( array $requestParams ) {
-		list( $resultArray, ) = $this->doApiRequest( $requestParams );
+	public static function provideTestEntitiesByPropertyValue() {
+		return array(
+			array( //0
+				null, // normal permissions
+				null // no error
+			),
 
-		return $resultArray;
-	}
-
-	public function testMakeRequestWithInvalidValue() {
-		$this->setExpectedException(
-			'UsageException',
-			'The provided value needs to be a serialization of a DataValue'
+			array( //1
+				array( // permissions
+					'*'    => array( 'wikibase-query-run' => false ),
+					'user' => array( 'wikibase-query-run' => false )
+				),
+				'permissiondenied' // error
+			),
 		);
-
-		$this->getResultForRequestWithValue(
-			'Im an invalid value in your API request!'
-		);
 	}
 
-	public function testMakeRequestWithUnknownProperty() {
-		$this->setExpectedException(
-			'UsageException',
-			'The specified property does not exist'
-		);
-
-		$this->getResultForRequest( array(
-			'action' => self::MODULE_NAME,
-			'property' => 'p45831890',
-			'value' => $this->newMockValueString(),
-		) );
-	}
-
-}
+} 

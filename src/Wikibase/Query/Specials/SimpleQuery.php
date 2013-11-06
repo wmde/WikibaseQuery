@@ -22,7 +22,7 @@ class SimpleQuery extends SpecialWikibaseQueryPage {
 	protected $valueJson;
 
 	public function __construct() {
-		parent::__construct( 'SimpleQuery' );
+		parent::__construct( 'SimpleQuery', 'wikibase-query-run' );
 	}
 
 	/**

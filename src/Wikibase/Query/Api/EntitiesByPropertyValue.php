@@ -15,6 +15,7 @@ class EntitiesByPropertyValue extends \ApiBase {
 
 	const ERR_NO_SUCH_PROPERTY = 'The specified property does not exist';
 	const ERR_INVALID_JSON = 'The provided value needs to be a serialization of a DataValue';
+	const ERR_PERMISSION_DENIED = 'You do not have sufficient permissions';
 
 	/**
 	 * @see ApiBase::execute
@@ -23,6 +24,14 @@ class EntitiesByPropertyValue extends \ApiBase {
 	 */
 	public function execute() {
 		$entityFinder = ExtensionAccess::getWikibaseQuery()->getByPropertyValueEntityFinder();
+
+		$user = $this->getUser();
+		if ( ! $user->isAllowed( 'wikibase-query-run' ) ){
+			$this->dieUsage(
+				self::ERR_PERMISSION_DENIED,
+				'permissiondenied'
+			);
+		}
 
 		try {
 			$entityIds = $entityFinder->findEntities( $this->extractRequestParams() );
