@@ -98,6 +98,8 @@ class EntitiesByPropertyValue extends \ApiBase {
 			'property' => 'The id of the property for which values should match',
 			'value' => 'The value to match against',
 			'entitytype' => 'The type of entities to limit the search to',
+			'limit' => 'Maximum number of results',
+			'offset' => 'When more results are available, use this to continue',
 		);
 	}
 
