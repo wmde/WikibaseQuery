@@ -145,6 +145,17 @@ $messages['id'] = array(
 	'wikibasequery-desc' => 'Menambahkan kemampuan permintaan ke Wikibase',
 );
 
+/** Iloko (Ilokano)
+ * @author Lam-ang
+ */
+$messages['ilo'] = array(
+	'wikibasequery-desc' => 'Agnayon ti pannakabael a panag-usisa iti Wikibase',
+	'special-simplequery' => 'Simple a panag-usisa',
+	'wikibase-specialsimplequery-legend' => 'Agbiruk kadagiti entidad nga addaan iti paris a pateg ti tagikua',
+	'wikibase-specialsimplequery-label-property' => 'Tagikua:',
+	'wikibase-specialsimplequery-label-valuejson' => 'Pateg (a kas JSON):',
+);
+
 /** Italian (italiano)
  * @author Beta16
  */
