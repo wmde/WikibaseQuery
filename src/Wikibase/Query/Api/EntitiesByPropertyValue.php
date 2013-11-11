@@ -97,7 +97,7 @@ class EntitiesByPropertyValue extends \ApiBase {
 		return array(
 			'property' => 'The id of the property for which values should match',
 			'value' => 'The value to match against',
-			'entityType' => 'The type of entities to limit the search to',
+			'entitytype' => 'The type of entities to limit the search to',
 		);
 	}
 
@@ -123,7 +123,7 @@ class EntitiesByPropertyValue extends \ApiBase {
 	 */
 	protected function getExamples() {
 		return array(
-			'api.php?action=entitiesbypropertyvalue&property=p42&value={data value serialization}&entityType=item'
+			'api.php?action=entitiesbypropertyvalue&property=P42&value={dataValueSerialization}&entitytype=item'
 			// 'ex' => 'desc' // TODO
 		);
 	}
