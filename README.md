@@ -1,6 +1,6 @@
 # Wikibase Query
 
-[![Build Status](https://secure.travis-ci.org/wikimedia/mediawiki-extensions-WikibaseQuery.png?branch=master)](http://travis-ci.org/wikimedia/mediawiki-extensions-WikibaseQuery)
+[![Build Status](https://secure.travis-ci.org/JeroenDeDauw/WikibaseQuery.png?branch=master)](http://travis-ci.org/JeroenDeDauw/WikibaseQuery)
 [![Coverage Status](https://coveralls.io/repos/wikimedia/mediawiki-extensions-WikibaseQuery/badge.png?branch=master)](https://coveralls.io/r/wikimedia/mediawiki-extensions-WikibaseQuery?branch=master)
 
 On Packagist:
