@@ -24,7 +24,7 @@ use Wikibase\Statement;
  */
 class EntitiesByPropertyValueApiTest extends \ApiTestCase {
 
-	const MODULE_NAME = 'entitiesByPropertyValue';
+	const MODULE_NAME = 'entitiesbypropertyvalue';
 	const PROPERTY_ID_STRING = 'P31337';
 	const ITEM_ID_STRING = 'Q42';
 
