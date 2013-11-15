@@ -4,7 +4,9 @@ set -x
 
 cd ..
 
-git clone https://gerrit.wikimedia.org/r/p/mediawiki/core.git phase3 --depth 1
+wget https://github.com/wikimedia/mediawiki-core/archive/master.tar.gz
+tar -zxf mediawiki-core-master.tar.gz
+mv mediawiki-core-master phase3
 
 cd -
 cd ../phase3/extensions
