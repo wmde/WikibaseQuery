@@ -5,7 +5,7 @@ set -x
 cd ..
 
 wget https://github.com/wikimedia/mediawiki-core/archive/master.tar.gz
-tar -zxf mediawiki-core-master.tar.gz
+tar -zxf master.tar.gz
 mv mediawiki-core-master phase3
 
 cd -
