@@ -1,6 +1,6 @@
 {
 	"name": "wikibase/query",
-	"type": "library",
+	"type": "mediawiki-extension",
 	"description": "Extension to Wikibase Repo that adds the ability to define and execute queries",
 	"keywords": [
 		"Wikibase",
