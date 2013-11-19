@@ -7,6 +7,7 @@ use \Wikibase\Query\Specials\SimpleQuery;
 
 /**
  * @group Wikibase
+ * @group WikibaseQuery
  * @group SpecialPage
  * @group WikibaseSpecialPage
  * @group medium

@@ -4,7 +4,9 @@ namespace Wikibase\Query\Specials;
 
 use Wikibase\Query\DIC\ExtensionAccess;
 use Wikibase\Lib\Specials\SpecialWikibaseQueryPage;
-use Html;
+use Wikibase\Query\MessageBuilder;
+use Wikibase\Query\MessageTextBuilder;
+use Wikibase\Query\UI\SearchFormBuilder;
 
 /**
  * Special page that allows for querying for all entities with at least one PropertySnak using a
@@ -33,21 +35,39 @@ class SimpleQuery extends SpecialWikibaseQueryPage {
 			return false;
 		}
 
-		$output = $this->getOutput();
+		$this->extractRequestFields();
+
+		$this->addSearchForm();
+		$this->showQuery();
+
+		return true;
+	}
+
+	private function extractRequestFields() {
 		$request = $this->getRequest();
 
 		$this->propertyId = $request->getText( 'property' );
 		$this->valueJson = $request->getText( 'valuejson' );
+	}
 
-		$output->addHTML(
-			$this->buildSearchForm( array(
-				'property' => $this->propertyId,
-				'valuejson' => $this->valueJson
-			) )
+	private function addSearchForm() {
+		$this->getOutput()->addHTML( $this->getSearchFormHtml() );
+	}
+
+	private function getSearchFormHtml() {
+		$formFieldValues = array(
+			'property' => $this->propertyId,
+			'valuejson' => $this->valueJson
 		);
 
-		$this->showQuery();
-		return true;
+		return $this->newFormBuilder()->buildSearchForm( $formFieldValues );
+	}
+
+	private function newFormBuilder() {
+		return new SearchFormBuilder(
+			$this->getTitle()->getLocalURL(),
+			new MessageTextBuilder( new MessageBuilder( $this->getContext(), !$this->including() ) )
+		);
 	}
 
 	/**
@@ -74,75 +94,4 @@ class SimpleQuery extends SpecialWikibaseQueryPage {
 		return $entityIds;
 	}
 
-	/**
-	 * Creates HTML for a search form suitable for the special page's purpose.
-	 *
-	 * @since 0.1
-	 *
-	 * @param array $formFieldValues
-	 * @return string
-	 */
-	protected function buildSearchForm( array $formFieldValues ) {
-		return
-			Html::openElement(
-				'form',
-				array(
-					'action' => $this->getTitle()->getLocalURL(),
-					'name' => 'simplequery',
-					'id' => 'wb-SimpleQuery-form'
-				)
-			) .
-			Html::openElement( 'fieldset' ) .
-			Html::element(
-				'legend',
-				array(),
-				$this->msg( 'wikibase-specialsimplequery-legend' )->text()
-			) .
-
-			$this->buildSearchFormInput( 'property', $formFieldValues['property'] ) .
-			$this->buildSearchFormInput( 'valuejson', $formFieldValues['valuejson'] ) .
-
-			Html::input(
-				null,
-				$this->msg( 'wikibase-entitieswithoutlabel-submit' )->text(),
-				'submit',
-				array(
-					'id' => 'wikibase-specialsimplequery-submit',
-					'class' => 'wb-input-button'
-				)
-			) .
-
-			Html::closeElement( 'fieldset' ) .
-			Html::closeElement( 'form' );
-	}
-
-	/**
-	 * Creates HTML for an input field.
-	 *
-	 * @since 0.1
-	 *
-	 * @param string $purpose
-	 * @param string $value
-	 * @return string
-	 */
-	protected function buildSearchFormInput( $purpose, $value ) {
-		return
-			Html::openElement( 'p' ) .
-			Html::element(
-				'label',
-				array(
-					'for' => "wb-specialsimplequery-$purpose"
-				),
-				$this->msg( "wikibase-specialsimplequery-label-$purpose" )->text()
-			) .
-			Html::input(
-				$purpose,
-				$value,
-				'text',
-				array(
-					'id' => "wb-specialsimplequery-$purpose"
-				)
-			) .
-			Html::closeElement( 'p' );
-	}
 }
