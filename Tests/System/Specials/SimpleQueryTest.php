@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Integration\Wikibase\Query\Special;
+namespace Tests\System\Wikibase\Query\Special;
 
 use Wikibase\Test\PermissionsHelper;
 use \Wikibase\Test\SpecialPageTestBase;

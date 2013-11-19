@@ -1,17 +1,9 @@
 <?php
 
-namespace Tests\Integration\Wikibase\Query\Api;
+namespace Tests\System\Wikibase\Query\Api;
 
-use DataValues\StringValue;
-use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\DataModel\Entity\PropertyId;
-use Wikibase\Item;
-use Wikibase\ItemContent;
-use Wikibase\Property;
-use Wikibase\PropertyContent;
-use Wikibase\PropertyValueSnak;
-use Wikibase\Query\DIC\ExtensionAccess;
-use Wikibase\Statement;
+//TODO FIXME where to put this?
+require_once( __DIR__ . '/ApiTestSetup.php' );
 
 /**
  * @group WikibaseQuery
@@ -29,68 +21,20 @@ class EntitiesByPropertyValueApiTest extends \ApiTestCase {
 	const PROPERTY_ID_STRING = 'P31337';
 	const ITEM_ID_STRING = 'Q42';
 
-	protected $itemId;
-	protected $propertyId;
-
-	protected function getQueryStore() {
-		return ExtensionAccess::getWikibaseQuery()->getQueryStoreWithDependencies();
-	}
+	/**
+	 * @var ApiTestSetup
+	 */
+	protected $apiTestSetup;
 
 	public function setUp() {
 		parent::setUp();
-
-		$this->itemId = new ItemId( self::ITEM_ID_STRING );
-		$this->propertyId = new PropertyId( self::PROPERTY_ID_STRING );
-
-		$this->getQueryStore()->newInstaller()->install();
-
-		$this->createNewProperty();
-		$this->insertNewItem();
+		$this->apiTestSetup = new ApiTestSetup( self::ITEM_ID_STRING, self::PROPERTY_ID_STRING );
+		$this->apiTestSetup->setUp();
 	}
 
 	public function tearDown() {
-		$this->getQueryStore()->newUninstaller()->uninstall();
 		parent::tearDown();
-	}
-
-	protected function createNewProperty() {
-		$property = Property::newEmpty();
-		$property->setId( $this->propertyId );
-		$property->setDataTypeId( 'string' );
-
-		$propertyContent = PropertyContent::newFromProperty( $property );
-
-		$propertyContent->save();
-	}
-
-	protected function insertNewItem() {
-		$item = $this->newMockItem();
-
-		$itemContent = ItemContent::newFromItem( $item );
-		$itemContent->save();
-	}
-
-	protected function newMockItem() {
-		$item = Item::newEmpty();
-
-		$item->setId( $this->itemId );
-
-		$claim = new Statement(
-			new PropertyValueSnak(
-				$this->propertyId,
-				$this->newMockValue()
-			)
-		);
-
-		$claim->setGuid( 'foo' );
-
-		$item->addClaim( $claim );
-
-		return $item;
-	}
-
-	protected function newMockValue() {
-		return new StringValue( 'API tests really suck' );
+		$this->apiTestSetup->tearDown();
 	}
 
 	protected function newMockValueString() {
