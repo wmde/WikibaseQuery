@@ -99,9 +99,12 @@ $messages['eu'] = array(
 
 /** Finnish (suomi)
  * @author Silvonen
+ * @author Stryn
  */
 $messages['fi'] = array(
 	'wikibasequery-desc' => 'Lisää Wikibaseen kyselyominaisuudet',
+	'wikibase-specialsimplequery-label-property' => 'Ominaisuus:',
+	'wikibase-specialsimplequery-label-valuejson' => 'Arvo (JSON):',
 );
 
 /** French (français)
