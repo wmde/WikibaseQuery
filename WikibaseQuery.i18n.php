@@ -171,11 +171,13 @@ $messages['it'] = array(
 );
 
 /** Japanese (日本語)
+ * @author Fryed-peach
  * @author Shirayuki
  */
 $messages['ja'] = array(
 	'wikibasequery-desc' => 'ウィキベースにクエリ機能を追加する',
 	'special-simplequery' => '単純なクエリ',
+	'wikibase-specialsimplequery-legend' => '指定したプロパティと値の組を持つ実体を探します',
 	'wikibase-specialsimplequery-label-property' => 'プロパティ:',
 	'wikibase-specialsimplequery-label-valuejson' => '値 (JSON 形式で):',
 );
