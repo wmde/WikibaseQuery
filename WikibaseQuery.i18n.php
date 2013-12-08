@@ -240,7 +240,10 @@ $messages['mk'] = array(
  */
 $messages['nl'] = array(
 	'wikibasequery-desc' => 'Voegt zoekmogelijkheden toe aan Wikibase',
+	'special-simplequery' => 'Eenvoudige zoekopdracht',
+	'wikibase-specialsimplequery-legend' => 'Entiteiten zoeken met een paar eigenschap-waarde',
 	'wikibase-specialsimplequery-label-property' => 'Eigenschap:',
+	'wikibase-specialsimplequery-label-valuejson' => 'Waarde (als JSON):',
 );
 
 /** Occitan (occitan)
