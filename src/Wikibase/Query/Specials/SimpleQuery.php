@@ -65,7 +65,7 @@ class SimpleQuery extends SpecialWikibaseQueryPage {
 
 	private function newFormBuilder() {
 		return new SearchFormBuilder(
-			$this->getTitle()->getLocalURL(),
+			$this->getPageTitle()->getLocalURL(),
 			new MessageTextBuilder( new MessageBuilder( $this->getContext(), !$this->including() ) )
 		);
 	}
