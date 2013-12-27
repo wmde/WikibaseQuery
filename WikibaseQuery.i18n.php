@@ -268,6 +268,17 @@ $messages['pl'] = array(
 	'wikibase-specialsimplequery-label-valuejson' => 'Wartość (jak JSON):',
 );
 
+/** Romanian (română)
+ * @author Minisarm
+ */
+$messages['ro'] = array(
+	'wikibasequery-desc' => 'Adaugă capacități de interogare pentru Wikibase',
+	'special-simplequery' => 'Interogare simplă',
+	'wikibase-specialsimplequery-legend' => 'Găsește entități cu o pereche proprietate-valoare',
+	'wikibase-specialsimplequery-label-property' => 'Proprietate:',
+	'wikibase-specialsimplequery-label-valuejson' => 'Valoare (ca JSON):',
+);
+
 /** tarandíne (tarandíne)
  * @author Joetaras
  */
