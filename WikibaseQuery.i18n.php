@@ -268,6 +268,17 @@ $messages['pl'] = array(
 	'wikibase-specialsimplequery-label-valuejson' => 'Wartość (jak JSON):',
 );
 
+/** Portuguese (português)
+ * @author Vitorvicentevalente
+ */
+$messages['pt'] = array(
+	'wikibasequery-desc' => 'Adicionar recursos de consulta ao Wikibase',
+	'special-simplequery' => 'Consulta simples',
+	'wikibase-specialsimplequery-legend' => 'Encontrar entidades com par de valor de propriedade',
+	'wikibase-specialsimplequery-label-property' => 'Propriedade:',
+	'wikibase-specialsimplequery-label-valuejson' => 'Valor (como JSON):',
+);
+
 /** Romanian (română)
  * @author Minisarm
  */
