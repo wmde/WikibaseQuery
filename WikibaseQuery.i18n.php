@@ -76,6 +76,17 @@ $messages['de'] = array(
 	'wikibase-specialsimplequery-label-valuejson' => 'Wert (als JSON):',
 );
 
+/** Lower Sorbian (dolnoserbski)
+ * @author Michawiki
+ */
+$messages['dsb'] = array(
+	'wikibasequery-desc' => 'Wikibase napšašowańske móžnosći pśidaś',
+	'special-simplequery' => 'Jadnore napšašowanje',
+	'wikibase-specialsimplequery-legend' => 'Objekty z pórom kakosć-hgdnota namakaś',
+	'wikibase-specialsimplequery-label-property' => 'Kakosć:',
+	'wikibase-specialsimplequery-label-valuejson' => 'Gódnota (ako JSON):',
+);
+
 /** Spanish (español)
  * @author Fitoschido
  */
@@ -139,6 +150,17 @@ $messages['he'] = array(
 	'wikibase-specialsimplequery-legend' => 'מציאת ישויות עם זוג מאפיין–ערך',
 	'wikibase-specialsimplequery-label-property' => 'מאפיין:',
 	'wikibase-specialsimplequery-label-valuejson' => 'ערך (כ־JSON):',
+);
+
+/** Upper Sorbian (hornjoserbsce)
+ * @author Michawiki
+ */
+$messages['hsb'] = array(
+	'wikibasequery-desc' => 'Wikibase naprašowanske móžnosće přidać',
+	'special-simplequery' => 'Jednore naprašowanje',
+	'wikibase-specialsimplequery-legend' => 'Objekty z porom kajkosć-hódnota namakać',
+	'wikibase-specialsimplequery-label-property' => 'Kajkosć:',
+	'wikibase-specialsimplequery-label-valuejson' => 'Hódnota (jako JSON):',
 );
 
 /** Indonesian (Bahasa Indonesia)
