@@ -114,6 +114,7 @@ $messages['eu'] = array(
  */
 $messages['fi'] = array(
 	'wikibasequery-desc' => 'Lisää Wikibaseen kyselyominaisuudet',
+	'special-simplequery' => 'Yksinkertainen kysely',
 	'wikibase-specialsimplequery-label-property' => 'Ominaisuus:',
 	'wikibase-specialsimplequery-label-valuejson' => 'Arvo (JSON):',
 );
