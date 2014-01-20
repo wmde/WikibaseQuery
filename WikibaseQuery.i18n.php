@@ -58,6 +58,17 @@ $messages['ast'] = array(
 	'wikibase-specialsimplequery-label-valuejson' => 'Valor (como JSON):',
 );
 
+/** Bosnian (bosanski)
+ * @author Edinwiki
+ */
+$messages['bs'] = array(
+	'wikibasequery-desc' => 'Daje mogućnost sljanje upita prema Wikibase-u',
+	'special-simplequery' => 'Jednostavni upit',
+	'wikibase-specialsimplequery-legend' => 'Pronađi entitete sa parom svojstvo-vrijednost',
+	'wikibase-specialsimplequery-label-property' => 'Svojstvo:',
+	'wikibase-specialsimplequery-label-valuejson' => 'Vrijednost (u JSON-u):',
+);
+
 /** Danish (dansk)
  * @author Byrial
  */
