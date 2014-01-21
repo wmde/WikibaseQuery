@@ -1,7 +1,7 @@
 # Wikibase Query
 
-[![Build Status](https://secure.travis-ci.org/JeroenDeDauw/WikibaseQuery.png?branch=master)](http://travis-ci.org/JeroenDeDauw/WikibaseQuery)
-[![Coverage Status](https://coveralls.io/repos/wikimedia/mediawiki-extensions-WikibaseQuery/badge.png?branch=master)](https://coveralls.io/r/wikimedia/mediawiki-extensions-WikibaseQuery?branch=master)
+[![Build Status](https://secure.travis-ci.org/wmde/WikibaseQuery.png?branch=master)](http://travis-ci.org/wmde/WikibaseQuery)
+[![Coverage Status](https://coveralls.io/repos/wmde/WikibaseQuery/badge.png?branch=master)](https://coveralls.io/r/wmde/WikibaseQuery?branch=master)
 
 On Packagist:
 [![Latest Stable Version](https://poser.pugx.org/wikibase/query/version.png)](https://packagist.org/packages/wikibase/query)
@@ -13,16 +13,6 @@ Features:
 
 * New Query page type that allows people to define queries (in the Query namespace by default).
 * Query execution against a query engine that returns a query result
-
-## Requirements
-
-* PHP 5.3 or later
-* [Wikibase DataModel](https://github.com/wikimedia/mediawiki-extensions-WikibaseDataModel/blob/master/README.md) 0.5 or later
-* [Wikibase Repo](https://www.mediawiki.org/wiki/Extension:Wikibase_Repo) 0.5 or later
-* [Wikibase QueryEngine](https://github.com/wikimedia/mediawiki-extensions-WikibaseQueryEngine/blob/master/README.md) 0.1 or later
-* [Ask](https://github.com/wikimedia/mediawiki-extensions-Ask/blob/master/README.md) 1.x
-* [DataValues](https://www.mediawiki.org/wiki/Extension:DataValues) 0.1 or later
-* [Serialization](https://github.com/wikimedia/mediawiki-extensions-Serialization/blob/master/README.md) 2.x
 
 ## Installation
 
@@ -73,4 +63,4 @@ as [Wikimedia Germany](https://wikimedia.de) employee for the [Wikidata project]
 * [Wikibase Query on Packagist](https://packagist.org/packages/wikibase/query)
 * [Wikibase Query on Ohloh](https://www.ohloh.net/p/wikibasequery)
 * [Wikibase Query on MediaWiki.org](https://www.mediawiki.org/wiki/Extension:Wikibase_Query)
-* [TravisCI build status](https://travis-ci.org/wikimedia/mediawiki-extensions-WikibaseQuery)
+* [TravisCI build status](https://travis-ci.org/wmde/WikibaseQuery)
