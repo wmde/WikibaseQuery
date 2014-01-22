@@ -8,7 +8,7 @@
 		"query",
 		"Wikidata"
 	],
-	"homepage": "https://www.mediawiki.org/wiki/Extension:WikibaseQuery",
+	"homepage": "https://github.com/wmde/WikibaseQuery",
 	"license": "GPL-2.0+",
 	"authors": [
 		{
@@ -20,33 +20,26 @@
 	],
 	"support": {
 		"issues": "https://bugzilla.wikimedia.org/",
-		"irc": "irc://irc.freenode.net/wikidata",
-		"forum": "https://www.mediawiki.org/wiki/Extension_talk:WikibaseQuery",
-		"wiki": "https://www.mediawiki.org/wiki/Extension:WikibaseQuery"
+		"irc": "irc://irc.freenode.net/wikidata"
 	},
-	"repositories": [
-		{
-			"type": "vcs",
-			"url": "https://gerrit.wikimedia.org/r/p/mediawiki/extensions/DataValues.git"
-		}
-	],
 	"require": {
 		"php": ">=5.3.0",
-		"composer/installers": ">=1.0.1",
+		"composer/installers": "1.*,>=1.0.1",
 		"data-values/data-values": "~0.1",
+		"data-values/interfaces": "~0.1",
 		"ask/ask": "~1.0",
+		"ask/serialization": "~1.0",
 		"wikibase/data-model": ">=0.4",
 		"wikibase/query-engine": "dev-master",
 		"wikibase/wikibase": "dev-master",
 		"serialization/serialization": "~2.0"
 	},
-	"require-dev": {
-		"satooshi/php-coveralls": "dev-master"
-	},
-	"minimum-stability" : "dev",
 	"autoload": {
 		"files" : [
 			"WikibaseQuery.php"
-		]
+		],
+		"psr-4": {
+			"Wikibase\\Query\\": "src/"
+		}
 	}
 }

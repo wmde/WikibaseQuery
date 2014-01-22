@@ -10,19 +10,18 @@ use Ask\Language\Option\QueryOptions;
 use Ask\Language\Query;
 use Ask\Language\Selection\PropertySelection;
 use Ask\SerializerFactory;
+use DataValues\Deserializers\DataValueDeserializer;
 use DataValues\StringValue;
-use Wikibase\Claim;
+use Wikibase\DataModel\Claim\Claim;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\PropertyId;
-use Wikibase\PropertySomeValueSnak;
-use Wikibase\PropertyValueSnak;
-use Wikibase\Query\DIC\ExtensionAccess;
+use Wikibase\DataModel\Snak\PropertySomeValueSnak;
+use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\Query\QueryEntity;
 use Wikibase\Query\QueryEntityDeserializer;
 use Wikibase\Query\QueryEntitySerializer;
 use Wikibase\Query\QueryId;
-use Wikibase\Repo\WikibaseRepo;
-use Wikibase\SnakList;
+use Wikibase\DataModel\Snak\SnakList;
 
 /**
  * @group WikibaseQuery
@@ -38,7 +37,7 @@ class QueryEntityRoundtripTest extends \PHPUnit_Framework_TestCase {
 
 		$askSerializerFactory = new SerializerFactory();
 
-		$askDeserializerFactory = new DeserializerFactory( WikibaseRepo::getDefaultInstance()->getDataValueFactory() );
+		$askDeserializerFactory = new DeserializerFactory( new DataValueDeserializer( $GLOBALS['evilDataValueMap'] ) );
 
 		$serializer = new QueryEntitySerializer( $askSerializerFactory->newQuerySerializer() );
 		$deserializer = new QueryEntityDeserializer( $askDeserializerFactory->newQueryDeserializer() );

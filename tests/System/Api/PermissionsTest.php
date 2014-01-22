@@ -4,11 +4,9 @@ namespace Tests\System\Wikibase\Query\Api;
 
 use Wikibase\Test\Api\PermissionsTestCase;
 
-//TODO FIXME where to put this?
-require_once( __DIR__ . '/ApiTestSetup.php' );
-
 /**
  * @group WikibaseQuery
+ * @group WikibaseQueryPermissionsTest
  * @group WikibaseQuerySystem
  * @group Database
  * @group large
@@ -35,8 +33,8 @@ class PermissionsTest extends PermissionsTestCase {
 	}
 
 	public function tearDown() {
-		parent::tearDown();
 		$this->apiTestSetup->tearDown();
+		parent::tearDown();
 	}
 
 	/**

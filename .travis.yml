@@ -17,15 +17,12 @@ matrix:
     - env: DBTYPE=postgres
 
 before_script:
+  - composer self-update
   - bash .travis.sh
 
 script:
   - cd ../phase3/tests/phpunit
-  - ./phpunit.php --group WikibaseQuery --coverage-clover ../../extensions/WikibaseQuery/build/logs/clover.xml
-
-after_script:
-  - cd ../../extensions/WikibaseQuery
-  - php vendor/bin/coveralls -v
+  - ./phpunit.php -c ../../extensions/WikibaseQuery/phpunit.xml.dist  --exclude-group WikibaseQueryPermissionsTest
 
 notifications:
   irc:
