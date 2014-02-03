@@ -119,6 +119,14 @@ $messages['eu'] = array(
 	'wikibase-specialsimplequery-label-valuejson' => 'Baioa (JSON gisa):',
 );
 
+/** Persian (فارسی)
+ * @author Armin1392
+ */
+$messages['fa'] = array(
+	'wikibase-specialsimplequery-label-property' => 'ویژگی:',
+	'wikibase-specialsimplequery-label-valuejson' => 'مقدار (به عنوان جی‌سون):',
+);
+
 /** Finnish (suomi)
  * @author Silvonen
  * @author Stryn
