@@ -29,7 +29,7 @@ class ByPropertyValueEntityFinderTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider queryProvider
 	 */
 	public function testFindEntities( $propertyIdString, $dataValueSerialization, Description $description, QueryOptions $options ) {
-		$expectedIds = array( 'q42' );
+		$expectedIds = array( 'Q42' );
 
 		$entityFinder = $this->newEntityFinder( $description, $options, $expectedIds, $propertyIdString );
 
@@ -46,6 +46,10 @@ class ByPropertyValueEntityFinderTest extends \PHPUnit_Framework_TestCase {
 	protected function newEntityFinder( $description, $options, $expectedIds, $propertyIdString ) {
 		$queryEngine = $this->getMock( 'Wikibase\QueryEngine\QueryEngine' );
 
+		$expectedIds = array_map( function( $expectedId ) {
+			return new ItemId( $expectedId );
+		}, $expectedIds );
+
 		$queryEngine->expects( $this->once() )
 			->method( 'getMatchingEntities' )
 			->with(
@@ -57,7 +61,7 @@ class ByPropertyValueEntityFinderTest extends \PHPUnit_Framework_TestCase {
 		$dvFactory = new DataValueFactory();
 		$dvFactory->registerDataValue( 'string', 'DataValues\StringValue' );
 
-		$idParser = $this->getMockBuilder( 'Wikibase\Lib\EntityIdParser' )
+		$idParser = $this->getMockBuilder( 'Wikibase\DataModel\Entity\EntityIdParser' )
 			->disableOriginalConstructor()->getMock();
 
 		$idParser->expects( $this->once() )
@@ -65,14 +69,7 @@ class ByPropertyValueEntityFinderTest extends \PHPUnit_Framework_TestCase {
 			->with( $this->equalTo( $propertyIdString ) )
 			->will( $this->returnValue( $this->mockProperty() ) );
 
-		$idFormatter = $this->getMockBuilder( 'Wikibase\Lib\EntityIdFormatter' )
-			->disableOriginalConstructor()->getMock();
-
-		$idFormatter->expects( $this->once() )
-			->method( 'format' )
-			->will( $this->returnValue( 'q42' ) );
-
-		return new ByPropertyValueEntityFinder( $queryEngine, $dvFactory, $idParser, $idFormatter );
+		return new ByPropertyValueEntityFinder( $queryEngine, $dvFactory, $idParser );
 	}
 
 	protected function mockProperty() {
@@ -142,21 +139,14 @@ class ByPropertyValueEntityFinderTest extends \PHPUnit_Framework_TestCase {
 		$dvFactory = new DataValueFactory();
 		$dvFactory->registerDataValue( 'string', 'DataValues\StringValue' );
 
-		$idParser = $this->getMockBuilder( 'Wikibase\Lib\EntityIdParser' )
+		$idParser = $this->getMockBuilder( 'Wikibase\DataModel\Entity\EntityIdParser' )
 			->disableOriginalConstructor()->getMock();
 
 		$idParser->expects( $this->any() )
 			->method( 'parse' )
 			->will( $this->returnValue( $this->mockProperty() ) );
 
-		$idFormatter = $this->getMockBuilder( 'Wikibase\Lib\EntityIdFormatter' )
-			->disableOriginalConstructor()->getMock();
-
-		$idFormatter->expects( $this->any() )
-			->method( 'format' )
-			->will( $this->returnValue( 'q42' ) );
-
-		return new ByPropertyValueEntityFinder( $queryEngine, $dvFactory, $idParser, $idFormatter );
+		return new ByPropertyValueEntityFinder( $queryEngine, $dvFactory, $idParser );
 	}
 
 	public function invalidLimitProvider() {

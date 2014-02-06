@@ -5,11 +5,10 @@ namespace Wikibase\Query;
 use Ask\DeserializerFactory;
 use Ask\Language\Query;
 use Ask\SerializerFactory;
+use DataValues\Deserializers\DataValueDeserializer;
 use InvalidArgumentException;
-use MWException;
 use RuntimeException;
-use Wikibase\Entity;
-use Wikibase\Repo\WikibaseRepo;
+use Wikibase\DataModel\Entity\Entity;
 
 /**
  * Represents a single Wikibase query.
@@ -106,7 +105,7 @@ class QueryEntity extends Entity {
 	 */
 	protected function unstubQuery() {
 		if( $this->query === null && array_key_exists( 'query', $this->data ) ) {
-			$deserializerFactory = new DeserializerFactory( WikibaseRepo::getDefaultInstance()->getDataValueFactory() );
+			$deserializerFactory = new DeserializerFactory( new DataValueDeserializer( $GLOBALS['evilDataValueMap'] ) );
 
 			$this->query = $deserializerFactory->newQueryDeSerializer()->deserialize( $this->data['query'] );
 		}

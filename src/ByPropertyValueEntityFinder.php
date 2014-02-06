@@ -10,12 +10,10 @@ use DataValues\DataValueFactory;
 use InvalidArgumentException;
 use RuntimeException;
 use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\PropertyId;
-use Wikibase\Lib\EntityIdFormatter;
-use Wikibase\Lib\EntityIdParser;
 use Wikibase\QueryEngine\QueryEngine;
-use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @since 0.1
@@ -28,13 +26,11 @@ class ByPropertyValueEntityFinder {
 	protected $queryEngine;
 	protected $dvFactory;
 	protected $idParser;
-	protected $idFormatter;
 
-	public function __construct( QueryEngine $queryEngine, DataValueFactory $dvFactory, EntityIdParser $idParser, EntityIdFormatter $idFormatter ) {
+	public function __construct( QueryEngine $queryEngine, DataValueFactory $dvFactory, EntityIdParser $idParser ) {
 		$this->queryEngine = $queryEngine;
 		$this->dvFactory = $dvFactory;
 		$this->idParser = $idParser;
-		$this->idFormatter = $idFormatter;
 	}
 
 	public function findEntities( array $requestArguments ) {
@@ -49,7 +45,7 @@ class ByPropertyValueEntityFinder {
 		$formattedIds = array();
 
 		foreach ( $entityIds as $entityId ) {
-			$formattedIds[] = $this->idFormatter->format( $entityId );
+			$formattedIds[] = $entityId->getSerialization();
 		}
 
 		return $formattedIds;

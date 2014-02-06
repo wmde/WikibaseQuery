@@ -9,6 +9,8 @@
 		"-c",
 		"phpunit.xml.dist",
 		"--testsuite",
-		"WikibaseQueryFast"
+		"WikibaseQueryFast",
+		"--bootstrap",
+		"tests/standaloneBootstrap.php"
 	]
 }

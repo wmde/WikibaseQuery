@@ -42,8 +42,7 @@ class ByPropertyValueEntityFinderBuilder extends DependencyBuilder {
 		return new ByPropertyValueEntityFinder(
 			$queryStore->newQueryEngine( $queryInterface ),
 			$this->repo->getDataValueFactory(),
-			$this->repo->getEntityIdParser(),
-			$this->repo->getEntityIdFormatter()
+			$this->repo->getEntityIdParser()
 		);
 	}
 
