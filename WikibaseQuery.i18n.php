@@ -276,6 +276,17 @@ $messages['mk'] = array(
 	'wikibase-specialsimplequery-label-valuejson' => 'Вредност (како JSON):',
 );
 
+/** Norwegian Bokmål (norsk bokmål)
+ * @author Event
+ */
+$messages['nb'] = array(
+	'wikibasequery-desc' => 'Gir spørrefunksjonalitet til Wikibase',
+	'special-simplequery' => 'Enkel spørring',
+	'wikibase-specialsimplequery-legend' => 'Finner elementer med "egenskap-verdi"-par',
+	'wikibase-specialsimplequery-label-property' => 'Egenskap:',
+	'wikibase-specialsimplequery-label-valuejson' => 'Verdi (som JSON):',
+);
+
 /** Dutch (Nederlands)
  * @author Siebrand
  * @author Sjoerddebruin
