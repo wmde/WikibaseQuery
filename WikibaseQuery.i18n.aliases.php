@@ -19,3 +19,8 @@ $specialPageAliases = array();
 $specialPageAliases['en'] = array(
 	'SimpleQuery' => array( 'SimpleQuery' ),
 );
+
+/** Simplified Chinese (中文（简体）‎) */
+$specialPageAliases['zh-hans'] = array(
+	'SimpleQuery' => array( '简单查询' ),
+);
