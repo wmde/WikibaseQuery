@@ -86,4 +86,4 @@ class ApiTestSetup {
 		return new StringValue( 'API tests really suck' );
 	}
 
-} 
+}
