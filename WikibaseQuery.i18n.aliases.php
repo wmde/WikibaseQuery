@@ -20,6 +20,11 @@ $specialPageAliases['en'] = array(
 	'SimpleQuery' => array( 'SimpleQuery' ),
 );
 
+/** German (Deutsch) */
+$specialPageAliases['de'] = array(
+	'SimpleQuery' => array( 'Einfache_Abfrage' ),
+);
+
 /** Simplified Chinese (中文（简体）‎) */
 $specialPageAliases['zh-hans'] = array(
 	'SimpleQuery' => array( '简单查询' ),
