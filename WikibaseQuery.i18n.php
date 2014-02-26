@@ -123,6 +123,7 @@ $messages['eu'] = array(
  * @author Armin1392
  */
 $messages['fa'] = array(
+	'special-simplequery' => 'سوال آسان',
 	'wikibase-specialsimplequery-label-property' => 'ویژگی:',
 	'wikibase-specialsimplequery-label-valuejson' => 'مقدار (به عنوان جی‌سون):',
 );
