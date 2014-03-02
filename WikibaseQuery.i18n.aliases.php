@@ -20,6 +20,11 @@ $specialPageAliases['en'] = array(
 	'SimpleQuery' => array( 'SimpleQuery' ),
 );
 
+/** Egyptian Spoken Arabic (مصرى) */
+$specialPageAliases['arz'] = array(
+	'SimpleQuery' => array( 'كويرى_بسيط' ),
+);
+
 /** German (Deutsch) */
 $specialPageAliases['de'] = array(
 	'SimpleQuery' => array( 'Einfache_Abfrage' ),
@@ -28,4 +33,9 @@ $specialPageAliases['de'] = array(
 /** Simplified Chinese (中文（简体）‎) */
 $specialPageAliases['zh-hans'] = array(
 	'SimpleQuery' => array( '简单查询' ),
+);
+
+/** Traditional Chinese (中文（繁體）‎) */
+$specialPageAliases['zh-hant'] = array(
+	'SimpleQuery' => array( '簡易查詢' ),
 );
