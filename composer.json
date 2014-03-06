@@ -33,6 +33,7 @@
 		"wikibase/wikibase": "dev-master",
 		"serialization/serialization": "~2.0"
 	},
+	"minimum-stability": "dev",
 	"autoload": {
 		"files" : [
 			"WikibaseQuery.php"
