@@ -123,7 +123,9 @@ $messages['eu'] = array(
  * @author Armin1392
  */
 $messages['fa'] = array(
+	'wikibasequery-desc' => 'افزودن قابلیت‌های پرس‌وجو برای پایه‌ویکی',
 	'special-simplequery' => 'سوال آسان',
+	'wikibase-specialsimplequery-legend' => 'پیدا کردن عناوین با جفت ارزش خاصیت',
 	'wikibase-specialsimplequery-label-property' => 'ویژگی:',
 	'wikibase-specialsimplequery-label-valuejson' => 'مقدار (به عنوان جی‌سون):',
 );
