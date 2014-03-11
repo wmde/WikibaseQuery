@@ -30,6 +30,11 @@ $specialPageAliases['de'] = array(
 	'SimpleQuery' => array( 'Einfache_Abfrage' ),
 );
 
+/** Dutch (Nederlands) */
+$specialPageAliases['nl'] = array(
+	'SimpleQuery' => array( 'EenvoudigeZoekopdracht' ),
+);
+
 /** Simplified Chinese (中文（简体）‎) */
 $specialPageAliases['zh-hans'] = array(
 	'SimpleQuery' => array( '简单查询' ),
