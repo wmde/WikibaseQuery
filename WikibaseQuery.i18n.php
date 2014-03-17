@@ -279,6 +279,15 @@ $messages['mk'] = array(
 	'wikibase-specialsimplequery-label-valuejson' => 'Вредност (како JSON):',
 );
 
+/** Marathi (मराठी)
+ * @author V.narsikar
+ */
+$messages['mr'] = array(
+	'wikibasequery-desc' => 'विकिबेसला पृच्छा करण्याची क्षमता जोडते',
+	'special-simplequery' => 'सामान्य पृच्छा',
+	'wikibase-specialsimplequery-label-property' => 'गुणधर्म:',
+);
+
 /** Norwegian Bokmål (norsk bokmål)
  * @author Event
  */
