@@ -30,6 +30,11 @@ $specialPageAliases['de'] = array(
 	'SimpleQuery' => array( 'Einfache_Abfrage' ),
 );
 
+/** Luxembourgish (Lëtzebuergesch) */
+$specialPageAliases['lb'] = array(
+	'SimpleQuery' => array( 'Einfach_Ufro' ),
+);
+
 /** Dutch (Nederlands) */
 $specialPageAliases['nl'] = array(
 	'SimpleQuery' => array( 'EenvoudigeZoekopdracht' ),
