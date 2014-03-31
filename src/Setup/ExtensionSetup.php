@@ -64,6 +64,7 @@ class ExtensionSetup {
 	}
 
 	protected function registerInternationalization() {
+		$this->globalVars['wgMessagesDirs']['WikibaseQuery'] = $this->rootDirectory . '/i18n';
 		$this->globalVars['wgExtensionMessagesFiles']['WikibaseQuery'] = $this->rootDirectory . '/WikibaseQuery.i18n.php';
 		$this->globalVars['wgExtensionMessagesFiles']['WikibaseQueryAliases'] = $this->rootDirectory . '/WikibaseQuery.i18n.aliases.php';
 	}
