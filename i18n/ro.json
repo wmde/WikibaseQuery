@@ -1,0 +1,12 @@
+{
+    "@metadata": {
+        "authors": [
+            "Minisarm"
+        ]
+    },
+    "wikibasequery-desc": "Adaugă capacități de interogare pentru Wikibase",
+    "special-simplequery": "Interogare simplă",
+    "wikibase-specialsimplequery-legend": "Găsește entități cu o pereche proprietate-valoare",
+    "wikibase-specialsimplequery-label-property": "Proprietate:",
+    "wikibase-specialsimplequery-label-valuejson": "Valoare (ca JSON):"
+}

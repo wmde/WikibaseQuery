@@ -1,0 +1,12 @@
+{
+    "@metadata": {
+        "authors": [
+            "Amire80"
+        ]
+    },
+    "wikibasequery-desc": "הוספת יכולות הרצת שאילתות לוויקיבייס",
+    "special-simplequery": "שאילתה פשוטה",
+    "wikibase-specialsimplequery-legend": "מציאת ישויות עם זוג מאפיין–ערך",
+    "wikibase-specialsimplequery-label-property": "מאפיין:",
+    "wikibase-specialsimplequery-label-valuejson": "ערך (כ־JSON):"
+}

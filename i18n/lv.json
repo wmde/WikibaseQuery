@@ -1,0 +1,10 @@
+{
+    "@metadata": {
+        "authors": [
+            "Papuass"
+        ]
+    },
+    "special-simplequery": "Vienkāršs vaicājums",
+    "wikibase-specialsimplequery-label-property": "Īpašība:",
+    "wikibase-specialsimplequery-label-valuejson": "Vērtība (kā JSON):"
+}

@@ -1,0 +1,11 @@
+{
+    "@metadata": {
+        "authors": [
+            "Fitoschido"
+        ]
+    },
+    "special-simplequery": "Consulta sencilla",
+    "wikibase-specialsimplequery-legend": "Encontrar entidades con par propiedad-valor",
+    "wikibase-specialsimplequery-label-property": "Propiedad:",
+    "wikibase-specialsimplequery-label-valuejson": "Valor (como JSON):"
+}

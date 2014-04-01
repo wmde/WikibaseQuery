@@ -1,0 +1,12 @@
+{
+    "@metadata": {
+        "authors": [
+            "Michawiki"
+        ]
+    },
+    "wikibasequery-desc": "Wikibase naprašowanske móžnosće přidać",
+    "special-simplequery": "Jednore naprašowanje",
+    "wikibase-specialsimplequery-legend": "Objekty z porom kajkosć-hódnota namakać",
+    "wikibase-specialsimplequery-label-property": "Kajkosć:",
+    "wikibase-specialsimplequery-label-valuejson": "Hódnota (jako JSON):"
+}

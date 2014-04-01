@@ -1,0 +1,12 @@
+{
+    "@metadata": {
+        "authors": [
+            "Cedric31"
+        ]
+    },
+    "wikibasequery-desc": "Apond de capacitats de requèsta a Wikibase",
+    "special-simplequery": "Requèsta simpla",
+    "wikibase-specialsimplequery-legend": "Trobar d'entitats amb una para proprietat-valor",
+    "wikibase-specialsimplequery-label-property": "Proprietat :",
+    "wikibase-specialsimplequery-label-valuejson": "Valor (en JSON) :"
+}

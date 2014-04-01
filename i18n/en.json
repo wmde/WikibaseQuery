@@ -1,0 +1,13 @@
+{
+    "@metadata": {
+        "authors": [
+            "Jeroen De Dauw",
+            "Daniel Werner"
+        ]
+    },
+    "wikibasequery-desc": "Adds query capabilities to Wikibase",
+    "special-simplequery": "Simple query",
+    "wikibase-specialsimplequery-legend": "Find entities with property-value pair",
+    "wikibase-specialsimplequery-label-property": "Property:",
+    "wikibase-specialsimplequery-label-valuejson": "Value (as JSON):"
+}

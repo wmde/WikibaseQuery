@@ -1,0 +1,13 @@
+{
+    "@metadata": {
+        "authors": [
+            "Andriykopanytsia",
+            "Base"
+        ]
+    },
+    "wikibasequery-desc": "Додає можливості запитів до Вікібази",
+    "special-simplequery": "Простий запит",
+    "wikibase-specialsimplequery-legend": "Знайти осіб з парою значення-властивість",
+    "wikibase-specialsimplequery-label-property": "Властивість:",
+    "wikibase-specialsimplequery-label-valuejson": "Значення (у JSON):"
+}

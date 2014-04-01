@@ -1,0 +1,12 @@
+{
+    "@metadata": {
+        "authors": [
+            "Minh Nguyen"
+        ]
+    },
+    "wikibasequery-desc": "Thêm khả năng truy vấn vào Wikibase",
+    "special-simplequery": "Truy vấn đơn giản",
+    "wikibase-specialsimplequery-legend": "Tìm các thực thể có đôi thuộc tính–giá trị",
+    "wikibase-specialsimplequery-label-property": "Thuộc tính:",
+    "wikibase-specialsimplequery-label-valuejson": "Giá trị (dưới dạng JSON):"
+}
