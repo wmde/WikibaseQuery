@@ -2,7 +2,7 @@
 
 namespace Wikibase\Query;
 
-use Deserializers\Deserializer;
+use Deserializers\DispatchableDeserializer;
 use Deserializers\Exceptions\DeserializationException;
 use Deserializers\Exceptions\MissingAttributeException;
 use InvalidArgumentException;
@@ -20,7 +20,7 @@ use Wikibase\Claim;
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author Adam Shorland < adamshorland@gmail.com >
  */
-class QueryEntityDeserializer implements Deserializer {
+class QueryEntityDeserializer implements DispatchableDeserializer {
 
 	protected $queryDeserializer;
 
@@ -31,7 +31,7 @@ class QueryEntityDeserializer implements Deserializer {
 	 */
 	protected $queryEntity;
 
-	public function __construct( Deserializer $queryDeserializer ) {
+	public function __construct( DispatchableDeserializer $queryDeserializer ) {
 		$this->queryDeserializer = $queryDeserializer;
 	}
 
