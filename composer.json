@@ -27,11 +27,11 @@
 		"data-values/data-values": "~0.1",
 		"data-values/interfaces": "~0.1",
 		"ask/ask": "~1.0",
-		"ask/serialization": "~1.0",
+		"ask/serialization": "~1.0.1",
 		"wikibase/data-model": ">=0.4",
 		"wikibase/query-engine": "dev-master",
 		"wikibase/wikibase": "dev-master",
-		"serialization/serialization": "~2.0"
+		"serialization/serialization": "~3.0"
 	},
 	"minimum-stability": "dev",
 	"autoload": {

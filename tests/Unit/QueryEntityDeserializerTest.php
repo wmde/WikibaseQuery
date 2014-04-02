@@ -28,7 +28,7 @@ class QueryEntityDeserializerTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	protected function newSimpleQueryEntityDeserializer() {
-		return new QueryEntityDeserializer( $this->getMock( 'Deserializers\Deserializer' ) );
+		return new QueryEntityDeserializer( $this->getMock( 'Deserializers\DispatchableDeserializer' ) );
 	}
 
 	protected function newSimpleEntity() {
@@ -79,7 +79,7 @@ class QueryEntityDeserializerTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testCallsQueryDeserializer(){
-		$queryDeserializer = $this->getMock( 'Deserializers\Deserializer' );
+		$queryDeserializer = $this->getMock( 'Deserializers\DispatchableDeserializer' );
 
 		$queryEntitySerialzation = $this->newQueryEntitySerialization();
 		$mockQuery = $this->newQuery();
@@ -190,7 +190,7 @@ class QueryEntityDeserializerTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	protected function newQueryEntityDeserializer() {
-		$queryDeserializer = $this->getMock( 'Deserializers\Deserializer' );
+		$queryDeserializer = $this->getMock( 'Deserializers\DispatchableDeserializer' );
 
 		$deserializer = new QueryEntityDeserializer( $queryDeserializer );
 
