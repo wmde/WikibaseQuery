@@ -1,7 +1,7 @@
 # Wikibase Query
 
 [![Build Status](https://secure.travis-ci.org/wmde/WikibaseQuery.png?branch=master)](http://travis-ci.org/wmde/WikibaseQuery)
-[![Coverage Status](https://coveralls.io/repos/wmde/WikibaseQuery/badge.png?branch=master)](https://coveralls.io/r/wmde/WikibaseQuery?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/wmde/WikibaseQuery/badges/quality-score.png?s=0916f98c5cbdd030e32d936f98392a8e1e95f53f)](https://scrutinizer-ci.com/g/wmde/WikibaseQuery/)
 
 On Packagist:
 [![Latest Stable Version](https://poser.pugx.org/wikibase/query/version.png)](https://packagist.org/packages/wikibase/query)
