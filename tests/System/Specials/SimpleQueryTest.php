@@ -12,6 +12,7 @@ use \Wikibase\Query\Specials\SimpleQuery;
  * @group SpecialPage
  * @group WikibaseSpecialPage
  * @group medium
+ * @group SimpleQueryTest
  *
  * @since 0.1
  * @licence GNU GPL v2+
@@ -84,6 +85,9 @@ class SimpleQueryTest extends SpecialPageTestBase {
 		}
 	}
 
+	/**
+	 * FIXME: this test no longer passes using Wikibase.git master
+	 */
 	public function testExecuteWithoutPermissions() {
 		$this->setExpectedException( 'PermissionsError' );
 		PermissionsHelper::applyPermissions( array( // permissions

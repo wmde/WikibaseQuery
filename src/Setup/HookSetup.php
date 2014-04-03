@@ -34,7 +34,7 @@ class HookSetup {
 
 		// https://www.mediawiki.org/wiki/Manual:Hooks/UnitTestsList
 		$this->hooks['UnitTestsList'][]	= function( array &$files ) use ( $rootDir ) {
-			$directoryIterator = new RecursiveDirectoryIterator( $rootDir . '/Tests/' );
+			$directoryIterator = new RecursiveDirectoryIterator( $rootDir . '/tests/' );
 
 			/**
 			 * @var SplFileInfo $fileInfo
