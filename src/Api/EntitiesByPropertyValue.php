@@ -50,8 +50,22 @@ class EntitiesByPropertyValue extends \ApiBase {
 		}
 
 		if ( isset( $entityIds ) ) {
-			$this->getResult()->addValue( null, 'entities', $entityIds );
+			$this->getResult()->addValue(
+				null,
+				'entities',
+				$this->serializeEntityIds( $entityIds )
+			 );
 		}
+	}
+
+	private function serializeEntityIds( $entityIds ) {
+		$formattedIds = array();
+
+		foreach ( $entityIds as $entityId ) {
+			$formattedIds[] = $entityId->getSerialization();
+		}
+
+		return $formattedIds;
 	}
 
 	/**
