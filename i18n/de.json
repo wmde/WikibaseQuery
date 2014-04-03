@@ -1,0 +1,12 @@
+{
+    "@metadata": {
+        "authors": [
+            "Metalhead64"
+        ]
+    },
+    "wikibasequery-desc": "Ergänzt Abfragemöglichkeiten zu Wikibase",
+    "special-simplequery": "Einfache Abfrage",
+    "wikibase-specialsimplequery-legend": "Objekte mit einem Eigenschaften-Werte-Paar finden",
+    "wikibase-specialsimplequery-label-property": "Eigenschaft:",
+    "wikibase-specialsimplequery-label-valuejson": "Wert (als JSON):"
+}
