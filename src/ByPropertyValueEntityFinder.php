@@ -41,14 +41,7 @@ class ByPropertyValueEntityFinder {
 			$requestArguments['limit'],
 			$requestArguments['offset']
 		);
-
-		$formattedIds = array();
-
-		foreach ( $entityIds as $entityId ) {
-			$formattedIds[] = $entityId->getSerialization();
-		}
-
-		return $formattedIds;
+		return $entityIds;
 	}
 
 	/**

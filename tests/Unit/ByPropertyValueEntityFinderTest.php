@@ -78,7 +78,7 @@ class ByPropertyValueEntityFinderTest extends \PHPUnit_Framework_TestCase {
 
 	protected function assertEntityIdsEqual( array $expected, $actual ) {
 		$this->assertInternalType( 'array', $actual );
-		$this->assertContainsOnly( 'string', $actual );
+		$this->assertContainsOnly( 'Wikibase\DataModel\Entity\ItemId', $actual );
 		$this->assertEquals( $expected, $actual );
 	}
 
