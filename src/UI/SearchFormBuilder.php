@@ -2,9 +2,8 @@
 
 namespace Wikibase\Query\UI;
 
-use Html;
-use InvalidArgumentException;
-use Title;
+use HTMLForm;
+use IContextSource;
 use Wikibase\Query\MessageTextBuilder;
 
 /**
@@ -15,22 +14,44 @@ use Wikibase\Query\MessageTextBuilder;
  */
 class SearchFormBuilder {
 
-	private $localUrl;
+	private $context;
 	private $messageBuilder;
+	private $form;
 
 	/**
-	 * @param string $localUrl
-	 * @param MessageTextBuilder $messageBuilder
-	 *
-	 * @throws InvalidArgumentException
+	 * @param IContextSource $context
+	 * @param MessageTextBuilder $this->messageBuilder
 	 */
-	public function __construct( $localUrl, MessageTextBuilder $messageBuilder ) {
-		if ( !is_string( $localUrl ) ) {
-			throw new InvalidArgumentException( '$localUrl must be a string' );
-		}
-
-		$this->localUrl = $localUrl;
+	public function __construct( IContextSource $context, MessageTextBuilder $messageBuilder ) {
+		$this->context = $context;
 		$this->messageBuilder = $messageBuilder;
+	}
+
+	private function getSearchForm( ) {
+		if( !$this->form ) {
+			$this->form = new HTMLForm( array(
+				'property' => array(
+					'label' => $this->messageBuilder->msgText( 'wikibase-specialsimplequery-label-property' ),
+					'id' => 'wb-specialsimplequery-property',
+					'class' => 'HTMLTextField',
+					'name' => 'property'
+				),
+				'valuejson' => array(
+					'label' => $this->messageBuilder->msgText( 'wikibase-specialsimplequery-label-valuejson' ),
+					'id' => 'wb-specialsimplequery-valuejson',
+					'class' => 'HTMLTextField',
+					'name' => 'valuejson'
+				)
+			), $this->context );
+
+			$this->form->setId( 'wb-specialsimplequery-form' );
+			$this->form->setMethod( 'get' );
+			$this->form->setWrapperLegend( $this->messageBuilder->msgText( 'wikibase-specialsimplequery-legend' ) );
+			$this->form->setSubmitText( $this->messageBuilder->msgText( 'wikibase-entitieswithoutlabel-submit' ) );
+
+			$this->form->setSubmitCallback( array( $this, 'processInput' ) );
+		}
+		return $this->form;
 	}
 
 	/**
@@ -38,71 +59,14 @@ class SearchFormBuilder {
 	 *
 	 * @since 0.1
 	 *
-	 * @param array $formFieldValues
 	 * @return string
 	 */
-	public function buildSearchForm( array $formFieldValues ) {
-		return
-			Html::openElement(
-				'form',
-				array(
-					'action' => $this->localUrl,
-					'name' => 'simplequery',
-					'id' => 'wb-SimpleQuery-form'
-				)
-			) .
-			Html::openElement( 'fieldset' ) .
-			Html::element(
-				'legend',
-				array(),
-				$this->messageBuilder->msgText( 'wikibase-specialsimplequery-legend' )
-			) .
-
-			$this->buildSearchFormInput( 'property', $formFieldValues['property'] ) .
-			$this->buildSearchFormInput( 'valuejson', $formFieldValues['valuejson'] ) .
-
-			Html::input(
-				null,
-				$this->messageBuilder->msgText( 'wikibase-entitieswithoutlabel-submit' ),
-				'submit',
-				array(
-					'id' => 'wikibase-specialsimplequery-submit',
-					'class' => 'wb-input-button'
-				)
-			) .
-
-			Html::closeElement( 'fieldset' ) .
-			Html::closeElement( 'form' );
+	public function buildSearchForm( ) {
+		return $this->getSearchForm()->show();
 	}
 
-	/**
-	 * Creates HTML for an input field.
-	 *
-	 * @since 0.1
-	 *
-	 * @param string $purpose
-	 * @param string $value
-	 * @return string
-	 */
-	private function buildSearchFormInput( $purpose, $value ) {
-		return
-			Html::openElement( 'p' ) .
-			Html::element(
-				'label',
-				array(
-					'for' => "wb-specialsimplequery-$purpose"
-				),
-				$this->messageBuilder->msgText( "wikibase-specialsimplequery-label-$purpose" )
-			) .
-			Html::input(
-				$purpose,
-				$value,
-				'text',
-				array(
-					'id' => "wb-specialsimplequery-$purpose"
-				)
-			) .
-			Html::closeElement( 'p' );
+	public function processInput( $formData ) {
+		// Always show form, even if it has been submitted successfully
+		return false;
 	}
-
 }

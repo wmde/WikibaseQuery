@@ -51,21 +51,12 @@ class SimpleQuery extends SpecialWikibaseQueryPage {
 	}
 
 	private function addSearchForm() {
-		$this->getOutput()->addHTML( $this->getSearchFormHtml() );
-	}
-
-	private function getSearchFormHtml() {
-		$formFieldValues = array(
-			'property' => $this->propertyId,
-			'valuejson' => $this->valueJson
-		);
-
-		return $this->newFormBuilder()->buildSearchForm( $formFieldValues );
+		$this->newFormBuilder()->buildSearchForm();
 	}
 
 	private function newFormBuilder() {
 		return new SearchFormBuilder(
-			$this->getPageTitle()->getLocalURL(),
+			$this->getContext(),
 			new MessageTextBuilder( new MessageBuilder( $this->getContext(), !$this->including() ) )
 		);
 	}
