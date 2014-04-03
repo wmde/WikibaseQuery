@@ -14,7 +14,7 @@ matrix:
   exclude:
     - env: THENEEDFORTHIS=FAIL
   allow_failures:
-    - env: DBTYPE=postgres
+    - env: DBTYPE=sqlite
 
 before_script:
   - composer self-update
@@ -22,7 +22,7 @@ before_script:
 
 script:
   - cd ../phase3/tests/phpunit
-  - ./phpunit.php -c ../../extensions/WikibaseQuery/phpunit.xml.dist  --exclude-group WikibaseQueryPermissionsTest
+  - ./phpunit.php -c ../../extensions/WikibaseQuery/phpunit.xml.dist  --exclude-group SimpleQueryTest
 
 notifications:
   irc:
