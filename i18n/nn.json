@@ -1,0 +1,12 @@
+{
+    "@metadata": {
+        "authors": [
+            "Jeblad"
+        ]
+    },
+    "wikibasequery-desc": "Gjev spørjefunksjonalitet til Wikibase",
+    "special-simplequery": "Enkel spørjing",
+    "wikibase-specialsimplequery-legend": "Finn element med «eigenskap-verdi»-par",
+    "wikibase-specialsimplequery-label-property": "Eigenskap:",
+    "wikibase-specialsimplequery-label-valuejson": "Verde (som JSON)"
+}
