@@ -4,6 +4,7 @@ namespace Wikibase\Query\Api;
 
 use ApiBase;
 use InvalidArgumentException;
+use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lib\PropertyNotFoundException;
 use Wikibase\Query\DIC\ExtensionAccess;
 
@@ -23,7 +24,7 @@ class EntitiesByPropertyValue extends \ApiBase {
 	 * @since 0.1
 	 */
 	public function execute() {
-		$entityFinder = ExtensionAccess::getWikibaseQuery()->getByPropertyValueEntityFinder();
+
 
 		$user = $this->getUser();
 		if ( ! $user->isAllowed( 'wikibase-query-run' ) ){
@@ -33,8 +34,18 @@ class EntitiesByPropertyValue extends \ApiBase {
 			);
 		}
 
+		$this->getResult()->addValue(
+			null,
+			'entities',
+			$this->serializeEntityIds( $this->getEntityIds() )
+		 );
+	}
+
+	private function getEntityIds() {
+		$entityFinder = ExtensionAccess::getWikibaseQuery()->getByPropertyValueEntityFinder();
+
 		try {
-			$entityIds = $entityFinder->findEntities( $this->extractRequestParams() );
+			return $entityFinder->findEntities( $this->extractRequestParams() );
 		}
 		catch ( InvalidArgumentException $ex ) {
 			$this->dieUsage(
@@ -48,17 +59,14 @@ class EntitiesByPropertyValue extends \ApiBase {
 				'no-such-property'
 			);
 		}
-
-		if ( isset( $entityIds ) ) {
-			$this->getResult()->addValue(
-				null,
-				'entities',
-				$this->serializeEntityIds( $entityIds )
-			 );
-		}
 	}
 
-	private function serializeEntityIds( $entityIds ) {
+	/**
+	 * @param EntityId[] $entityIds
+	 *
+	 * @return string[]
+	 */
+	private function serializeEntityIds( array $entityIds ) {
 		$formattedIds = array();
 
 		foreach ( $entityIds as $entityId ) {
