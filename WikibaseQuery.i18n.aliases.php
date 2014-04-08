@@ -35,6 +35,11 @@ $specialPageAliases['es'] = array(
 	'SimpleQuery' => array( 'ConsultaSimple' ),
 );
 
+/** Italian (italiano) */
+$specialPageAliases['it'] = array(
+	'SimpleQuery' => array( 'InterrogazioneSemplice' ),
+);
+
 /** Luxembourgish (Lëtzebuergesch) */
 $specialPageAliases['lb'] = array(
 	'SimpleQuery' => array( 'Einfach_Ufro' ),
