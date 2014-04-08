@@ -2,6 +2,9 @@
 
 namespace Tests\Unit\Wikibase\Query\UI;
 
+use FauxRequest;
+use RequestContext;
+use Title;
 use Wikibase\Query\UI\SearchFormBuilder;
 
 /**
@@ -14,18 +17,26 @@ use Wikibase\Query\UI\SearchFormBuilder;
  */
 class SearchFormBuilderTest extends \PHPUnit_Framework_TestCase {
 
-	public function testGivenEmptyValues_buildSearchFormReturnsString() {
+	public function testGivenEmptyValues_buildSearchFormAddsHtml() {
+		$requestContext = $this->newRequestContext( array(
+			'property' => '',
+			'valuejson' => ''
+		) );
+
 		$searchForm = new SearchFormBuilder(
-			'http://foo.bar.baz',
+			$requestContext,
 			$this->newMockMessageTextBuilder()
 		);
 
-		$fieldValues = array(
-			'property' => '',
-			'valuejson' => '',
-		);
+		$searchForm->buildSearchForm();
+		$this->assertInternalType( 'string', $requestContext->getOutput()->getHTML() );
+	}
 
-		$this->assertInternalType( 'string', $searchForm->buildSearchForm( $fieldValues ) );
+	private function newRequestContext() {
+		$context = new RequestContext();
+		$context->setRequest( new FauxRequest() );
+		$context->setTitle( Title::makeTitle( NS_MAIN, 'Test' ) );
+		return $context;
 	}
 
 	private function newMockMessageTextBuilder() {

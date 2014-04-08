@@ -73,8 +73,7 @@ class SimpleQueryTest extends SpecialPageTestBase {
 		$matchers['submit'] = array(
 			'tag' => 'input',
 			'attributes' => array(
-				'id' => 'wikibase-specialsimplequery-submit',
-				'class' => 'wb-input-button',
+				'class' => 'mw-htmlform-submit',
 				'type' => 'submit',
 			)
 		);
