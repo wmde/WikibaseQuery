@@ -2,12 +2,13 @@
     "@metadata": {
         "authors": [
             "Event",
-            "Jeblad"
+            "Jeblad",
+            "Danmichaelo"
         ]
     },
     "wikibasequery-desc": "Gir spørrefunksjonalitet til Wikibase",
     "special-simplequery": "Enkel spørring",
-    "wikibase-specialsimplequery-legend": "Finner elementer med «egenskap-verdi»-par",
+    "wikibase-specialsimplequery-legend": "Finn elementer med «egenskap-verdi»-par",
     "wikibase-specialsimplequery-label-property": "Egenskap:",
     "wikibase-specialsimplequery-label-valuejson": "Verdi (som JSON):"
 }
