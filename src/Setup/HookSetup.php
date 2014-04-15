@@ -58,7 +58,7 @@ class HookSetup {
 
 	protected function registerEntityUpdateHookHandlers() {
 		$this->hooks['WikibaseEntityModificationUpdate'][] = function( EntityContent $newContent ) {
-			ExtensionAccess::getWikibaseQuery()->getQueryStoreWriter()->updateEntity(	$newContent->getEntity() );
+			ExtensionAccess::getWikibaseQuery()->getQueryStoreWriter()->updateEntity( $newContent->getEntity() );
 		};
 
 		$this->hooks['WikibaseEntityDeletionUpdate'][] = function( EntityContent $entityContent ) {
