@@ -1,13 +1,13 @@
 {
-    "@metadata": {
-        "authors": [
-            "Gomoko",
-            "Metroitendo"
-        ]
-    },
-    "wikibasequery-desc": "Ajoute des capacités de requête à Wikibase",
-    "special-simplequery": "Requête simple",
-    "wikibase-specialsimplequery-legend": "Trouver des entités avec une paire propriété-valeur",
-    "wikibase-specialsimplequery-label-property": "Propriété :",
-    "wikibase-specialsimplequery-label-valuejson": "Valeur (en JSON) :"
+	"@metadata": {
+		"authors": [
+			"Gomoko",
+			"Metroitendo"
+		]
+	},
+	"wikibasequery-desc": "Ajoute des capacités de requête à Wikibase",
+	"special-simplequery": "Requête simple",
+	"wikibase-specialsimplequery-legend": "Trouver des entités avec une paire propriété-valeur",
+	"wikibase-specialsimplequery-label-property": "Propriété :",
+	"wikibase-specialsimplequery-label-valuejson": "Valeur (en JSON) :"
 }

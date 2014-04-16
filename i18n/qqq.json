@@ -1,13 +1,13 @@
 {
-    "@metadata": {
-        "authors": [
-            "Daniel Werner",
-            "Shirayuki"
-        ]
-    },
-    "wikibasequery-desc": "{{desc|name=Wikibase Query|url=http://www.mediawiki.org/wiki/Extension:Wikibase}}",
-    "special-simplequery": "{{doc-special|SimpleQuery}}\nThe special page is for simple property-value queries on wikibase entities.",
-    "wikibase-specialsimplequery-legend": "Describes what the input form is good for.",
-    "wikibase-specialsimplequery-label-property": "Label for the property input field.\n{{Identical|Property}}",
-    "wikibase-specialsimplequery-label-valuejson": "Label for the value JSON input field. The field allows the user to specify a property value to search for. The value has to be given in its serialized form."
+	"@metadata": {
+		"authors": [
+			"Daniel Werner",
+			"Shirayuki"
+		]
+	},
+	"wikibasequery-desc": "{{desc|name=Wikibase Query|url=http://www.mediawiki.org/wiki/Extension:Wikibase}}",
+	"special-simplequery": "{{doc-special|SimpleQuery}}\nThe special page is for simple property-value queries on wikibase entities.",
+	"wikibase-specialsimplequery-legend": "Describes what the input form is good for.",
+	"wikibase-specialsimplequery-label-property": "Label for the property input field.\n{{Identical|Property}}",
+	"wikibase-specialsimplequery-label-valuejson": "Label for the value JSON input field. The field allows the user to specify a property value to search for. The value has to be given in its serialized form."
 }

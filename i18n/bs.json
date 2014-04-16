@@ -1,12 +1,12 @@
 {
-    "@metadata": {
-        "authors": [
-            "Edinwiki"
-        ]
-    },
-    "wikibasequery-desc": "Daje mogućnost sljanje upita prema Wikibase-u",
-    "special-simplequery": "Jednostavni upit",
-    "wikibase-specialsimplequery-legend": "Pronađi entitete sa parom svojstvo-vrijednost",
-    "wikibase-specialsimplequery-label-property": "Svojstvo:",
-    "wikibase-specialsimplequery-label-valuejson": "Vrijednost (u JSON-u):"
+	"@metadata": {
+		"authors": [
+			"Edinwiki"
+		]
+	},
+	"wikibasequery-desc": "Daje mogućnost sljanje upita prema Wikibase-u",
+	"special-simplequery": "Jednostavni upit",
+	"wikibase-specialsimplequery-legend": "Pronađi entitete sa parom svojstvo-vrijednost",
+	"wikibase-specialsimplequery-label-property": "Svojstvo:",
+	"wikibase-specialsimplequery-label-valuejson": "Vrijednost (u JSON-u):"
 }

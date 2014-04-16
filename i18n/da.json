@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Byrial"
-        ]
-    },
-    "wikibasequery-desc": "Tilføjer forespørgselsmuligheder til Wikibase"
+	"@metadata": {
+		"authors": [
+			"Byrial"
+		]
+	},
+	"wikibasequery-desc": "Tilføjer forespørgselsmuligheder til Wikibase"
 }

@@ -1,12 +1,12 @@
 {
-    "@metadata": {
-        "authors": [
-            "Chrumps"
-        ]
-    },
-    "wikibasequery-desc": "Dodaje możliwości zapytań do Wikibase",
-    "special-simplequery": "Proste zapytanie",
-    "wikibase-specialsimplequery-legend": "Znajdź encje z parą właściwość-wartość",
-    "wikibase-specialsimplequery-label-property": "Właściwość:",
-    "wikibase-specialsimplequery-label-valuejson": "Wartość (jak JSON):"
+	"@metadata": {
+		"authors": [
+			"Chrumps"
+		]
+	},
+	"wikibasequery-desc": "Dodaje możliwości zapytań do Wikibase",
+	"special-simplequery": "Proste zapytanie",
+	"wikibase-specialsimplequery-legend": "Znajdź encje z parą właściwość-wartość",
+	"wikibase-specialsimplequery-label-property": "Właściwość:",
+	"wikibase-specialsimplequery-label-valuejson": "Wartość (jak JSON):"
 }

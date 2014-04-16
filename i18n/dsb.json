@@ -1,12 +1,12 @@
 {
-    "@metadata": {
-        "authors": [
-            "Michawiki"
-        ]
-    },
-    "wikibasequery-desc": "Wikibase napšašowańske móžnosći pśidaś",
-    "special-simplequery": "Jadnore napšašowanje",
-    "wikibase-specialsimplequery-legend": "Objekty z pórom kakosć-hgdnota namakaś",
-    "wikibase-specialsimplequery-label-property": "Kakosć:",
-    "wikibase-specialsimplequery-label-valuejson": "Gódnota (ako JSON):"
+	"@metadata": {
+		"authors": [
+			"Michawiki"
+		]
+	},
+	"wikibasequery-desc": "Wikibase napšašowańske móžnosći pśidaś",
+	"special-simplequery": "Jadnore napšašowanje",
+	"wikibase-specialsimplequery-legend": "Objekty z pórom kakosć-hgdnota namakaś",
+	"wikibase-specialsimplequery-label-property": "Kakosć:",
+	"wikibase-specialsimplequery-label-valuejson": "Gódnota (ako JSON):"
 }

@@ -1,12 +1,12 @@
 {
-    "@metadata": {
-        "authors": [
-            "Toliño"
-        ]
-    },
-    "wikibasequery-desc": "Engade capacidades de pescuda a Wikibase",
-    "special-simplequery": "Pescuda simple",
-    "wikibase-specialsimplequery-legend": "Atopar entidades cun par propiedade-valor",
-    "wikibase-specialsimplequery-label-property": "Propiedade:",
-    "wikibase-specialsimplequery-label-valuejson": "Valor (en JSON):"
+	"@metadata": {
+		"authors": [
+			"Toliño"
+		]
+	},
+	"wikibasequery-desc": "Engade capacidades de pescuda a Wikibase",
+	"special-simplequery": "Pescuda simple",
+	"wikibase-specialsimplequery-legend": "Atopar entidades cun par propiedade-valor",
+	"wikibase-specialsimplequery-label-property": "Propiedade:",
+	"wikibase-specialsimplequery-label-valuejson": "Valor (en JSON):"
 }

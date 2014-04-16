@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Iwan Novirion"
-        ]
-    },
-    "wikibasequery-desc": "Menambahkan kemampuan permintaan ke Wikibase"
+	"@metadata": {
+		"authors": [
+			"Iwan Novirion"
+		]
+	},
+	"wikibasequery-desc": "Menambahkan kemampuan permintaan ke Wikibase"
 }

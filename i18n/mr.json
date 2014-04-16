@@ -1,10 +1,10 @@
 {
-    "@metadata": {
-        "authors": [
-            "V.narsikar"
-        ]
-    },
-    "wikibasequery-desc": "विकिबेसला पृच्छा करण्याची क्षमता जोडते",
-    "special-simplequery": "सामान्य पृच्छा",
-    "wikibase-specialsimplequery-label-property": "गुणधर्म:"
+	"@metadata": {
+		"authors": [
+			"V.narsikar"
+		]
+	},
+	"wikibasequery-desc": "विकिबेसला पृच्छा करण्याची क्षमता जोडते",
+	"special-simplequery": "सामान्य पृच्छा",
+	"wikibase-specialsimplequery-label-property": "गुणधर्म:"
 }

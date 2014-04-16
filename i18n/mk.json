@@ -1,12 +1,12 @@
 {
-    "@metadata": {
-        "authors": [
-            "Bjankuloski06"
-        ]
-    },
-    "wikibasequery-desc": "Додава можност за пребарување на Викибазата",
-    "special-simplequery": "Просто барање",
-    "wikibase-specialsimplequery-legend": "Наоѓа единици со пар „својство-вредност“",
-    "wikibase-specialsimplequery-label-property": "Својство:",
-    "wikibase-specialsimplequery-label-valuejson": "Вредност (како JSON):"
+	"@metadata": {
+		"authors": [
+			"Bjankuloski06"
+		]
+	},
+	"wikibasequery-desc": "Додава можност за пребарување на Викибазата",
+	"special-simplequery": "Просто барање",
+	"wikibase-specialsimplequery-legend": "Наоѓа единици со пар „својство-вредност“",
+	"wikibase-specialsimplequery-label-property": "Својство:",
+	"wikibase-specialsimplequery-label-valuejson": "Вредност (како JSON):"
 }

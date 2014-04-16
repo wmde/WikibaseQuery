@@ -1,12 +1,12 @@
 {
-    "@metadata": {
-        "authors": [
-            "Vitorvicentevalente"
-        ]
-    },
-    "wikibasequery-desc": "Adicionar recursos de consulta ao Wikibase",
-    "special-simplequery": "Consulta simples",
-    "wikibase-specialsimplequery-legend": "Encontrar entidades com par de valor de propriedade",
-    "wikibase-specialsimplequery-label-property": "Propriedade:",
-    "wikibase-specialsimplequery-label-valuejson": "Valor (como JSON):"
+	"@metadata": {
+		"authors": [
+			"Vitorvicentevalente"
+		]
+	},
+	"wikibasequery-desc": "Adicionar recursos de consulta ao Wikibase",
+	"special-simplequery": "Consulta simples",
+	"wikibase-specialsimplequery-legend": "Encontrar entidades com par de valor de propriedade",
+	"wikibase-specialsimplequery-label-property": "Propriedade:",
+	"wikibase-specialsimplequery-label-valuejson": "Valor (como JSON):"
 }

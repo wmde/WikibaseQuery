@@ -1,14 +1,14 @@
 {
-    "@metadata": {
-        "authors": [
-            "Hym411",
-            "Kwj2772",
-            "아라"
-        ]
-    },
-    "wikibasequery-desc": "위키베이스에 쿼리 기능을 추가합니다",
-    "special-simplequery": "단순 쿼리",
-    "wikibase-specialsimplequery-legend": "속성-값 순서쌍으로 개체 찾기",
-    "wikibase-specialsimplequery-label-property": "속성:",
-    "wikibase-specialsimplequery-label-valuejson": "값 (JSON 형식):"
+	"@metadata": {
+		"authors": [
+			"Hym411",
+			"Kwj2772",
+			"아라"
+		]
+	},
+	"wikibasequery-desc": "위키베이스에 쿼리 기능을 추가합니다",
+	"special-simplequery": "단순 쿼리",
+	"wikibase-specialsimplequery-legend": "속성-값 순서쌍으로 개체 찾기",
+	"wikibase-specialsimplequery-label-property": "속성:",
+	"wikibase-specialsimplequery-label-valuejson": "값 (JSON 형식):"
 }

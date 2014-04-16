@@ -1,12 +1,12 @@
 {
-    "@metadata": {
-        "authors": [
-            "Beta16"
-        ]
-    },
-    "wikibasequery-desc": "Aggiunge le funzionalità di interrogazioni a Wikibase",
-    "special-simplequery": "Interrogazione semplice",
-    "wikibase-specialsimplequery-legend": "Trova entità con la coppia proprietà/valore",
-    "wikibase-specialsimplequery-label-property": "Proprietà:",
-    "wikibase-specialsimplequery-label-valuejson": "Valore (come JSON):"
+	"@metadata": {
+		"authors": [
+			"Beta16"
+		]
+	},
+	"wikibasequery-desc": "Aggiunge le funzionalità di interrogazioni a Wikibase",
+	"special-simplequery": "Interrogazione semplice",
+	"wikibase-specialsimplequery-legend": "Trova entità con la coppia proprietà/valore",
+	"wikibase-specialsimplequery-label-property": "Proprietà:",
+	"wikibase-specialsimplequery-label-valuejson": "Valore (come JSON):"
 }

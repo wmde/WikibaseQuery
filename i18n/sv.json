@@ -1,12 +1,12 @@
 {
-    "@metadata": {
-        "authors": [
-            "Ainali"
-        ]
-    },
-    "wikibasequery-desc": "Lägger till frågemöjligheter i Wikibase",
-    "special-simplequery": "Enkel fråga",
-    "wikibase-specialsimplequery-legend": "Hitta entiteter med egenskap-värde-par",
-    "wikibase-specialsimplequery-label-property": "Egenskap:",
-    "wikibase-specialsimplequery-label-valuejson": "Värde (som JSON):"
+	"@metadata": {
+		"authors": [
+			"Ainali"
+		]
+	},
+	"wikibasequery-desc": "Lägger till frågemöjligheter i Wikibase",
+	"special-simplequery": "Enkel fråga",
+	"wikibase-specialsimplequery-legend": "Hitta entiteter med egenskap-värde-par",
+	"wikibase-specialsimplequery-label-property": "Egenskap:",
+	"wikibase-specialsimplequery-label-valuejson": "Värde (som JSON):"
 }

@@ -1,13 +1,13 @@
 {
-    "@metadata": {
-        "authors": [
-            "Kaganer",
-            "Okras"
-        ]
-    },
-    "wikibasequery-desc": "Добавляет возможности запросов к Вики-базе",
-    "special-simplequery": "Простой запрос",
-    "wikibase-specialsimplequery-legend": "Найти объекты с парами свойство-значение",
-    "wikibase-specialsimplequery-label-property": "Свойство:",
-    "wikibase-specialsimplequery-label-valuejson": "Значение (как JSON):"
+	"@metadata": {
+		"authors": [
+			"Kaganer",
+			"Okras"
+		]
+	},
+	"wikibasequery-desc": "Добавляет возможности запросов к Вики-базе",
+	"special-simplequery": "Простой запрос",
+	"wikibase-specialsimplequery-legend": "Найти объекты с парами свойство-значение",
+	"wikibase-specialsimplequery-label-property": "Свойство:",
+	"wikibase-specialsimplequery-label-valuejson": "Значение (как JSON):"
 }

@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Li3939108"
-        ]
-    },
-    "wikibasequery-desc": "將查詢功能添加到Wikibase"
+	"@metadata": {
+		"authors": [
+			"Li3939108"
+		]
+	},
+	"wikibasequery-desc": "將查詢功能添加到Wikibase"
 }

@@ -1,13 +1,13 @@
 {
-    "@metadata": {
-        "authors": [
-            "Li3939108",
-            "Liuxinyu970226"
-        ]
-    },
-    "wikibasequery-desc": "将查询功能添加到维基数据库",
-    "special-simplequery": "简单查询",
-    "wikibase-specialsimplequery-legend": "通过属性值对查找实体",
-    "wikibase-specialsimplequery-label-property": "属性：",
-    "wikibase-specialsimplequery-label-valuejson": "值（作为JSON）："
+	"@metadata": {
+		"authors": [
+			"Li3939108",
+			"Liuxinyu970226"
+		]
+	},
+	"wikibasequery-desc": "将查询功能添加到维基数据库",
+	"special-simplequery": "简单查询",
+	"wikibase-specialsimplequery-legend": "通过属性值对查找实体",
+	"wikibase-specialsimplequery-label-property": "属性：",
+	"wikibase-specialsimplequery-label-valuejson": "值（作为JSON）："
 }
