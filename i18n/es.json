@@ -4,6 +4,7 @@
 			"Fitoschido"
 		]
 	},
+	"wikibasequery-desc": "Añade capacidades de consulta a Wikibase",
 	"special-simplequery": "Consulta sencilla",
 	"wikibase-specialsimplequery-legend": "Encontrar entidades con par propiedad-valor",
 	"wikibase-specialsimplequery-label-property": "Propiedad:",
