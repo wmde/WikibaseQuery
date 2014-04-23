@@ -2,7 +2,7 @@
 	"rootPath": ".",
 	"fileOrDirectoriesToWatch": [
 		"src",
-		"Tests",
+		"tests/phpunit",
 		"WikibaseQuery.php"
 	],
 	"commandArguments": [
@@ -11,6 +11,6 @@
 		"--testsuite",
 		"WikibaseQueryFast",
 		"--bootstrap",
-		"tests/standaloneBootstrap.php"
+		"tests/phpunit/standaloneBootstrap.php"
 	]
 }
