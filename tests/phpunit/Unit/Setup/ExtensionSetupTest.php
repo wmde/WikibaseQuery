@@ -28,7 +28,7 @@ class ExtensionSetupTest extends \PHPUnit_Framework_TestCase {
 			'wgDBprefix' => ''
 		);
 		
-		$this->rootDir = __DIR__ . str_repeat( DIRECTORY_SEPARATOR . '..', 3 );
+		$this->rootDir = __DIR__ . str_repeat( DIRECTORY_SEPARATOR . '..', 4 );
 
 		$this->dicRegistrant = function() {};
 	}
