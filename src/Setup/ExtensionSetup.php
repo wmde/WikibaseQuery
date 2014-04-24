@@ -92,6 +92,18 @@ class ExtensionSetup {
 			$this->globalVars['wgResourceModules'],
 			include $this->rootDirectory . '/resources/resources.php'
 		);
+
+		$this->globalVars['wgHooks']['ResourceLoaderTestModules'][] = function(
+			array &$testModules,
+			\ResourceLoader &$resourceLoader
+		) {
+			$testModules['qunit'] = array_merge(
+				$testModules['qunit'],
+				include( $this->rootDirectory . '/tests/qunit/resources.php' )
+			);
+			return true;
+		};
+
 	}
 
 }

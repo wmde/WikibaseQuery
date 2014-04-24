@@ -36,26 +36,36 @@
 
 	SimpleQueryForm.prototype.inputFieldValue = function( newValue ) {
 		var $valueJson = this.$form.find( '[name="valuejson"]' ),
-			$property = this.$form.find( '[name="property"]' ),
-			dataValue;
+			$property = this.$form.find( '[name="property"]' );
 
 		if( typeof newValue === 'undefined' ) {
-			dataValue = null;
-			try {
-				dataValue = $.parseJSON( $valueJson.val() );
-			} catch( e ) {
-			}
-			return {
-				property: $property.val(),
-				datavalue: dataValue && dv.newDataValue( dataValue.type, dataValue.value )
-			};
+			return this._getInputFieldValue( $valueJson, $property );
 		} else {
-			dataValue = newValue.datavalue;
-			$property.val( newValue.property );
-			$valueJson.val(  $.toJSON( {
-				value: dataValue && dataValue.toJSON(),
-				type: dataValue && dataValue.getType()
-			} ) );
+			return this._setInputFieldValue( $valueJson, $property, newValue );
 		}
 	};
+
+	SimpleQueryForm.prototype._getInputFieldValue = function( $valueJson, $property ) {
+		var dataValue;
+		try {
+			dataValue = $.parseJSON( $valueJson.val() );
+			dataValue = dv.newDataValue( dataValue.type, dataValue.value );
+		} catch( e ) {
+			dataValue = null;
+		}
+		return {
+			property: $property.val(),
+			datavalue: dataValue
+		};
+	};
+
+	SimpleQueryForm.prototype._setInputFieldValue = function( $valueJson, $property, newValue ) {
+		var dataValue = newValue.datavalue;
+		$property.val( newValue.property );
+		$valueJson.val(  $.toJSON( {
+			value: dataValue && dataValue.toJSON(),
+			type: dataValue && dataValue.getType()
+		} ) );
+	};
+
 }( jQuery, wikibase.query, dataValues, jQuery.wikibase.snakview, wikibase.store.EntityStore ) );
