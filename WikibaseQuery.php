@@ -35,4 +35,4 @@ call_user_func( function() {
 
 	$setup->run();
 } );
-// @codeCoverageIgnoreEnd
+
