@@ -31,7 +31,8 @@ return call_user_func( function() {
 				'wikibase.query.SimpleQueryForm.js'
 			),
 			'dependencies' => array(
-				'dataValues.values',
+				'dataValues',
+				'jquery.json',
 				'jquery.wikibase.snakview',
 				'wikibase.common', // For the stylesheet
 				'wikibase.query'
