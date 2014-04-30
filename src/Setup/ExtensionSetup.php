@@ -93,13 +93,14 @@ class ExtensionSetup {
 			include $this->rootDirectory . '/resources/resources.php'
 		);
 
+		$rootDir = $this->rootDirectory;
 		$this->globalVars['wgHooks']['ResourceLoaderTestModules'][] = function(
 			array &$testModules,
 			\ResourceLoader &$resourceLoader
-		) {
+		) use ( $rootDir ) {
 			$testModules['qunit'] = array_merge(
 				$testModules['qunit'],
-				include( $this->rootDirectory . '/tests/qunit/resources.php' )
+				include( $rootDir . '/tests/qunit/resources.php' )
 			);
 			return true;
 		};
