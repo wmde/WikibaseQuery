@@ -1,10 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Marmase"
+			"Marmase",
+			"Mirzali"
 		]
 	},
-	"special-simplequery": "Perso basit",
-	"wikibase-specialsimplequery-label-property": "Xasiyey:",
-	"wikibase-specialsimplequery-label-valuejson": "Erc (JSON de):"
+	"special-simplequery": "Perso sade",
+	"wikibase-specialsimplequery-label-property": "Xısusiyet:",
+	"wikibase-specialsimplequery-label-valuejson": "Erc (zey JSON):"
 }
