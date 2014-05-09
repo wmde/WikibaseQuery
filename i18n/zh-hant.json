@@ -1,8 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Li3939108"
+			"Li3939108",
+			"Liuxinyu970226"
 		]
 	},
-	"wikibasequery-desc": "將查詢功能添加到Wikibase"
+	"wikibasequery-desc": "將查詢功能添加到Wikibase",
+	"special-simplequery": "簡易查詢",
+	"wikibase-specialsimplequery-legend": "經由屬性-值對查找實體",
+	"wikibase-specialsimplequery-label-property": "屬性：",
+	"wikibase-specialsimplequery-label-valuejson": "值（JSON）："
 }
