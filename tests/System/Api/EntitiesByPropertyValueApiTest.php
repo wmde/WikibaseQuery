@@ -34,7 +34,10 @@ class EntitiesByPropertyValueApiTest extends \ApiTestCase {
 
 	public function tearDown() {
 		parent::tearDown();
-		$this->apiTestSetup->tearDown();
+
+		if ( isset( $this->apiTestSetup ) ) {
+			$this->apiTestSetup->tearDown();
+		}
 	}
 
 	protected function newMockValueString() {

@@ -33,7 +33,10 @@ class PermissionsTest extends PermissionsTestCase {
 	}
 
 	public function tearDown() {
-		$this->apiTestSetup->tearDown();
+		if ( isset( $this->apiTestSetup ) ) {
+			$this->apiTestSetup->tearDown();
+		}
+
 		parent::tearDown();
 	}
 

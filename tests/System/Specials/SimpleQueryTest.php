@@ -57,6 +57,7 @@ class SimpleQueryTest extends SpecialPageTestBase {
 
 	public function testExecute() {
 		$matchers['property'] = array(
+
 			'tag' => 'input',
 			'attributes' => array(
 				'id' => 'wb-specialsimplequery-property',

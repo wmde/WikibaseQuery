@@ -2,20 +2,15 @@
 
 namespace Wikibase\Query\DIC\Builders;
 
-use Wikibase\Database\DBConnectionProvider;
-use Wikibase\Database\LazyDBConnectionProvider;
-use Wikibase\Database\MediaWiki\MediaWikiSchemaModifierBuilder;
-use Wikibase\Database\MediaWiki\MWTableBuilderBuilder;
-use Wikibase\Database\MediaWiki\MWTableDefinitionReaderBuilder;
-use Wikibase\Database\QueryInterface\QueryInterface;
+use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\Query\ByPropertyValueEntityFinder;
 use Wikibase\Query\DIC\DependencyBuilder;
 use Wikibase\Query\DIC\DependencyManager;
-use Wikibase\Query\PropertyDataValueTypeFinder;
 use Wikibase\QueryEngine\SQLStore\DataValueHandlers;
+use Wikibase\QueryEngine\SQLStore\DataValueHandlersBuilder;
 use Wikibase\QueryEngine\SQLStore\SQLStore;
 use Wikibase\QueryEngine\SQLStore\StoreConfig;
-use Wikibase\Repo\WikibaseRepo;
+use Wikibase\QueryEngine\SQLStore\StoreSchema;
 
 /**
  * @licence GNU GPL v2+
@@ -23,13 +18,8 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class SQLStoreBuilder extends DependencyBuilder {
 
-	protected $storeName;
-	protected $tablePrefix;
-
-	/**
-	 * @var QueryInterface
-	 */
-	protected $queryInterface;
+	private $storeName;
+	private $tablePrefix;
 
 	/**
 	 * @param string $storeName Human readable name for the store
@@ -48,29 +38,25 @@ class SQLStoreBuilder extends DependencyBuilder {
 	 * @return ByPropertyValueEntityFinder
 	 */
 	public function buildObject( DependencyManager $dependencyManager ) {
-		$this->queryInterface = $dependencyManager->newObject( 'slaveQueryInterface' );
-
-		return new SQLStore( $this->newStoreConfig() );
+		return new SQLStore( $this->newStoreSchema(), $this->newStoreConfig() );
 	}
 
-	protected function newStoreConfig() {
+	private function newStoreSchema() {
 		// TODO: provide an extension mechanism for the DV handlers
-		$dvHandlers = new DataValueHandlers();
+		$handlersBuilder = new DataValueHandlersBuilder();
+		$handlers = $handlersBuilder->withSimpleHandlers()
+			->withEntityIdHandler( $this->getEntityIdParser() )->getHandlers();
 
-		$config = new StoreConfig(
-			$this->storeName,
-			$this->tablePrefix,
-			$dvHandlers->getHandlers()
-		);
+		return new StoreSchema( $this->tablePrefix, $handlers );
+	}
 
-		$dvtLookup = new PropertyDataValueTypeFinder(
-			WikibaseRepo::getDefaultInstance()->getPropertyDataTypeLookup(),
-			WikibaseRepo::getDefaultInstance()->getDataTypeFactory()
-		);
+	private function getEntityIdParser() {
+		// TODO: get via DIC
+		return new BasicEntityIdParser();
+	}
 
-		$config->setPropertyDataValueTypeLookup( $dvtLookup );
-
-		return $config;
+	private function newStoreConfig() {
+		return new StoreConfig( $this->storeName );
 	}
 
 }

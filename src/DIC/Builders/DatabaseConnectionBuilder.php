@@ -2,8 +2,8 @@
 
 namespace Wikibase\Query\DIC\Builders;
 
-use Wikibase\Database\DBConnectionProvider;
-use Wikibase\Database\LazyDBConnectionProvider;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DriverManager;
 use Wikibase\Query\DIC\DependencyBuilder;
 use Wikibase\Query\DIC\DependencyManager;
 
@@ -13,13 +13,13 @@ use Wikibase\Query\DIC\DependencyManager;
  */
 class DatabaseConnectionBuilder extends DependencyBuilder {
 
-	protected $connectionId;
+	private $config;
 
 	/**
-	 * @param int $connectionId ie DB_MASTER, DB_SLAVE
+	 * @param array $config Contains the database config, such as wgDBtype
 	 */
-	public function __construct( $connectionId ) {
-		$this->connectionId = $connectionId;
+	public function __construct( array $config ) {
+		$this->config = $config;
 	}
 
 	/**
@@ -27,10 +27,42 @@ class DatabaseConnectionBuilder extends DependencyBuilder {
 	 *
 	 * @param DependencyManager $dependencyManager
 	 *
-	 * @return DBConnectionProvider
+	 * @return Connection
 	 */
 	public function buildObject( DependencyManager $dependencyManager ) {
-		return new LazyDBConnectionProvider( $this->connectionId );
+		// TODO: load balancing
+		return DriverManager::getConnection( $this->getConnectionParams() );
+	}
+
+	private function getConnectionParams() {
+		switch ( $this->config['wgDBtype'] ) {
+			case 'mysql':
+				return $this->getMySQLParams();
+			case 'sqlite':
+				return $this->getSQLiteParams();
+		}
+
+		throw new \RuntimeException( 'Unsupported database type' );
+	}
+
+	private function getMySQLParams() {
+		return array(
+			'driver' => 'pdo_mysql',
+			'user' => $GLOBALS['wgDBuser'],
+			'password' => $GLOBALS['wgDBpassword'],
+			'host' => $GLOBALS['wgDBserver'],
+			'dbname' => $GLOBALS['wgDBname']
+		);
+	}
+
+	private function getSQLiteParams() {
+		return array(
+			'driver' => 'pdo_sqlite',
+			'user' => $GLOBALS['wgDBuser'],
+			'password' => $GLOBALS['wgDBpassword'],
+			'host' => $GLOBALS['wgDBserver'],
+			'dbname' => $GLOBALS['wgDBname']
+		);
 	}
 
 }

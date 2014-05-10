@@ -5,7 +5,6 @@ namespace Wikibase\Query\DIC;
 use Wikibase\Query\DIC\Builders\ByPropertyValueEntityFinderBuilder;
 use Wikibase\Query\DIC\Builders\DatabaseConnectionBuilder;
 use Wikibase\Query\DIC\Builders\ExtensionUpdaterBuilder;
-use Wikibase\Query\DIC\Builders\QueryInterfaceBuilder;
 use Wikibase\Query\DIC\Builders\QueryStoreWithDependenciesBuilder;
 use Wikibase\Query\DIC\Builders\QueryStoreWriterBuilder;
 use Wikibase\Query\DIC\Builders\SQLStoreBuilder;
@@ -25,9 +24,7 @@ class WikibaseQueryBuilder {
 
 		$dependencyManager->registerBuilder(
 			'byPropertyValueEntityFinder',
-			new ByPropertyValueEntityFinderBuilder(
-				WikibaseRepo::getDefaultInstance()
-			)
+			new ByPropertyValueEntityFinderBuilder( $this->getRepoFactory() )
 		);
 
 		if ( defined( 'MW_PHPUNIT_TEST' ) ) {
@@ -56,34 +53,13 @@ class WikibaseQueryBuilder {
 
 		$dependencyManager->registerBuilder(
 			'queryStoreWithDependencies',
-			new QueryStoreWithDependenciesBuilder()
+			new QueryStoreWithDependenciesBuilder( $this->getRepoFactory() )
 		);
 
 		$dependencyManager->registerBuilder(
-			'slaveQueryInterface',
-			new QueryInterfaceBuilder(
-				'slaveConnectionProvider'
-			)
-		);
-
-		$dependencyManager->registerBuilder(
-			'masterQueryInterface',
-			new QueryInterfaceBuilder(
-				'masterConnectionProvider'
-			)
-		);
-
-		$dependencyManager->registerBuilder(
-			'slaveConnectionProvider',
+			'connection',
 			new DatabaseConnectionBuilder(
-				DB_SLAVE
-			)
-		);
-
-		$dependencyManager->registerBuilder(
-			'masterConnectionProvider',
-			new DatabaseConnectionBuilder(
-				DB_MASTER
+				$GLOBALS
 			)
 		);
 
@@ -93,6 +69,10 @@ class WikibaseQueryBuilder {
 		);
 
 		return new WikibaseQuery( $dependencyManager );
+	}
+
+	private function getRepoFactory() {
+		return WikibaseRepo::getDefaultInstance();
 	}
 
 }

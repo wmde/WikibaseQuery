@@ -2,15 +2,12 @@
 
 namespace Wikibase\Query\DIC\Builders;
 
-use Wikibase\Database\DBConnectionProvider;
-use Wikibase\Database\MediaWiki\MediaWikiSchemaModifierBuilder;
-use Wikibase\Database\MediaWiki\MWTableBuilderBuilder;
-use Wikibase\Database\MediaWiki\MWTableDefinitionReaderBuilder;
-use Wikibase\Database\QueryInterface\QueryInterface;
 use Wikibase\Query\ByPropertyValueEntityFinder;
 use Wikibase\Query\DIC\DependencyBuilder;
 use Wikibase\Query\DIC\DependencyManager;
+use Wikibase\Query\PropertyDataValueTypeFinder;
 use Wikibase\QueryEngine\SQLStore\SQLStoreWithDependencies;
+use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @licence GNU GPL v2+
@@ -18,15 +15,11 @@ use Wikibase\QueryEngine\SQLStore\SQLStoreWithDependencies;
  */
 class QueryStoreWithDependenciesBuilder extends DependencyBuilder {
 
-	/**
-	 * @var DBConnectionProvider
-	 */
-	protected $connectionProvider;
+	private $repo;
 
-	/**
-	 * @var QueryInterface
-	 */
-	protected $queryInterface;
+	public function __construct( WikibaseRepo $repo ) {
+		$this->repo = $repo;
+	}
 
 	/**
 	 * @see DependencyBuilder::buildObject
@@ -36,39 +29,20 @@ class QueryStoreWithDependenciesBuilder extends DependencyBuilder {
 	 * @return ByPropertyValueEntityFinder
 	 */
 	public function buildObject( DependencyManager $dependencyManager ) {
-		$this->connectionProvider = $dependencyManager->newObject( 'masterConnectionProvider' );
-		$this->queryInterface = $dependencyManager->newObject( 'masterQueryInterface' );
-
 		return new SQLStoreWithDependencies(
 			$dependencyManager->newObject( 'sqlStore' ),
-			$dependencyManager->newObject( 'masterQueryInterface' ),
-			$this->newTableBuilder(),
-			$this->newTableDefinitionReader(),
-			$this->newSchemaModifier()
+			$dependencyManager->newObject( 'connection' ),
+			$this->getDataValueTypeLookup(),
+			$this->repo->getEntityIdParser()
 		);
 	}
 
-	protected function newTableBuilder() {
-		$tbBuilder = new MWTableBuilderBuilder();
-
-		return $tbBuilder->setConnection( $this->connectionProvider )
-			->getTableBuilder();
+	private function getDataValueTypeLookup() {
+		return  new PropertyDataValueTypeFinder(
+			$this->repo->getPropertyDataTypeLookup(),
+			$this->repo->getDataTypeFactory()
+		);
 	}
 
-	protected function newTableDefinitionReader() {
-		$drBuilder = new MWTableDefinitionReaderBuilder();
-
-		return $drBuilder->setConnection( $this->connectionProvider )
-			->setQueryInterface( $this->queryInterface )
-			->getTableDefinitionReader();
-	}
-
-	protected function newSchemaModifier() {
-		$smBuilder = new MediaWikiSchemaModifierBuilder();
-
-		return $smBuilder->setConnection( $this->connectionProvider )
-			->setQueryInterface( $this->queryInterface )
-			->getSchemaModifier();
-	}
 
 }
