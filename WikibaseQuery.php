@@ -18,8 +18,8 @@ if ( defined( 'WIKIBASE_QUERY_VERSION' ) ) {
 
 define( 'WIKIBASE_QUERY_VERSION', '0.1 alpha' );
 
-if ( version_compare( $GLOBALS['wgVersion'], '1.20c', '<' ) ) {
-	throw new Exception( 'Wikibase requires MediaWiki 1.20 or above.' );
+if ( version_compare( $GLOBALS['wgVersion'], '1.23c', '<' ) ) {
+	throw new Exception( 'Wikibase requires MediaWiki 1.23 or above.' );
 }
 
 if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
