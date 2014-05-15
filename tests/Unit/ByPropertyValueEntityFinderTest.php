@@ -129,6 +129,24 @@ class ByPropertyValueEntityFinderTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
+	/**
+	 * @dataProvider validLimitProvider
+	 */
+	public function testValidLimitCausesNoException( $limit ) {
+		$fooString = new StringValue( 'foo' );
+
+		$this->newSimpleEntityIdFiner()->findEntities(
+			array(
+				'property' => $this->mockPropertyValue()->toArray(),
+				'value' => json_encode( $fooString->toArray() ),
+				'limit' => $limit,
+				'offset' => '0'
+			)
+		);
+
+		$this->assertTrue( true );
+	}
+
 	protected function newSimpleEntityIdFiner() {
 		$queryEngine = $this->getMock( 'Wikibase\QueryEngine\QueryEngine' );
 
@@ -151,12 +169,22 @@ class ByPropertyValueEntityFinderTest extends \PHPUnit_Framework_TestCase {
 
 	public function invalidLimitProvider() {
 		return array(
-			array( 10 ),
 			array( 4.2 ),
 			array( '' ),
 			array( '4.2' ),
 			array( '-2' ),
 			array( '0' ),
+			array( 'abc' )
+		);
+	}
+
+	public function validLimitProvider() {
+		return array(
+			array( 10 ),
+			array( '10' ),
+			array( '5' ),
+			array( '99999' ),
+			array( '1' )
 		);
 	}
 
@@ -180,11 +208,35 @@ class ByPropertyValueEntityFinderTest extends \PHPUnit_Framework_TestCase {
 
 	public function invalidOffsetProvider() {
 		return array(
-			array( 10 ),
 			array( 4.2 ),
 			array( '' ),
 			array( '4.2' ),
 			array( '-2' ),
+		);
+	}
+
+	/**
+	 * @dataProvider validOffsetProvider
+	 */
+	public function testValidOffsetCausesNoException( $offset ) {
+		$fooString = new StringValue( 'foo' );
+
+		$this->newSimpleEntityIdFiner()->findEntities(
+			array(
+				'property' => $this->mockPropertyValue()->toArray(),
+				'value' => json_encode( $fooString->toArray() ),
+				'limit' => '100',
+				'offset' => $offset
+			)
+		);
+
+		$this->assertTrue( true );
+	}
+
+	public function validOffsetProvider() {
+		return array(
+			array( 10 ),
+			array( 0 )
 		);
 	}
 
