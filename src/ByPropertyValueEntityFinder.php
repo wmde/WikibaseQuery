@@ -75,7 +75,7 @@ class ByPropertyValueEntityFinder {
 	}
 
 	protected function assertIsValidLimit( $limit ) {
-		if ( !is_numeric( $limit ) || !ctype_digit( $limit ) || (int)$limit < 1 ) {
+		if ( !ctype_digit( (string) $limit ) || (int)$limit < 1 ) {
 			throw new InvalidArgumentException(
 				'$limit needs to be a string representing a strictly positive integer, got: '
 					. var_export( $limit, true )
@@ -84,8 +84,12 @@ class ByPropertyValueEntityFinder {
 	}
 
 	protected function assertIsValidOffset( $offset ) {
-		if ( !is_string( $offset ) || !ctype_digit( $offset ) ) {
-			throw new InvalidArgumentException( '$offset needs to be a string representing a positive integer' );
+		// ctype_digit does not accept the minus sign, so we also catch negative ints
+		if ( !ctype_digit( (string) $offset ) ) {
+			throw new InvalidArgumentException(
+				'$offset needs to be a string representing a positive integer, got: '
+					. var_export( $offset, true )
+			);
 		}
 	}
 

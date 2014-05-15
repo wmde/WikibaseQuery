@@ -32,14 +32,8 @@ class ApiTestSetup {
 		$this->itemId = new ItemId( $this->itemId );
 		$this->propertyId = new PropertyId( $this->propertyId );
 
-		$this->getQueryStore()->newInstaller()->install();
-
 		$this->createNewProperty();
 		$this->insertNewItem();
-	}
-
-	public function tearDown() {
-		$this->getQueryStore()->newUninstaller()->uninstall();
 	}
 
 	protected function getQueryStore() {
