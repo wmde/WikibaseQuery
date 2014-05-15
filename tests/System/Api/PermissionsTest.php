@@ -32,11 +32,6 @@ class PermissionsTest extends PermissionsTestCase {
 		$this->apiTestSetup->setUp();
 	}
 
-	public function tearDown() {
-		$this->apiTestSetup->tearDown();
-		parent::tearDown();
-	}
-
 	/**
 	 * @dataProvider provideTestEntitiesByPropertyValue
 	 */
