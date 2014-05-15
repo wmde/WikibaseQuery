@@ -35,7 +35,7 @@ class WikibaseQueryBuilder {
 				'sqlStore',
 				new SQLStoreBuilder(
 					'WikibaseQuery test store',
-					'test_wbq_'
+					'wbq_'
 				)
 			);
 		}
