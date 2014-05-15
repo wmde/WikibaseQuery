@@ -32,11 +32,6 @@ class EntitiesByPropertyValueApiTest extends \ApiTestCase {
 		$this->apiTestSetup->setUp();
 	}
 
-	public function tearDown() {
-		parent::tearDown();
-		$this->apiTestSetup->tearDown();
-	}
-
 	protected function newMockValueString() {
 		return '{"value":"API tests really suck","type":"string"}';
 	}
