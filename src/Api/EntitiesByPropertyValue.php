@@ -101,7 +101,7 @@ class EntitiesByPropertyValue extends \ApiBase {
 			'limit' => array(
 				ApiBase::PARAM_TYPE => 'string',
 				ApiBase::PARAM_REQUIRED => false,
-				ApiBase::PARAM_DFLT => 10,
+				ApiBase::PARAM_DFLT => '10',
 				ApiBase::PARAM_MAX => ApiBase::LIMIT_SML1, // TODO: policy decision
 				ApiBase::PARAM_MIN => 0,
 				ApiBase::PARAM_RANGE_ENFORCE => true,
@@ -109,7 +109,7 @@ class EntitiesByPropertyValue extends \ApiBase {
 			'offset' => array(
 				ApiBase::PARAM_TYPE => 'string',
 				ApiBase::PARAM_REQUIRED => false,
-				ApiBase::PARAM_DFLT => 0,
+				ApiBase::PARAM_DFLT => '0',
 				ApiBase::PARAM_MAX => ApiBase::LIMIT_SML1, // TODO: policy decision
 				ApiBase::PARAM_MIN => 0,
 				ApiBase::PARAM_RANGE_ENFORCE => true,

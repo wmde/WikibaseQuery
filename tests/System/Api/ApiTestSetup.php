@@ -32,14 +32,18 @@ class ApiTestSetup {
 		$this->itemId = new ItemId( $this->itemId );
 		$this->propertyId = new PropertyId( $this->propertyId );
 
-		$this->getQueryStore()->newInstaller()->install();
+		if ( !defined( 'MW_PHPUNIT_TEST' ) ) {
+			$this->getQueryStore()->newInstaller()->install();
+		}
 
 		$this->createNewProperty();
 		$this->insertNewItem();
 	}
 
 	public function tearDown() {
-		$this->getQueryStore()->newUninstaller()->uninstall();
+		if ( !defined( 'MW_PHPUNIT_TEST' ) ) {
+			$this->getQueryStore()->newUninstaller()->uninstall();
+		}
 	}
 
 	protected function getQueryStore() {

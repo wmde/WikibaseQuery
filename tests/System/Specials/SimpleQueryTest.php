@@ -2,9 +2,10 @@
 
 namespace Tests\System\Wikibase\Query\Special;
 
+use RequestContext;
+use Wikibase\Query\Specials\SimpleQuery;
 use Wikibase\Test\PermissionsHelper;
-use \Wikibase\Test\SpecialPageTestBase;
-use \Wikibase\Query\Specials\SimpleQuery;
+use Wikibase\Test\SpecialPageTestBase;
 
 /**
  * @group Wikibase
@@ -94,7 +95,10 @@ class SimpleQueryTest extends SpecialPageTestBase {
 			'user' => array( 'wikibas-query-run' => false )
 		) );
 
-		$this->executeSpecialPage( '' );
+		// SpecialPageTestBase uses the main request context for execution of the
+		// special page. Since the user attached to that might have cached
+		// permissions, we need to clear them for the permission changes to apply.
+		RequestContext::getMain()->getUser()->clearInstanceCache();
+		$r = $this->executeSpecialPage( '' );
 	}
-
 }
