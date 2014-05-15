@@ -16,6 +16,15 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class WikibaseQueryBuilder {
 
+	protected $globalVars;
+
+	/**
+	 * @param array $globalVars
+	 */
+	public function __construct( array &$globalVars ) {
+		$this->globalVars =& $globalVars;
+	}
+
 	/**
 	 * @return WikibaseQuery
 	 */
@@ -32,7 +41,7 @@ class WikibaseQueryBuilder {
 				'sqlStore',
 				new SQLStoreBuilder(
 					'WikibaseQuery test store',
-					'test_wbq_'
+					$this->globalVars['wgDBprefix'] . 'wbq_'
 				)
 			);
 		}
@@ -41,7 +50,7 @@ class WikibaseQueryBuilder {
 				'sqlStore',
 				new SQLStoreBuilder(
 					'WikibaseQuery SQLStore 0.1 alpha',
-					'wbq_'
+					$this->globalVars['wgDBprefix'] . 'wbq_'
 				)
 			);
 		}
@@ -59,7 +68,7 @@ class WikibaseQueryBuilder {
 		$dependencyManager->registerBuilder(
 			'connection',
 			new DatabaseConnectionBuilder(
-				$GLOBALS
+				$this->globalVars
 			)
 		);
 

@@ -22,7 +22,10 @@ class ExtensionSetupTest extends \PHPUnit_Framework_TestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->globalVars = array( 'wgHooks' => array() );
+		$this->globalVars = array(
+			'wgHooks' => array(),
+			'wgDBprefix' => ''
+		);
 		$this->rootDir = __DIR__;
 		$this->dicRegistrant = function() {};
 	}
