@@ -3,14 +3,14 @@
 namespace Tests\System\Wikibase\Query\Api;
 
 use DataValues\StringValue;
+use User;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\Item;
-use Wikibase\ItemContent;
 use Wikibase\Property;
-use Wikibase\PropertyContent;
 use Wikibase\PropertyValueSnak;
 use Wikibase\Query\DIC\ExtensionAccess;
+use Wikibase\Repo\WikibaseRepo;
 use Wikibase\Statement;
 
 /**
@@ -45,16 +45,13 @@ class ApiTestSetup {
 		$property->setId( $this->propertyId );
 		$property->setDataTypeId( 'string' );
 
-		$propertyContent = PropertyContent::newFromProperty( $property );
-
-		$propertyContent->save();
+		$this->storeEntity( $property );
 	}
 
 	protected function insertNewItem() {
 		$item = $this->newMockItem();
 
-		$itemContent = ItemContent::newFromItem( $item );
-		$itemContent->save();
+		$this->storeEntity( $item );
 	}
 
 	protected function newMockItem() {
@@ -80,4 +77,8 @@ class ApiTestSetup {
 		return new StringValue( 'API tests really suck' );
 	}
 
+	private function storeEntity( $entity ) {
+		$entityStore = WikibaseRepo::getDefaultInstance()->getEntityStore();
+		$entityStore->saveEntity( $entity, '', new User() );
+	}
 }
