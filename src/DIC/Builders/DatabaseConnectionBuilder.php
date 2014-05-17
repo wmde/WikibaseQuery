@@ -48,20 +48,20 @@ class DatabaseConnectionBuilder extends DependencyBuilder {
 	private function getMySQLParams() {
 		return array(
 			'driver' => 'pdo_mysql',
-			'user' => $GLOBALS['wgDBuser'],
-			'password' => $GLOBALS['wgDBpassword'],
-			'host' => $GLOBALS['wgDBserver'],
-			'dbname' => $GLOBALS['wgDBname']
+			'user' => $this->config['wgDBuser'],
+			'password' => $this->config['wgDBpassword'],
+			'host' => $this->config['wgDBserver'],
+			'dbname' => $this->config['wgDBname']
 		);
 	}
 
 	private function getSQLiteParams() {
 		return array(
 			'driver' => 'pdo_sqlite',
-			'user' => $GLOBALS['wgDBuser'],
-			'password' => $GLOBALS['wgDBpassword'],
-			'host' => $GLOBALS['wgDBserver'],
-			'dbname' => $GLOBALS['wgDBname']
+			'user' => $this->config['wgDBuser'],
+			'password' => $this->config['wgDBpassword'],
+			'host' => $this->config['wgDBserver'],
+			'dbname' => $this->config['wgDBname']
 		);
 	}
 

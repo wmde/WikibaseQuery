@@ -3,6 +3,7 @@
 namespace Tests\System\Wikibase\Query\Api;
 
 use DataValues\StringValue;
+use Doctrine\DBAL\Connection;
 use User;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
@@ -10,6 +11,7 @@ use Wikibase\Item;
 use Wikibase\Property;
 use Wikibase\PropertyValueSnak;
 use Wikibase\Query\DIC\ExtensionAccess;
+use Wikibase\Query\DIC\WikibaseQueryBuilder;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\Statement;
 
@@ -29,6 +31,9 @@ class ApiTestSetup {
 	}
 
 	public function setUp() {
+		$builder = new WikibaseQueryBuilder( $GLOBALS );
+		ExtensionAccess::setRegistryBuilder( array( $builder, 'build' ) );
+
 		$this->itemId = new ItemId( $this->itemId );
 		$this->propertyId = new PropertyId( $this->propertyId );
 

@@ -24,7 +24,7 @@ use Wikibase\QueryEngine\QueryStoreWriter;
  */
 class WikibaseQuery {
 
-	protected $dependencyManager;
+	private $dependencyManager;
 
 	public function __construct( DependencyManager $dependencyManager ) {
 		$this->dependencyManager = $dependencyManager;

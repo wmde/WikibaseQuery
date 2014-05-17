@@ -16,19 +16,20 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class WikibaseQueryBuilder {
 
-	protected $globalVars;
+	private $globalVars;
 
-	/**
-	 * @param array $globalVars
-	 */
 	public function __construct( array &$globalVars ) {
-		$this->globalVars =& $globalVars;
+		$this->globalVars = $globalVars;
 	}
 
 	/**
 	 * @return WikibaseQuery
 	 */
 	public function build() {
+		return new WikibaseQuery( $this->buildDependencyManager() );
+	}
+
+	public function buildDependencyManager() {
 		$dependencyManager = new DependencyManager();
 
 		$dependencyManager->registerBuilder(
@@ -77,7 +78,7 @@ class WikibaseQueryBuilder {
 			new QueryStoreWriterBuilder()
 		);
 
-		return new WikibaseQuery( $dependencyManager );
+		return $dependencyManager;
 	}
 
 	private function getRepoFactory() {
