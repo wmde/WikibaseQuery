@@ -2,6 +2,7 @@
 
 namespace Wikibase\Query\DIC\Builders;
 
+use DatabaseSqlite;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Wikibase\Query\DIC\DependencyBuilder;
@@ -56,12 +57,15 @@ class DatabaseConnectionBuilder extends DependencyBuilder {
 	}
 
 	private function getSQLiteParams() {
+		$path = DatabaseSqlite::generateFileName(
+			$this->config['wgSQLiteDataDir'],
+			$this->config['wgDBname']
+		);
 		return array(
 			'driver' => 'pdo_sqlite',
 			'user' => $this->config['wgDBuser'],
 			'password' => $this->config['wgDBpassword'],
-			'host' => $this->config['wgDBserver'],
-			'dbname' => $this->config['wgDBname']
+			'path' => $path
 		);
 	}
 
