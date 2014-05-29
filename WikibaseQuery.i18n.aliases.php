@@ -35,6 +35,11 @@ $specialPageAliases['es'] = array(
 	'SimpleQuery' => array( 'ConsultaSimple' ),
 );
 
+/** Persian (فارسی) */
+$specialPageAliases['fa'] = array(
+	'SimpleQuery' => array( 'پرس‌وجوی_ساده' ),
+);
+
 /** Italian (italiano) */
 $specialPageAliases['it'] = array(
 	'SimpleQuery' => array( 'InterrogazioneSemplice' ),
