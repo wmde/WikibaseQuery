@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Praveenp"
+		]
+	},
+	"wikibasequery-desc": "വിക്കിബേസിൽ ക്വറി കഴിവുകൾ ചേർക്കുന്നു",
+	"special-simplequery": "ലളിതമായ ക്വറി",
+	"wikibase-specialsimplequery-label-valuejson": "വില (ജെസൺ  ആയി):"
+}
