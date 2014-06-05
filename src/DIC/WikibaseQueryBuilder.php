@@ -19,7 +19,7 @@ class WikibaseQueryBuilder {
 	private $globalVars;
 
 	public function __construct( array &$globalVars ) {
-		$this->globalVars = $globalVars;
+		$this->globalVars = &$globalVars;
 	}
 
 	/**
