@@ -16,7 +16,10 @@ use Wikibase\Query\DIC\WikibaseQueryBuilder;
 class WikibaseQueryBuilderTest extends \PHPUnit_Framework_TestCase {
 
 	public function testReturnsWikibaseQuery() {
-		$builder = new WikibaseQueryBuilder();
+		$globalVars = array(
+			'wgDBprefix' => ''
+		);
+		$builder = new WikibaseQueryBuilder( $globalVars );
 
 		$this->assertInstanceOf(
 			'Wikibase\Query\DIC\WikibaseQuery',

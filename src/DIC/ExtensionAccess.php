@@ -22,6 +22,7 @@ class ExtensionAccess {
 
 	public static function setRegistryBuilder( $registryBuilder ) {
 		self::$registryBuilder = $registryBuilder;
+		self::$registry = null;
 	}
 
 	/**

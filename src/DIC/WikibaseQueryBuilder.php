@@ -5,7 +5,6 @@ namespace Wikibase\Query\DIC;
 use Wikibase\Query\DIC\Builders\ByPropertyValueEntityFinderBuilder;
 use Wikibase\Query\DIC\Builders\DatabaseConnectionBuilder;
 use Wikibase\Query\DIC\Builders\ExtensionUpdaterBuilder;
-use Wikibase\Query\DIC\Builders\QueryInterfaceBuilder;
 use Wikibase\Query\DIC\Builders\QueryStoreWithDependenciesBuilder;
 use Wikibase\Query\DIC\Builders\QueryStoreWriterBuilder;
 use Wikibase\Query\DIC\Builders\SQLStoreBuilder;
@@ -17,17 +16,25 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class WikibaseQueryBuilder {
 
+	private $globalVars;
+
+	public function __construct( array &$globalVars ) {
+		$this->globalVars = $globalVars;
+	}
+
 	/**
 	 * @return WikibaseQuery
 	 */
 	public function build() {
+		return new WikibaseQuery( $this->buildDependencyManager() );
+	}
+
+	public function buildDependencyManager() {
 		$dependencyManager = new DependencyManager();
 
 		$dependencyManager->registerBuilder(
 			'byPropertyValueEntityFinder',
-			new ByPropertyValueEntityFinderBuilder(
-				WikibaseRepo::getDefaultInstance()
-			)
+			new ByPropertyValueEntityFinderBuilder( $this->getRepoFactory() )
 		);
 
 		if ( defined( 'MW_PHPUNIT_TEST' ) ) {
@@ -35,7 +42,7 @@ class WikibaseQueryBuilder {
 				'sqlStore',
 				new SQLStoreBuilder(
 					'WikibaseQuery test store',
-					'wbq_'
+					$this->globalVars['wgDBprefix'] . 'wbq_'
 				)
 			);
 		}
@@ -44,7 +51,7 @@ class WikibaseQueryBuilder {
 				'sqlStore',
 				new SQLStoreBuilder(
 					'WikibaseQuery SQLStore 0.1 alpha',
-					'wbq_'
+					$this->globalVars['wgDBprefix'] . 'wbq_'
 				)
 			);
 		}
@@ -56,34 +63,13 @@ class WikibaseQueryBuilder {
 
 		$dependencyManager->registerBuilder(
 			'queryStoreWithDependencies',
-			new QueryStoreWithDependenciesBuilder()
+			new QueryStoreWithDependenciesBuilder( $this->getRepoFactory() )
 		);
 
 		$dependencyManager->registerBuilder(
-			'slaveQueryInterface',
-			new QueryInterfaceBuilder(
-				'slaveConnectionProvider'
-			)
-		);
-
-		$dependencyManager->registerBuilder(
-			'masterQueryInterface',
-			new QueryInterfaceBuilder(
-				'masterConnectionProvider'
-			)
-		);
-
-		$dependencyManager->registerBuilder(
-			'slaveConnectionProvider',
+			'connection',
 			new DatabaseConnectionBuilder(
-				DB_SLAVE
-			)
-		);
-
-		$dependencyManager->registerBuilder(
-			'masterConnectionProvider',
-			new DatabaseConnectionBuilder(
-				DB_MASTER
+				$this->globalVars
 			)
 		);
 
@@ -92,7 +78,11 @@ class WikibaseQueryBuilder {
 			new QueryStoreWriterBuilder()
 		);
 
-		return new WikibaseQuery( $dependencyManager );
+		return $dependencyManager;
+	}
+
+	private function getRepoFactory() {
+		return WikibaseRepo::getDefaultInstance();
 	}
 
 }

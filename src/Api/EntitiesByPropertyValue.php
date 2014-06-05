@@ -24,8 +24,6 @@ class EntitiesByPropertyValue extends \ApiBase {
 	 * @since 0.1
 	 */
 	public function execute() {
-
-
 		$user = $this->getUser();
 		if ( ! $user->isAllowed( 'wikibase-query-run' ) ){
 			$this->dieUsage(
@@ -48,8 +46,9 @@ class EntitiesByPropertyValue extends \ApiBase {
 			return $entityFinder->findEntities( $this->extractRequestParams() );
 		}
 		catch ( InvalidArgumentException $ex ) {
+			// FIXME: one cannot assume here all InvalidArgumentException are caused by invalid json!
 			$this->dieUsage(
-				self::ERR_INVALID_JSON,
+				$ex->getMessage(),
 				'invalid-json'
 			);
 		}

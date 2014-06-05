@@ -13,6 +13,7 @@ use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\PropertyId;
+use Wikibase\Lib\PropertyNotFoundException;
 use Wikibase\QueryEngine\QueryEngine;
 
 /**
@@ -33,6 +34,13 @@ class ByPropertyValueEntityFinder {
 		$this->idParser = $idParser;
 	}
 
+	/**
+	 * @param array $requestArguments
+	 *
+	 * @return EntityId[]
+	 * @throws InvalidArgumentException
+	 * @throws PropertyNotFoundException
+	 */
 	public function findEntities( array $requestArguments ) {
 		// TODO: verify element existence
 		$entityIds = $this->findEntitiesGivenRawArguments(
@@ -52,6 +60,7 @@ class ByPropertyValueEntityFinder {
 	 *
 	 * @return EntityId[]
 	 * @throws InvalidArgumentException
+	 * @throws PropertyNotFoundException
 	 *
 	 * TODO: Throw more specific exceptions.
 	 */

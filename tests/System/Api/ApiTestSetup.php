@@ -3,14 +3,16 @@
 namespace Tests\System\Wikibase\Query\Api;
 
 use DataValues\StringValue;
+use Doctrine\DBAL\Connection;
+use User;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\Item;
-use Wikibase\ItemContent;
 use Wikibase\Property;
-use Wikibase\PropertyContent;
 use Wikibase\PropertyValueSnak;
 use Wikibase\Query\DIC\ExtensionAccess;
+use Wikibase\Query\DIC\WikibaseQueryBuilder;
+use Wikibase\Repo\WikibaseRepo;
 use Wikibase\Statement;
 
 /**
@@ -29,6 +31,9 @@ class ApiTestSetup {
 	}
 
 	public function setUp() {
+		$builder = new WikibaseQueryBuilder( $GLOBALS );
+		ExtensionAccess::setRegistryBuilder( array( $builder, 'build' ) );
+
 		$this->itemId = new ItemId( $this->itemId );
 		$this->propertyId = new PropertyId( $this->propertyId );
 
@@ -45,16 +50,13 @@ class ApiTestSetup {
 		$property->setId( $this->propertyId );
 		$property->setDataTypeId( 'string' );
 
-		$propertyContent = PropertyContent::newFromProperty( $property );
-
-		$propertyContent->save();
+		$this->storeEntity( $property );
 	}
 
 	protected function insertNewItem() {
 		$item = $this->newMockItem();
 
-		$itemContent = ItemContent::newFromItem( $item );
-		$itemContent->save();
+		$this->storeEntity( $item );
 	}
 
 	protected function newMockItem() {
@@ -80,4 +82,8 @@ class ApiTestSetup {
 		return new StringValue( 'API tests really suck' );
 	}
 
+	private function storeEntity( $entity ) {
+		$entityStore = WikibaseRepo::getDefaultInstance()->getEntityStore();
+		$entityStore->saveEntity( $entity, '', new User() );
+	}
 }

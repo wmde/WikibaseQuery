@@ -38,7 +38,7 @@ class ExtensionSetup {
 	}
 
 	protected function registerDic() {
-		$builder = new WikibaseQueryBuilder();
+		$builder = new WikibaseQueryBuilder( $this->globalVars );
 		call_user_func(
 			$this->dicRegistrant,
 			array( $builder, 'build' )

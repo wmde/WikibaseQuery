@@ -2,7 +2,7 @@
 
 namespace Wikibase\Query\DIC\Builders;
 
-use Wikibase\Database\QueryInterface\QueryInterface;
+use Doctrine\DBAL\Connection;
 use Wikibase\Query\DIC\DependencyBuilder;
 use Wikibase\Query\DIC\DependencyManager;
 use Wikibase\QueryEngine\QueryStoreWriter;
@@ -28,11 +28,11 @@ class QueryStoreWriterBuilder extends DependencyBuilder {
 		$queryStore = $dependencyManager->newObject( 'sqlStore' );
 
 		/**
-		 * @var QueryInterface $queryInterface
+		 * @var Connection $connection
 		 */
-		$queryInterface = $dependencyManager->newObject( 'masterQueryInterface' );
+		$connection = $dependencyManager->newObject( 'connection' );
 
-		return $queryStore->newWriter( $queryInterface );
+		return $queryStore->newWriter( $connection );
 	}
 
 }

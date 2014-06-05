@@ -2,10 +2,11 @@
 
 namespace Wikibase\Query\DIC\Builders;
 
-use Wikibase\Database\QueryInterface\QueryInterface;
+use Doctrine\DBAL\Connection;
 use Wikibase\Query\ByPropertyValueEntityFinder;
 use Wikibase\Query\DIC\DependencyBuilder;
 use Wikibase\Query\DIC\DependencyManager;
+use Wikibase\Query\PropertyDataValueTypeFinder;
 use Wikibase\QueryEngine\SQLStore\SQLStore;
 use Wikibase\Repo\WikibaseRepo;
 
@@ -15,7 +16,7 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class ByPropertyValueEntityFinderBuilder extends DependencyBuilder {
 
-	protected $repo;
+	private $repo;
 
 	public function __construct( WikibaseRepo $repo ) {
 		$this->repo = $repo;
@@ -29,20 +30,35 @@ class ByPropertyValueEntityFinderBuilder extends DependencyBuilder {
 	 * @return ByPropertyValueEntityFinder
 	 */
 	public function buildObject( DependencyManager $dependencyManager ) {
+		return new ByPropertyValueEntityFinder(
+			$this->newQueryEngine( $dependencyManager ),
+			$this->repo->getDataValueFactory(),
+			$this->repo->getEntityIdParser()
+		);
+	}
+
+	private function newQueryEngine( DependencyManager $dependencyManager ) {
 		/**
 		 * @var SQLStore $queryStore
 		 */
 		$queryStore = $dependencyManager->newObject( 'sqlStore' );
 
 		/**
-		 * @var QueryInterface $queryInterface
+		 * @var Connection $connection
 		 */
-		$queryInterface = $dependencyManager->newObject( 'slaveQueryInterface' );
+		$connection = $dependencyManager->newObject( 'connection' );
 
-		return new ByPropertyValueEntityFinder(
-			$queryStore->newQueryEngine( $queryInterface ),
-			$this->repo->getDataValueFactory(),
+		return $queryStore->newQueryEngine(
+			$connection,
+			$this->getDataValueTypeLookup(),
 			$this->repo->getEntityIdParser()
+		);
+	}
+
+	private function getDataValueTypeLookup() {
+		return  new PropertyDataValueTypeFinder(
+			$this->repo->getPropertyDataTypeLookup(),
+			$this->repo->getDataTypeFactory()
 		);
 	}
 
