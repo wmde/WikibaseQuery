@@ -45,6 +45,11 @@ $specialPageAliases['it'] = array(
 	'SimpleQuery' => array( 'InterrogazioneSemplice' ),
 );
 
+/** Korean (한국어) */
+$specialPageAliases['ko'] = array(
+	'SimpleQuery' => array( '간단쿼리' ),
+);
+
 /** Luxembourgish (Lëtzebuergesch) */
 $specialPageAliases['lb'] = array(
 	'SimpleQuery' => array( 'Einfach_Ufro' ),
