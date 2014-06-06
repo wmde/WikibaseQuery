@@ -32,7 +32,7 @@
 		"ask/serialization": "~1.0.1",
 		"serialization/serialization": "~3.0",
 
-		"wikibase/data-model": ">=0.4",
+		"wikibase/data-model": "~0.8.0",
 		"wikibase/wikibase": "dev-master",
 		"wikibase/query-engine": "dev-master"
 	},
