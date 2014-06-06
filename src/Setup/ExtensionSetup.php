@@ -35,6 +35,7 @@ class ExtensionSetup {
 		$this->registerInternationalization();
 		$this->registerWebAPI();
 		$this->registerSpecialPages();
+		$this->registerResources();
 	}
 
 	protected function registerDic() {
@@ -84,6 +85,27 @@ class ExtensionSetup {
 	private function registerPermissions() {
 		//wikibasequery permission
 		$this->globalVars['wgGroupPermissions']['*']['wikibase-query-run'] = true;
+	}
+
+	private function registerResources() {
+		$this->globalVars['wgResourceModules'] = array_merge(
+			$this->globalVars['wgResourceModules'],
+			include $this->rootDirectory . '/resources/resources.php'
+		);
+
+		$rootDirectory = $this->rootDirectory;
+
+		$this->globalVars['wgHooks']['ResourceLoaderTestModules'][] = function(
+			array &$testModules,
+			\ResourceLoader &$resourceLoader
+		) use( $rootDirectory ) {
+			$testModules['qunit'] = array_merge(
+				$testModules['qunit'],
+				include( $rootDirectory . '/tests/qunit/resources.php' )
+			);
+			return true;
+		};
+
 	}
 
 }

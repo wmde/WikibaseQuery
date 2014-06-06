@@ -37,6 +37,8 @@ class SimpleQuery extends SpecialWikibaseQueryPage {
 
 		$this->extractRequestFields();
 
+		$this->getOutput()->addModules( 'wikibase.query.special.simplequery' );
+
 		$this->addSearchForm();
 		$this->showQuery();
 
