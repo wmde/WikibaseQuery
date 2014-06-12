@@ -18,8 +18,8 @@ use Wikibase\Repo\Specials\SpecialWikibaseQueryPage;
  */
 class SimpleQuery extends SpecialWikibaseQueryPage {
 
-	protected $propertyId;
-	protected $valueJson;
+	private $propertyId;
+	private $valueJson;
 
 	public function __construct() {
 		parent::__construct( 'SimpleQuery', 'wikibase-query-run' );
