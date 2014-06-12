@@ -3,10 +3,10 @@
 namespace Wikibase\Query\Specials;
 
 use Wikibase\Query\DIC\ExtensionAccess;
-use Wikibase\Lib\Specials\SpecialWikibaseQueryPage;
 use Wikibase\Query\MessageBuilder;
 use Wikibase\Query\MessageTextBuilder;
 use Wikibase\Query\UI\SearchFormBuilder;
+use Wikibase\Repo\Specials\SpecialWikibaseQueryPage;
 
 /**
  * Special page that allows for querying for all entities with at least one PropertySnak using a
@@ -17,7 +17,7 @@ use Wikibase\Query\UI\SearchFormBuilder;
  * @author Daniel Werner < daniel.werner@wikimedia.de >
  */
 class SimpleQuery extends SpecialWikibaseQueryPage {
-	
+
 	protected $propertyId;
 	protected $valueJson;
 
