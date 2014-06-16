@@ -40,6 +40,11 @@ $specialPageAliases['fa'] = array(
 	'SimpleQuery' => array( 'پرس‌وجوی_ساده' ),
 );
 
+/** Upper Sorbian (hornjoserbsce) */
+$specialPageAliases['hsb'] = array(
+	'SimpleQuery' => array( 'Jednore_wotprašenje' ),
+);
+
 /** Italian (italiano) */
 $specialPageAliases['it'] = array(
 	'SimpleQuery' => array( 'InterrogazioneSemplice' ),
@@ -58,6 +63,11 @@ $specialPageAliases['lb'] = array(
 /** Dutch (Nederlands) */
 $specialPageAliases['nl'] = array(
 	'SimpleQuery' => array( 'EenvoudigeZoekopdracht' ),
+);
+
+/** Vietnamese (Tiếng Việt) */
+$specialPageAliases['vi'] = array(
+	'SimpleQuery' => array( 'Truy_vấn_đơn_giản' ),
 );
 
 /** Simplified Chinese (中文（简体）‎) */
