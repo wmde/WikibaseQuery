@@ -34,7 +34,13 @@
 
 		"wikibase/data-model": "~0.8.0",
 		"wikibase/wikibase": "dev-master",
-		"wikibase/query-engine": "dev-master"
+		"wikibase/query-engine": "dev-cli"
+	},
+	"require-dev": {
+		"symfony/console": "~2.4.4"
+	},
+	"suggest": {
+		"symfony/console": "Allows use of the command line interface"
 	},
 	"minimum-stability": "dev",
 	"autoload": {

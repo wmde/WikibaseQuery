@@ -3,6 +3,7 @@
 namespace Wikibase\Query\DIC;
 
 use Wikibase\Query\ByPropertyValueEntityFinder;
+use Wikibase\Query\Console\CliApplicationFactory;
 use Wikibase\Query\Setup\ExtensionUpdater;
 use Wikibase\QueryEngine\QueryStoreWithDependencies;
 use Wikibase\QueryEngine\QueryStoreWriter;
@@ -59,6 +60,13 @@ class WikibaseQuery {
 	 */
 	public function getQueryStoreWriter() {
 		return $this->dependencyManager->newObject( 'queryStoreWriter' );
+	}
+
+	/**
+	 * @return CliApplicationFactory
+	 */
+	public function getCliApplicationFactory() {
+		return $this->dependencyManager->newObject( 'cliApplicationFactory' );
 	}
 
 }

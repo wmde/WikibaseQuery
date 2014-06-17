@@ -3,11 +3,13 @@
 namespace Wikibase\Query\DIC;
 
 use Wikibase\Query\DIC\Builders\ByPropertyValueEntityFinderBuilder;
+use Wikibase\Query\DIC\Builders\CliApplicationFactoryBuilder;
 use Wikibase\Query\DIC\Builders\DatabaseConnectionBuilder;
 use Wikibase\Query\DIC\Builders\ExtensionUpdaterBuilder;
 use Wikibase\Query\DIC\Builders\QueryStoreWithDependenciesBuilder;
 use Wikibase\Query\DIC\Builders\QueryStoreWriterBuilder;
 use Wikibase\Query\DIC\Builders\SQLStoreBuilder;
+use Wikibase\Query\DIC\Builders\SQLStoreSchemaBuilder;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
@@ -41,8 +43,7 @@ class WikibaseQueryBuilder {
 			$dependencyManager->registerBuilder(
 				'sqlStore',
 				new SQLStoreBuilder(
-					'WikibaseQuery test store',
-					$this->globalVars['wgDBprefix'] . 'wbq_'
+					'WikibaseQuery test store'
 				)
 			);
 		}
@@ -50,11 +51,17 @@ class WikibaseQueryBuilder {
 			$dependencyManager->registerBuilder(
 				'sqlStore',
 				new SQLStoreBuilder(
-					'WikibaseQuery SQLStore 0.1 alpha',
-					$this->globalVars['wgDBprefix'] . 'wbq_'
+					'WikibaseQuery SQLStore 0.1 alpha'
 				)
 			);
 		}
+
+		$dependencyManager->registerBuilder(
+			'sqlStoreSchema',
+			new SQLStoreSchemaBuilder(
+				$this->globalVars['wgDBprefix'] . 'wbq_'
+			)
+		);
 
 		$dependencyManager->registerBuilder(
 			'extensionUpdater',
@@ -76,6 +83,11 @@ class WikibaseQueryBuilder {
 		$dependencyManager->registerBuilder(
 			'queryStoreWriter',
 			new QueryStoreWriterBuilder()
+		);
+
+		$dependencyManager->registerBuilder(
+			'cliApplicationFactory',
+			new CliApplicationFactoryBuilder()
 		);
 
 		return $dependencyManager;

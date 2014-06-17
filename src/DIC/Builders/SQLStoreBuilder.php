@@ -19,15 +19,12 @@ use Wikibase\QueryEngine\SQLStore\StoreSchema;
 class SQLStoreBuilder extends DependencyBuilder {
 
 	private $storeName;
-	private $tablePrefix;
 
 	/**
 	 * @param string $storeName Human readable name for the store
-	 * @param string $tablePrefix Table prefix to be used for the store
 	 */
-	public function __construct( $storeName, $tablePrefix ) {
+	public function __construct( $storeName ) {
 		$this->storeName = $storeName;
-		$this->tablePrefix = $tablePrefix;
 	}
 
 	/**
@@ -38,21 +35,10 @@ class SQLStoreBuilder extends DependencyBuilder {
 	 * @return ByPropertyValueEntityFinder
 	 */
 	public function buildObject( DependencyManager $dependencyManager ) {
-		return new SQLStore( $this->newStoreSchema(), $this->newStoreConfig() );
-	}
-
-	private function newStoreSchema() {
-		// TODO: provide an extension mechanism for the DV handlers
-		$handlersBuilder = new DataValueHandlersBuilder();
-		$handlers = $handlersBuilder->withSimpleHandlers()
-			->withEntityIdHandler( $this->getEntityIdParser() )->getHandlers();
-
-		return new StoreSchema( $this->tablePrefix, $handlers );
-	}
-
-	private function getEntityIdParser() {
-		// TODO: get via DIC
-		return new BasicEntityIdParser();
+		return new SQLStore(
+			$dependencyManager->newObject( 'sqlStoreSchema' ),
+			$this->newStoreConfig()
+		);
 	}
 
 	private function newStoreConfig() {
