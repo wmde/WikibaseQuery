@@ -1,19 +1,22 @@
 <?php
 
-namespace Wikibase\Query\Console;
+namespace Wikibase\Query\DIC\Builders;
 
-use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Symfony\Component\Console\Application;
+use Wikibase\Query\DIC\DependencyBuilder;
+use Wikibase\Query\DIC\DependencyManager;
 use Wikibase\QueryEngine\Console\DumpSqlCommand;
-use Wikibase\QueryEngine\SQLStore\StoreSchema;
 
 /**
- * Builds the Wikibase Query CLI application.
- *
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class CliApplicationFactory {
+class CliApplicationBuilder extends DependencyBuilder {
+
+	/**
+	 * @var DependencyManager
+	 */
+	private $dependencyManager;
 
 	/**
 	 * @var Application
@@ -21,24 +24,15 @@ class CliApplicationFactory {
 	private $app;
 
 	/**
-	 * @var StoreSchema
-	 */
-	private $schema;
-
-	/**
-	 * @var AbstractPlatform
-	 */
-	private $platform;
-
-	public function __construct( StoreSchema $schema, AbstractPlatform $platform ) {
-		$this->schema = $schema;
-		$this->platform = $platform;
-	}
-
-	/**
+	 * @see DependencyBuilder::buildObject
+	 *
+	 * @param DependencyManager $dependencyManager
+	 *
 	 * @return Application
 	 */
-	public function newApplication() {
+	public function buildObject( DependencyManager $dependencyManager ) {
+		$this->dependencyManager = $dependencyManager;
+
 		$this->app = new Application();
 
 		$this->setApplicationInfo();
@@ -58,7 +52,10 @@ class CliApplicationFactory {
 
 	private function newDumpCommand() {
 		$command = new DumpSqlCommand();
-		$command->setDependencies( $this->schema, $this->platform );
+		$command->setDependencies(
+			$this->dependencyManager->newObject( 'sqlStoreSchema' ),
+			$this->dependencyManager->newObject( 'connection' )->getDatabasePlatform()
+		);
 		return $command;
 	}
 
