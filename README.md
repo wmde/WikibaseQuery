@@ -33,6 +33,12 @@ Wikibase Query 1.0:
         }
     }
 
+## CLI
+
+To get a list of available CLI commands, execute this in the root directory:
+
+    php querycli
+
 ## Technical documentation
 
 All classes provided by WikibaseQuery reside in the Wikibase\Query namespace.
