@@ -2,15 +2,11 @@
 
 namespace Wikibase\Query\DIC\Builders;
 
-use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\Query\ByPropertyValueEntityFinder;
 use Wikibase\Query\DIC\DependencyBuilder;
 use Wikibase\Query\DIC\DependencyManager;
-use Wikibase\QueryEngine\SQLStore\DataValueHandlers;
-use Wikibase\QueryEngine\SQLStore\DataValueHandlersBuilder;
 use Wikibase\QueryEngine\SQLStore\SQLStore;
 use Wikibase\QueryEngine\SQLStore\StoreConfig;
-use Wikibase\QueryEngine\SQLStore\StoreSchema;
 
 /**
  * @licence GNU GPL v2+

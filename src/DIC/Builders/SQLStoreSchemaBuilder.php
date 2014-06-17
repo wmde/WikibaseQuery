@@ -2,9 +2,6 @@
 
 namespace Wikibase\Query\DIC\Builders;
 
-use DatabaseSqlite;
-use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\DriverManager;
 use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\Query\DIC\DependencyBuilder;
 use Wikibase\Query\DIC\DependencyManager;

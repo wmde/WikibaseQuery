@@ -2,7 +2,7 @@
 
 namespace Wikibase\Query\Console;
 
-use Doctrine\DBAL\Platforms\MySqlPlatform;
+use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Symfony\Component\Console\Application;
 use Wikibase\QueryEngine\Console\DumpSqlCommand;
 use Wikibase\QueryEngine\SQLStore\StoreSchema;
@@ -25,8 +25,14 @@ class CliApplicationFactory {
 	 */
 	private $schema;
 
-	public function __construct( StoreSchema $schema ) {
+	/**
+	 * @var AbstractPlatform
+	 */
+	private $platform;
+
+	public function __construct( StoreSchema $schema, AbstractPlatform $platform ) {
 		$this->schema = $schema;
+		$this->platform = $platform;
 	}
 
 	/**
@@ -52,7 +58,7 @@ class CliApplicationFactory {
 
 	private function newDumpCommand() {
 		$command = new DumpSqlCommand();
-		$command->setDependencies( $this->schema, new MySqlPlatform() );
+		$command->setDependencies( $this->schema, $this->platform );
 		return $command;
 	}
 

@@ -34,7 +34,7 @@
 
 		"wikibase/data-model": "~0.8.0",
 		"wikibase/wikibase": "dev-master",
-		"wikibase/query-engine": "dev-cli"
+		"wikibase/query-engine": "dev-master"
 	},
 	"require-dev": {
 		"symfony/console": "~2.4.4"
