@@ -3,7 +3,7 @@
 namespace Wikibase\Query\DIC;
 
 use Wikibase\Query\DIC\Builders\ByPropertyValueEntityFinderBuilder;
-use Wikibase\Query\DIC\Builders\CliApplicationFactoryBuilder;
+use Wikibase\Query\DIC\Builders\CliApplicationBuilder;
 use Wikibase\Query\DIC\Builders\DatabaseConnectionBuilder;
 use Wikibase\Query\DIC\Builders\ExtensionUpdaterBuilder;
 use Wikibase\Query\DIC\Builders\QueryStoreWithDependenciesBuilder;
@@ -86,8 +86,8 @@ class WikibaseQueryBuilder {
 		);
 
 		$dependencyManager->registerBuilder(
-			'cliApplicationFactory',
-			new CliApplicationFactoryBuilder()
+			'cliApplication',
+			new CliApplicationBuilder()
 		);
 
 		return $dependencyManager;

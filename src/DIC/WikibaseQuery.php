@@ -2,8 +2,8 @@
 
 namespace Wikibase\Query\DIC;
 
+use Symfony\Component\Console\Application;
 use Wikibase\Query\ByPropertyValueEntityFinder;
-use Wikibase\Query\Console\CliApplicationFactory;
 use Wikibase\Query\Setup\ExtensionUpdater;
 use Wikibase\QueryEngine\QueryStoreWithDependencies;
 use Wikibase\QueryEngine\QueryStoreWriter;
@@ -63,10 +63,10 @@ class WikibaseQuery {
 	}
 
 	/**
-	 * @return CliApplicationFactory
+	 * @return Application
 	 */
-	public function getCliApplicationFactory() {
-		return $this->dependencyManager->newObject( 'cliApplicationFactory' );
+	public function getCliApplication() {
+		return $this->dependencyManager->newObject( 'cliApplication' );
 	}
 
 }

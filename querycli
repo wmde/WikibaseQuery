@@ -24,4 +24,4 @@ require_once( RUN_MAINTENANCE_IF_MAIN );
 
 
 \Wikibase\Query\DIC\ExtensionAccess::getWikibaseQuery()
-	->getCliApplicationFactory()->newApplication()->run();
+	->getCliApplication()->run();
