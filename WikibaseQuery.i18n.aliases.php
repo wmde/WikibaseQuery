@@ -60,6 +60,11 @@ $specialPageAliases['lb'] = array(
 	'SimpleQuery' => array( 'Einfach_Ufro' ),
 );
 
+/** Macedonian (македонски) */
+$specialPageAliases['mk'] = array(
+	'SimpleQuery' => array( 'ПростоБарање' ),
+);
+
 /** Dutch (Nederlands) */
 $specialPageAliases['nl'] = array(
 	'SimpleQuery' => array( 'EenvoudigeZoekopdracht' ),
