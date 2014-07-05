@@ -2,10 +2,14 @@
 
 namespace Wikibase\Query\DIC\Builders;
 
+use Doctrine\DBAL\Connection;
 use Symfony\Component\Console\Application;
+use Wikibase\Query\Cli\SQLStoreInstallCommand;
+use Wikibase\Query\Cli\SQLStoreUninstallCommand;
 use Wikibase\Query\DIC\DependencyBuilder;
 use Wikibase\Query\DIC\DependencyManager;
 use Wikibase\QueryEngine\Console\DumpSqlCommand;
+use Wikibase\QueryEngine\SQLStore\SQLStore;
 
 /**
  * @licence GNU GPL v2+
@@ -48,6 +52,8 @@ class CliApplicationBuilder extends DependencyBuilder {
 
 	private function registerCommands() {
 		$this->app->add( $this->newDumpCommand() );
+		$this->app->add( $this->newInstallCommand() );
+		$this->app->add( $this->newUninstallCommand() );
 	}
 
 	private function newDumpCommand() {
@@ -56,6 +62,44 @@ class CliApplicationBuilder extends DependencyBuilder {
 			$this->dependencyManager->newObject( 'sqlStoreSchema' ),
 			$this->dependencyManager->newObject( 'connection' )->getDatabasePlatform()
 		);
+		return $command;
+	}
+
+	private function newInstallCommand() {
+		/**
+		 * @var SQLStore $queryStore
+		 */
+		$queryStore = $this->dependencyManager->newObject( 'sqlStore' );
+
+		/**
+		 * @var Connection $connection
+		 */
+		$connection = $this->dependencyManager->newObject( 'connection' );
+
+		$installer = $queryStore->newInstaller( $connection->getSchemaManager() );
+
+		$command = new SQLStoreInstallCommand();
+		$command->setDependencies( $installer );
+
+		return $command;
+	}
+
+	private function newUninstallCommand() {
+		/**
+		 * @var SQLStore $queryStore
+		 */
+		$queryStore = $this->dependencyManager->newObject( 'sqlStore' );
+
+		/**
+		 * @var Connection $connection
+		 */
+		$connection = $this->dependencyManager->newObject( 'connection' );
+
+		$uninstaller = $queryStore->newUninstaller( $connection->getSchemaManager() );
+
+		$command = new SQLStoreUninstallCommand();
+		$command->setDependencies( $uninstaller );
+
 		return $command;
 	}
 
