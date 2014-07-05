@@ -56,9 +56,7 @@ via TravisCI, as a TravisCI configuration file is also provided in the root dire
 
 ## Authors
 
-Wikibase Query has been written by the Wikidata team for the [Wikidata project](https://wikidata.org/).
-
-Contributions where also made by several [other people](https://www.ohloh.net/p/wikibasequery/contributors).
+Wikibase Query has been written by the Wikidata team for the [Wikidata project](https://wikidata.org/). You can view the [full list of contributors](https://www.ohloh.net/p/wikibasequery/contributors).
 
 ## Links
 
@@ -66,3 +64,7 @@ Contributions where also made by several [other people](https://www.ohloh.net/p/
 * [Wikibase Query on Ohloh](https://www.ohloh.net/p/wikibasequery)
 * [Wikibase Query on MediaWiki.org](https://www.mediawiki.org/wiki/Extension:Wikibase_Query)
 * [TravisCI build status](https://travis-ci.org/wmde/WikibaseQuery)
+
+## See also
+
+* [Wikibase QueryEngine](https://github.com/wmde/WikibaseQueryEngine)
