@@ -7,12 +7,7 @@ On Packagist:
 [![Latest Stable Version](https://poser.pugx.org/wikibase/query/version.png)](https://packagist.org/packages/wikibase/query)
 [![Download count](https://poser.pugx.org/wikibase/query/d/total.png)](https://packagist.org/packages/wikibase/query)
 
-Wikibase Query adds query capabilities to Wikibase Repo.
-
-Features:
-
-* New Query page type that allows people to define queries (in the Query namespace by default).
-* Query execution against a query engine that returns a query result
+Wikibase Query adds query capabilities to Wikibase Repo. It is part of the [Wikibase software](http://wikiba.se/).
 
 ## Installation
 
@@ -61,8 +56,7 @@ via TravisCI, as a TravisCI configuration file is also provided in the root dire
 
 ## Authors
 
-Wikibase Query has been written by [Jeroen De Dauw](https://www.mediawiki.org/wiki/User:Jeroen_De_Dauw)
-as [Wikimedia Germany](https://wikimedia.de) employee for the [Wikidata project](https://wikidata.org/).
+Wikibase Query has been written by the Wikidata team for the [Wikidata project](https://wikidata.org/).
 
 Contributions where also made by several [other people](https://www.ohloh.net/p/wikibasequery/contributors).
 
