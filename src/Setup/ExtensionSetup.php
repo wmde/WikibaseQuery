@@ -57,9 +57,9 @@ class ExtensionSetup {
 			'name' => 'Wikibase Query',
 			'version' => WIKIBASE_QUERY_VERSION,
 			'author' => array(
-				'[https://www.mediawiki.org/wiki/User:Jeroen_De_Dauw Jeroen De Dauw]',
+				'The Wikidata team',
 			),
-			'url' => 'https://www.mediawiki.org/wiki/Extension:Wikibase_Query',
+			'url' => 'https://github.com/wmde/WikibaseQuery',
 			'descriptionmsg' => 'wikibasequery-desc'
 		);
 	}
