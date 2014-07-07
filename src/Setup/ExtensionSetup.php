@@ -11,9 +11,9 @@ use Wikibase\Query\DIC\WikibaseQueryBuilder;
  */
 class ExtensionSetup {
 
-	protected $globalVars;
-	protected $rootDirectory;
-	protected $dicRegistrant;
+	private $globalVars;
+	private $rootDirectory;
+	private $dicRegistrant;
 
 	/**
 	 * @param array $globalVars
@@ -38,7 +38,7 @@ class ExtensionSetup {
 		$this->registerResources();
 	}
 
-	protected function registerDic() {
+	private function registerDic() {
 		$builder = new WikibaseQueryBuilder( $this->globalVars );
 		call_user_func(
 			$this->dicRegistrant,
@@ -46,12 +46,12 @@ class ExtensionSetup {
 		);
 	}
 
-	protected function registerHooks() {
+	private function registerHooks() {
 		$hookSetup = new HookSetup( $this->globalVars['wgHooks'], $this->rootDirectory );
 		$hookSetup->run();
 	}
 
-	protected function registerCredits() {
+	private function registerCredits() {
 		$this->globalVars['wgExtensionCredits']['wikibase'][] = array(
 			'path' => $this->rootDirectory,
 			'name' => 'Wikibase Query',
@@ -64,17 +64,17 @@ class ExtensionSetup {
 		);
 	}
 
-	protected function registerInternationalization() {
+	private function registerInternationalization() {
 		$this->globalVars['wgMessagesDirs']['WikibaseQuery'] = $this->rootDirectory . '/i18n';
 		$this->globalVars['wgExtensionMessagesFiles']['WikibaseQuery'] = $this->rootDirectory . '/WikibaseQuery.i18n.php';
 		$this->globalVars['wgExtensionMessagesFiles']['WikibaseQueryAliases'] = $this->rootDirectory . '/WikibaseQuery.i18n.aliases.php';
 	}
 
-	protected function registerWebAPI() {
+	private function registerWebAPI() {
 		$this->globalVars['wgAPIModules']['entitiesbypropertyvalue'] = 'Wikibase\Query\Api\EntitiesByPropertyValue';
 	}
 
-	protected function registerSpecialPages() {
+	private function registerSpecialPages() {
 		// Special page registration
 		$this->globalVars['wgSpecialPages']['SimpleQuery'] = 'Wikibase\Query\Specials\SimpleQuery';
 

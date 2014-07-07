@@ -36,7 +36,7 @@ class ExtensionAccess {
 		return self::$registry;
 	}
 
-	protected static function buildRegistry() {
+	private static function buildRegistry() {
 		self::$registry = call_user_func( self::$registryBuilder );
 	}
 

@@ -29,7 +29,7 @@ class HookSetup {
 		$this->registerEntityUpdateHookHandlers();
 	}
 
-	protected function registerUnitTests() {
+	private function registerUnitTests() {
 		$rootDir = $this->rootDirectory;
 
 		// https://www.mediawiki.org/wiki/Manual:Hooks/UnitTestsList
@@ -49,14 +49,14 @@ class HookSetup {
 		};
 	}
 
-	protected function registerExtensionSchemaUpdates() {
+	private function registerExtensionSchemaUpdates() {
 		// https://www.mediawiki.org/wiki/Manual:Hooks/LoadExtensionSchemaUpdates
 		$this->hooks['LoadExtensionSchemaUpdates'][] = function( \DatabaseUpdater $updater ) {
 			ExtensionAccess::getWikibaseQuery()->getExtensionUpdater()->run( $updater );
 		};
 	}
 
-	protected function registerEntityUpdateHookHandlers() {
+	private function registerEntityUpdateHookHandlers() {
 		$this->hooks['WikibaseEntityModificationUpdate'][] = function( EntityContent $newContent ) {
 			ExtensionAccess::getWikibaseQuery()->getQueryStoreWriter()->updateEntity( $newContent->getEntity() );
 		};
