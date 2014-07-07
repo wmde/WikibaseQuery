@@ -12,13 +12,13 @@ use Wikibase\QueryEngine\QueryStoreUpdater;
  */
 class ExtensionUpdater {
 
-	protected $queryStoreInstaller;
-	protected $queryStoreUpdater;
+	private $queryStoreInstaller;
+	private $queryStoreUpdater;
 
 	/**
 	 * @var DatabaseUpdater
 	 */
-	protected $updater;
+	private $updater;
 
 	public function __construct( QueryStoreInstaller $installer, QueryStoreUpdater $updater ) {
 		$this->queryStoreInstaller = $installer;
@@ -33,7 +33,7 @@ class ExtensionUpdater {
 		$this->updateStore();
 	}
 
-	protected function applyUpdateIfNotAlreadyDone( $functionName ) {
+	private function applyUpdateIfNotAlreadyDone( $functionName ) {
 		$updateName = 'wbquery-' . $functionName;
 
 		if ( !$this->updater->updateRowExists( $updateName ) ) {
@@ -42,15 +42,15 @@ class ExtensionUpdater {
 		}
 	}
 
-	protected function installStore() {
+	private function installStore() {
 		$this->queryStoreInstaller->install();
 	}
 
-	protected function updateStore() {
+	private function updateStore() {
 		$this->queryStoreUpdater->update();
 	}
 
-	protected function reportMessage( $message ) {
+	private function reportMessage( $message ) {
 		$this->updater->output( $message );
 	}
 

@@ -27,7 +27,7 @@ class DependencyManager {
 	/**
 	 * @var DependencyBuilder[]
 	 */
-	protected $builders = array();
+	private $builders = array();
 
 	public function registerBuilder( $objectKey, DependencyBuilder $builder ) {
 		$this->assertIsValidObjectKey( $objectKey );
@@ -44,7 +44,7 @@ class DependencyManager {
 		return $this->builders[$objectKey]->buildObject( $this );
 	}
 
-	protected function assertIsValidObjectKey( $objectKey ) {
+	private function assertIsValidObjectKey( $objectKey ) {
 		if ( !is_string( $objectKey ) || $objectKey === '' ) {
 			throw new InvalidArgumentException( '$objectKey needs to be a string' );
 		}
