@@ -20,6 +20,11 @@ $specialPageAliases['en'] = array(
 	'SimpleQuery' => array( 'SimpleQuery' ),
 );
 
+/** Arabic (العربية) */
+$specialPageAliases['ar'] = array(
+	'SimpleQuery' => array( 'استعلام_بسيط' ),
+);
+
 /** Egyptian Spoken Arabic (مصرى) */
 $specialPageAliases['arz'] = array(
 	'SimpleQuery' => array( 'كويرى_بسيط' ),
