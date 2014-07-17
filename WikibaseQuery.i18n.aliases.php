@@ -75,6 +75,11 @@ $specialPageAliases['nl'] = array(
 	'SimpleQuery' => array( 'EenvoudigeZoekopdracht' ),
 );
 
+/** Swedish (svenska) */
+$specialPageAliases['sv'] = array(
+	'SimpleQuery' => array( 'Enkel_förfrågan' ),
+);
+
 /** Vietnamese (Tiếng Việt) */
 $specialPageAliases['vi'] = array(
 	'SimpleQuery' => array( 'Truy_vấn_đơn_giản' ),
