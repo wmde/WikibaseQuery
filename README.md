@@ -50,13 +50,22 @@ outside of legacy APIs in which we cannot achieve proper dependency construction
 
 ## Tests
 
-This library comes with a set up PHPUnit tests that cover all non-trivial code. You can run these
-tests using the PHPUnit configuration file found in the root directory. The tests can also be run
-via TravisCI, as a TravisCI configuration file is also provided in the root directory.
+This extension comes with a set up PHPUnit tests that cover all non-trivial code. The extension
+needs to be loaded via MediaWiki, after which the tests can be run via the MediaWiki test runner.
+
+    php phpunit.php -c ../../extensions/WikibaseQuery/
+
+You might need to specify that MediaWiki should use normal tables
+
+    php phpunit.php -c ../../extensions/WikibaseQuery/ --use-normal-tables
+
+If this does not work due to using PHPUnit 4.0 or later, you can temporarily modify your
+MediaWikis `MediaWikiPHPUnitCommand.php` file.
 
 ## Authors
 
-Wikibase Query has been written by the Wikidata team for the [Wikidata project](https://wikidata.org/). You can view the [full list of contributors](https://www.ohloh.net/p/wikibasequery/contributors).
+Wikibase Query has been written by the Wikidata team for the [Wikidata project](https://wikidata.org/).
+You can view the [full list of contributors](https://www.ohloh.net/p/wikibasequery/contributors).
 
 ## Links
 
