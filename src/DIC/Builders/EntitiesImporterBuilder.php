@@ -5,6 +5,7 @@ namespace Wikibase\Query\DIC\Builders;
 use BatchingIterator\BatchingIterator;
 use Wikibase\EntityStore\BatchingEntityFetcher;
 use Wikibase\EntityStore\BatchingEntityIdFetcher;
+use Wikibase\EntityStore\BatchingEntityIdFetcherBuilder;
 use Wikibase\Query\DIC\DependencyBuilder;
 use Wikibase\Query\DIC\DependencyManager;
 use Wikibase\QueryEngine\Importer\EntitiesImporter;
@@ -43,14 +44,12 @@ class EntitiesImporterBuilder extends DependencyBuilder {
 	}
 
 	private function newEntityIterator() {
-		// TODO: move out construction to entity-store component and remove item specific
-		$idFetcher = new BatchingEntityIdFetcher(
-			$this->repo->getStore()->newEntityPerPage(),
-			'item'
+		$idFetcherBuilder = new BatchingEntityIdFetcherBuilder(
+			$this->repo->getStore()->newEntityPerPage()
 		);
 
 		$iterator = new BatchingIterator( new BatchingEntityFetcher(
-			$idFetcher,
+			$idFetcherBuilder->getFetcher(),
 			$this->repo->getEntityLookup()
 		) );
 

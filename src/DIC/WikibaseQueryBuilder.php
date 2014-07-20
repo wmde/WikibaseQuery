@@ -11,7 +11,6 @@ use Wikibase\Query\DIC\Builders\QueryStoreWithDependenciesBuilder;
 use Wikibase\Query\DIC\Builders\QueryStoreWriterBuilder;
 use Wikibase\Query\DIC\Builders\SQLStoreBuilder;
 use Wikibase\Query\DIC\Builders\SQLStoreSchemaBuilder;
-use Wikibase\Query\DIC\Builders\SQLStoreWriterBuilder;
 use Wikibase\Repo\WikibaseRepo;
 
 /**

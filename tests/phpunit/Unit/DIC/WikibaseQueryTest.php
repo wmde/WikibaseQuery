@@ -7,8 +7,6 @@ use Wikibase\Query\DIC\WikibaseQuery;
 /**
  * @covers Wikibase\Query\DIC\WikibaseQuery
  *
- * @file
- * @ingroup WikibaseQuery
  * @group WikibaseQuery
  *
  * @licence GNU GPL v2+
