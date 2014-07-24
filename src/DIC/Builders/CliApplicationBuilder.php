@@ -9,6 +9,7 @@ use Wikibase\Query\Cli\SQLStoreUninstallCommand;
 use Wikibase\Query\DIC\DependencyBuilder;
 use Wikibase\Query\DIC\DependencyManager;
 use Wikibase\QueryEngine\Console\DumpSqlCommand;
+use Wikibase\QueryEngine\Console\Import\ImportEntitiesCommand;
 use Wikibase\QueryEngine\SQLStore\SQLStore;
 
 /**
@@ -54,6 +55,7 @@ class CliApplicationBuilder extends DependencyBuilder {
 		$this->app->add( $this->newDumpCommand() );
 		$this->app->add( $this->newInstallCommand() );
 		$this->app->add( $this->newUninstallCommand() );
+		$this->app->add( $this->newImportCommand() );
 	}
 
 	private function newDumpCommand() {
@@ -99,6 +101,13 @@ class CliApplicationBuilder extends DependencyBuilder {
 
 		$command = new SQLStoreUninstallCommand();
 		$command->setDependencies( $uninstaller );
+
+		return $command;
+	}
+
+	private function newImportCommand() {
+		$command = new ImportEntitiesCommand();
+		$command->setDependencies( $this->dependencyManager->newObject( 'entitiesImporter' ) );
 
 		return $command;
 	}

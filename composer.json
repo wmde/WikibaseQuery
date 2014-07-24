@@ -34,8 +34,8 @@
 
 		"wikibase/data-model": "~0.8.0",
 		"wikibase/wikibase": "@dev",
-		"wikibase/query-engine": "~0.3@dev",
-		"wikibase/entity-store": "~0.1.0"
+		"wikibase/query-engine": "~0.3.0@dev",
+		"wikibase/entity-store": "~0.2.0@dev"
 	},
 	"require-dev": {
 		"symfony/console": "~2.4.4"

@@ -23,4 +23,9 @@ class ObjectConstructionTest extends \PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf( 'Wikibase\Query\Setup\ExtensionUpdater', $updater );
 	}
 
+	public function testConstructStoreWriter() {
+		$updater = ExtensionAccess::getWikibaseQuery()->getQueryStoreWriter();
+		$this->assertInstanceOf( 'Wikibase\QueryEngine\QueryStoreWriter', $updater );
+	}
+
 }

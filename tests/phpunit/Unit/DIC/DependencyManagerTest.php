@@ -7,8 +7,6 @@ use Wikibase\Query\DIC\DependencyManager;
 /**
  * @covers Wikibase\Query\DIC\DependencyManager
  *
- * @file
- * @ingroup WikibaseQuery
  * @group WikibaseQuery
  *
  * @licence GNU GPL v2+
