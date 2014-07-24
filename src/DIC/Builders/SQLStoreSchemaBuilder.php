@@ -2,7 +2,6 @@
 
 namespace Wikibase\Query\DIC\Builders;
 
-use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\Query\DIC\DependencyBuilder;
 use Wikibase\Query\DIC\DependencyManager;
 use Wikibase\QueryEngine\SQLStore\DataValueHandlersBuilder;
@@ -33,15 +32,9 @@ class SQLStoreSchemaBuilder extends DependencyBuilder {
 	public function buildObject( DependencyManager $dependencyManager ) {
 		// TODO: provide an extension mechanism for the DV handlers
 		$handlersBuilder = new DataValueHandlersBuilder();
-		$handlers = $handlersBuilder->withSimpleHandlers()
-			->withEntityIdHandler( $this->getEntityIdParser() )->getHandlers();
+		$handlers = $handlersBuilder->withSimpleHandlers()->getHandlers();
 
 		return new StoreSchema( $this->tablePrefix, $handlers );
-	}
-
-	private function getEntityIdParser() {
-		// TODO: get via DIC
-		return new BasicEntityIdParser();
 	}
 
 }
