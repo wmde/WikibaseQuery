@@ -26,7 +26,7 @@ before_script:
 
 script:
   - cd ../phase3/tests/phpunit
-  - ./phpunit.php -c ../../extensions/WikibaseQuery/phpunit.xml.dist  --exclude-group SimpleQueryTest --use-normal-tables
+  - ./phpunit.php -c ../../extensions/WikibaseQuery/ --use-normal-tables
 
 notifications:
   irc:
