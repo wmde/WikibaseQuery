@@ -11,6 +11,7 @@ use Wikibase\Query\DIC\DependencyManager;
 use Wikibase\QueryEngine\Console\DumpSqlCommand;
 use Wikibase\QueryEngine\Console\Import\ImportEntitiesCommand;
 use Wikibase\QueryEngine\SQLStore\SQLStore;
+use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @licence GNU GPL v2+
@@ -27,6 +28,15 @@ class CliApplicationBuilder extends DependencyBuilder {
 	 * @var Application
 	 */
 	private $app;
+
+	/**
+	 * @var WikibaseRepo
+	 */
+	private $repo;
+
+	public function __construct( WikibaseRepo $repo ) {
+		$this->repo = $repo;
+	}
 
 	/**
 	 * @see DependencyBuilder::buildObject
@@ -107,7 +117,13 @@ class CliApplicationBuilder extends DependencyBuilder {
 
 	private function newImportCommand() {
 		$command = new ImportEntitiesCommand();
-		$command->setDependencies( $this->dependencyManager->newObject( 'entitiesImporter' ) );
+
+		$command->setDependencies( new EntitiesImporterBuilder(
+			$this->dependencyManager->newObject( 'queryStoreWriter' ),
+			$this->repo->getStore()->newEntityPerPage(),
+			$this->repo->getEntityLookup(),
+			$this->repo->getEntityIdParser()
+		) );
 
 		return $command;
 	}
