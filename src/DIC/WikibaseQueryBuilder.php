@@ -5,7 +5,6 @@ namespace Wikibase\Query\DIC;
 use Wikibase\Query\DIC\Builders\ByPropertyValueEntityFinderBuilder;
 use Wikibase\Query\DIC\Builders\CliApplicationBuilder;
 use Wikibase\Query\DIC\Builders\DatabaseConnectionBuilder;
-use Wikibase\Query\DIC\Builders\EntitiesImporterBuilder;
 use Wikibase\Query\DIC\Builders\ExtensionUpdaterBuilder;
 use Wikibase\Query\DIC\Builders\QueryStoreWithDependenciesBuilder;
 use Wikibase\Query\DIC\Builders\QueryStoreWriterBuilder;
@@ -88,12 +87,7 @@ class WikibaseQueryBuilder {
 
 		$dependencyManager->registerBuilder(
 			'cliApplication',
-			new CliApplicationBuilder()
-		);
-
-		$dependencyManager->registerBuilder(
-			'entitiesImporter',
-			new EntitiesImporterBuilder( $this->getRepoFactory() )
+			new CliApplicationBuilder( $this->getRepoFactory() )
 		);
 
 		return $dependencyManager;

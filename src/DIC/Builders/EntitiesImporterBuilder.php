@@ -3,60 +3,90 @@
 namespace Wikibase\Query\DIC\Builders;
 
 use BatchingIterator\BatchingIterator;
+use Wikibase\DataModel\Entity\EntityIdParser;
+use Wikibase\DataModel\Entity\EntityIdParsingException;
+use Wikibase\EntityPerPage;
 use Wikibase\EntityStore\BatchingEntityFetcher;
-use Wikibase\EntityStore\BatchingEntityIdFetcher;
 use Wikibase\EntityStore\BatchingEntityIdFetcherBuilder;
-use Wikibase\Query\DIC\DependencyBuilder;
-use Wikibase\Query\DIC\DependencyManager;
+use Wikibase\Lib\Store\EntityLookup;
 use Wikibase\QueryEngine\Importer\EntitiesImporter;
+use Wikibase\QueryEngine\Importer\ImportReporter;
 use Wikibase\QueryEngine\QueryStoreWriter;
-use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class EntitiesImporterBuilder extends DependencyBuilder {
+class EntitiesImporterBuilder implements \Wikibase\QueryEngine\Importer\EntitiesImporterBuilder {
 
-	private $repo;
+	private $storeWriter;
+	private $epp;
+	private $entityLookup;
+	private $idParser;
 
-	public function __construct( WikibaseRepo $repo ) {
-		$this->repo = $repo;
+	private $maxBatchSize = 10;
+	private $reporter = null;
+	private $previousEntityId = null;
+
+	public function __construct( QueryStoreWriter $storeWriter, EntityPerPage $epp, EntityLookup $entityLookup, EntityIdParser $idParser ) {
+		$this->storeWriter = $storeWriter;
+		$this->epp = $epp;
+		$this->entityLookup = $entityLookup;
+		$this->idParser = $idParser;
 	}
 
 	/**
-	 * @see DependencyBuilder::buildObject
-	 *
-	 * @param DependencyManager $dependencyManager
-	 *
+	 * @param int $maxBatchSize
+	 */
+	public function setBatchSize( $maxBatchSize ) {
+		$this->maxBatchSize = $maxBatchSize;
+	}
+
+	/**
+	 * @param $reporter ImportReporter
+	 */
+	public function setReporter( ImportReporter $reporter ) {
+		$this->reporter = $reporter;
+	}
+
+	/**
+	 * @param string $previousEntityId
+	 */
+	public function setContinuationId( $previousEntityId ) {
+		$this->previousEntityId = $previousEntityId;
+	}
+
+	/**
 	 * @return EntitiesImporter
 	 */
-	public function buildObject( DependencyManager $dependencyManager ) {
-		/**
-		 * @var QueryStoreWriter
-		 */
-		$storeWriter = $dependencyManager->newObject( 'queryStoreWriter' );
-
+	public function newImporter() {
 		return new EntitiesImporter(
-			$storeWriter,
-			$this->newEntityIterator()
+			$this->storeWriter,
+			$this->newEntityIterator(),
+			$this->reporter
 		);
 	}
 
 	private function newEntityIterator() {
-		$idFetcherBuilder = new BatchingEntityIdFetcherBuilder(
-			$this->repo->getStore()->newEntityPerPage()
-		);
+		$idFetcherBuilder = new BatchingEntityIdFetcherBuilder( $this->epp, $this->getPreviousId() );
 
 		$iterator = new BatchingIterator( new BatchingEntityFetcher(
 			$idFetcherBuilder->getFetcher(),
-			$this->repo->getEntityLookup()
+			$this->entityLookup
 		) );
 
-		// TODO: update the interface of the command so batch size and start position can be set
-		$iterator->setMaxBatchSize( 10 );
+		$iterator->setMaxBatchSize( $this->maxBatchSize );
 
 		return $iterator;
+	}
+
+	private function getPreviousId() {
+		try {
+			return $this->idParser->parse( $this->previousEntityId );
+		}
+		catch ( EntityIdParsingException $ex ) {
+			return null;
+		}
 	}
 
 }
