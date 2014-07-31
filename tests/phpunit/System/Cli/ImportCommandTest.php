@@ -29,11 +29,11 @@ class ImportCommandTest extends \MediaWikiTestCase {
 		parent::setUp();
 
 		$item = Item::newEmpty();
-		$item->setId( 133742 );
+		$item->setId( 133723 );
 		$this->saveEntity( $item );
 
 		$item = Item::newEmpty();
-		$item->setId( 133723 );
+		$item->setId( 133742 );
 		$statement = new Statement( new PropertyValueSnak( 42, new StringValue( 'foo' ) ) );
 		$statement->setGuid( 'kittens' );
 		$item->addClaim( $statement );
@@ -46,13 +46,13 @@ class ImportCommandTest extends \MediaWikiTestCase {
 	}
 
 	public function testImportCommandWithDefaultArguments() {
-		$output = $this->getOutputForOptions( array( 'batchsize' => '10' ) );
+		$output = $this->getOutputForArguments( array() );
 
-		$this->assertContains( 'Importing Q133742', $output );
 		$this->assertContains( 'Importing Q133723', $output );
+		$this->assertContains( 'Importing Q133742', $output );
 	}
 
-	private function getOutputForOptions( array $options ) {
+	private function getOutputForArguments( array $arguments ) {
 		$command = new ImportCommand();
 
 		$repo = WikibaseRepo::getDefaultInstance();
@@ -65,16 +65,15 @@ class ImportCommandTest extends \MediaWikiTestCase {
 		) );
 
 		$tester = new CommandTester( $command );
-		$tester->execute( array(), $options );
+		$tester->execute( $arguments );
 
 		return $tester->getDisplay();
 	}
 
 	public function testImportCommandWithLimitArgument() {
-		$output = $this->getOutputForOptions( array( 'batchsize' => '10', 'limit' => 1 ) );
+		$output = $this->getOutputForArguments( array( '--limit' => 1 ) );
 
-		$this->assertContains( 'Importing Q133742', $output );
-//		$this->assertNotContains( 'Importing Q133723', $output );
+		$this->assertNotContains( 'Importing Q133742', $output );
 	}
 
 }
