@@ -52,7 +52,10 @@ class ImporterBuilder {
 
 		$iterator->setMaxBatchSize( $options->getBatchSize() );
 
-		// TODO: hold into account the limit option
+		if ( $options->getLimit() !== null ) {
+			$iterator = new \LimitIterator( $iterator, 0, $options->getLimit() );
+		}
+
 		return $iterator;
 	}
 
