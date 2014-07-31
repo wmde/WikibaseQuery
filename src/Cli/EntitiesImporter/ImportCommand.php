@@ -26,7 +26,7 @@ class ImportCommand extends Command {
 	}
 
 	protected function configure() {
-		$this->setName( 'import' );
+		$this->setName( 'store:import' );
 		$this->setDescription( 'Imports a collection of entities into the QueryEngine store' );
 
 		$this->addOption(
