@@ -71,6 +71,7 @@ class CliApplicationBuilder extends DependencyBuilder {
 
 	private function newDumpCommand() {
 		$command = new DumpSqlCommand();
+
 		$command->setDependencies(
 			$this->dependencyManager->newObject( 'sqlStoreSchema' ),
 			$this->dependencyManager->newObject( 'connection' )->getDatabasePlatform()

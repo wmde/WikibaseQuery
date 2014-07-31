@@ -24,12 +24,12 @@ class SQLStoreUninstallCommand extends Command {
 	}
 
 	protected function configure() {
-		$this->setName( 'sqlstore:uninstall' );
-		$this->setDescription( 'Uninstalls the QueryEngine SQLStore' );
+		$this->setName( 'store:uninstall' );
+		$this->setDescription( 'Uninstalls the QueryEngine store' );
 	}
 
 	protected function execute( InputInterface $input, OutputInterface $output ) {
-		$output->write( '<info>Uninstalling the QueryEngine SQLStore... </info>' );
+		$output->write( '<info>Uninstalling the QueryEngine store... </info>' );
 
 		try {
 			$this->uninstaller->uninstall();
