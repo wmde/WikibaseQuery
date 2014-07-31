@@ -4,12 +4,13 @@ namespace Wikibase\Query\DIC\Builders;
 
 use Doctrine\DBAL\Connection;
 use Symfony\Component\Console\Application;
+use Wikibase\Query\Cli\EntitiesImporter\ImportCommand;
+use Wikibase\Query\Cli\EntitiesImporter\ImporterBuilder;
 use Wikibase\Query\Cli\SQLStoreInstallCommand;
 use Wikibase\Query\Cli\SQLStoreUninstallCommand;
 use Wikibase\Query\DIC\DependencyBuilder;
 use Wikibase\Query\DIC\DependencyManager;
 use Wikibase\QueryEngine\Console\DumpSqlCommand;
-use Wikibase\QueryEngine\Console\Import\ImportEntitiesCommand;
 use Wikibase\QueryEngine\SQLStore\SQLStore;
 use Wikibase\Repo\WikibaseRepo;
 
@@ -116,9 +117,9 @@ class CliApplicationBuilder extends DependencyBuilder {
 	}
 
 	private function newImportCommand() {
-		$command = new ImportEntitiesCommand();
+		$command = new ImportCommand();
 
-		$command->setDependencies( new EntitiesImporterBuilder(
+		$command->setDependencies( new ImporterBuilder(
 			$this->dependencyManager->newObject( 'queryStoreWriter' ),
 			$this->repo->getStore()->newEntityPerPage(),
 			$this->repo->getEntityLookup(),

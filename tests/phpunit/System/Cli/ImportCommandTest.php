@@ -8,9 +8,9 @@ use Wikibase\DataModel\Claim\Statement;
 use Wikibase\DataModel\Entity\Entity;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
-use Wikibase\Query\DIC\Builders\EntitiesImporterBuilder;
+use Wikibase\Query\Cli\EntitiesImporter\ImportCommand;
+use Wikibase\Query\Cli\EntitiesImporter\ImporterBuilder;
 use Wikibase\Query\DIC\ExtensionAccess;
-use Wikibase\QueryEngine\Console\Import\ImportEntitiesCommand;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
@@ -45,12 +45,19 @@ class ImportCommandTest extends \MediaWikiTestCase {
 		$store->saveEntity( $entity, __METHOD__, $GLOBALS['wgUser'] );
 	}
 
-	public function testImportCommand() {
-		$command = new ImportEntitiesCommand();
+	public function testImportCommandWithDefaultArguments() {
+		$output = $this->getOutputForOptions( array( 'batchsize' => '10' ) );
+
+		$this->assertContains( 'Importing Q133742', $output );
+		$this->assertContains( 'Importing Q133723', $output );
+	}
+
+	private function getOutputForOptions( array $options ) {
+		$command = new ImportCommand();
 
 		$repo = WikibaseRepo::getDefaultInstance();
 
-		$command->setDependencies( new EntitiesImporterBuilder(
+		$command->setDependencies( new ImporterBuilder(
 			ExtensionAccess::getWikibaseQuery()->getQueryStoreWriter(),
 			$repo->getStore()->newEntityPerPage(),
 			$repo->getEntityLookup(),
@@ -58,9 +65,16 @@ class ImportCommandTest extends \MediaWikiTestCase {
 		) );
 
 		$tester = new CommandTester( $command );
-		$tester->execute( array() );
+		$tester->execute( array(), $options );
 
-		$this->assertContains( 'Importing Q133723', $tester->getDisplay() );
+		return $tester->getDisplay();
+	}
+
+	public function testImportCommandWithLimitArgument() {
+		$output = $this->getOutputForOptions( array( 'batchsize' => '10', 'limit' => 1 ) );
+
+		$this->assertContains( 'Importing Q133742', $output );
+//		$this->assertNotContains( 'Importing Q133723', $output );
 	}
 
 }

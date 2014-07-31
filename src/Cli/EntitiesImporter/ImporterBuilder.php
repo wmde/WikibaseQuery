@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Query\DIC\Builders;
+namespace Wikibase\Query\Cli\EntitiesImporter;
 
 use BatchingIterator\BatchingIterator;
 use Wikibase\DataModel\Entity\EntityIdParser;
@@ -17,16 +17,12 @@ use Wikibase\QueryEngine\QueryStoreWriter;
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class EntitiesImporterBuilder implements \Wikibase\QueryEngine\Importer\EntitiesImporterBuilder {
+class ImporterBuilder {
 
 	private $storeWriter;
 	private $epp;
 	private $entityLookup;
 	private $idParser;
-
-	private $maxBatchSize = 10;
-	private $reporter = null;
-	private $previousEntityId = null;
 
 	public function __construct( QueryStoreWriter $storeWriter, EntityPerPage $epp, EntityLookup $entityLookup, EntityIdParser $idParser ) {
 		$this->storeWriter = $storeWriter;
@@ -35,54 +31,34 @@ class EntitiesImporterBuilder implements \Wikibase\QueryEngine\Importer\Entities
 		$this->idParser = $idParser;
 	}
 
-	/**
-	 * @param int $maxBatchSize
-	 */
-	public function setBatchSize( $maxBatchSize ) {
-		$this->maxBatchSize = $maxBatchSize;
-	}
-
-	/**
-	 * @param $reporter ImportReporter
-	 */
-	public function setReporter( ImportReporter $reporter ) {
-		$this->reporter = $reporter;
-	}
-
-	/**
-	 * @param string $previousEntityId
-	 */
-	public function setContinuationId( $previousEntityId ) {
-		$this->previousEntityId = $previousEntityId;
-	}
-
-	/**
-	 * @return EntitiesImporter
-	 */
-	public function newImporter() {
+	public function newImporter( ImportReporter $reporter, Options $options ) {
 		return new EntitiesImporter(
 			$this->storeWriter,
-			$this->newEntityIterator(),
-			$this->reporter
+			$this->newEntityIterator( $options ),
+			$reporter
 		);
 	}
 
-	private function newEntityIterator() {
-		$idFetcherBuilder = new BatchingEntityIdFetcherBuilder( $this->epp, $this->getPreviousId() );
+	private function newEntityIterator( Options $options ) {
+		$idFetcherBuilder = new BatchingEntityIdFetcherBuilder(
+			$this->epp,
+			$this->getPreviousId( $options )
+		);
 
 		$iterator = new BatchingIterator( new BatchingEntityFetcher(
 			$idFetcherBuilder->getFetcher(),
 			$this->entityLookup
 		) );
 
-		$iterator->setMaxBatchSize( $this->maxBatchSize );
+		$iterator->setMaxBatchSize( $options->getBatchSize() );
 
+		// TODO: hold into account the limit option
 		return $iterator;
 	}
 
-	private function getPreviousId() {
+	private function getPreviousId( Options $options ) {
 		try {
-			return $this->idParser->parse( $this->previousEntityId );
+			return $this->idParser->parse( $options->getPreviousEntityId() );
 		}
 		catch ( EntityIdParsingException $ex ) {
 			return null;
