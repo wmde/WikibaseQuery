@@ -24,7 +24,7 @@ class SQLStoreUninstallCommand extends Command {
 	}
 
 	protected function configure() {
-		$this->setName( 'store:uninstall' );
+		$this->setName( 'drop-store' );
 		$this->setDescription( 'Uninstalls the QueryEngine store' );
 	}
 
@@ -39,7 +39,6 @@ class SQLStoreUninstallCommand extends Command {
 			$output->writeln( '<error>failed!</error>' );
 			$output->writeln( '<error>' . $ex->getMessage() . '</error>' );
 		}
-
 	}
 
 }

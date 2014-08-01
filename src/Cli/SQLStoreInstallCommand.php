@@ -24,7 +24,7 @@ class SQLStoreInstallCommand extends Command {
 	}
 
 	protected function configure() {
-		$this->setName( 'store:install' );
+		$this->setName( 'setup-store' );
 		$this->setDescription( 'Installs the QueryEngine store' );
 	}
 
@@ -39,7 +39,6 @@ class SQLStoreInstallCommand extends Command {
 			$output->writeln( '<error>failed!</error>' );
 			$output->writeln( '<error>' . $ex->getMessage() . '</error>' );
 		}
-
 	}
 
 }
