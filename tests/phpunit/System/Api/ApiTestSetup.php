@@ -3,17 +3,16 @@
 namespace Tests\System\Wikibase\Query\Api;
 
 use DataValues\StringValue;
-use Doctrine\DBAL\Connection;
 use User;
+use Wikibase\DataModel\Claim\Statement;
+use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Entity\Property;
 use Wikibase\DataModel\Entity\PropertyId;
-use Wikibase\Item;
-use Wikibase\Property;
-use Wikibase\PropertyValueSnak;
+use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\Query\DIC\ExtensionAccess;
 use Wikibase\Query\DIC\WikibaseQueryBuilder;
 use Wikibase\Repo\WikibaseRepo;
-use Wikibase\Statement;
 
 /**
  * @licence GNU GPL v2+
@@ -86,4 +85,5 @@ class ApiTestSetup {
 		$entityStore = WikibaseRepo::getDefaultInstance()->getEntityStore();
 		$entityStore->saveEntity( $entity, '', new User() );
 	}
+
 }
