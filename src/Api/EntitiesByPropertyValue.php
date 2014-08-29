@@ -161,26 +161,6 @@ class EntitiesByPropertyValue extends \ApiBase {
 	}
 
 	/**
-	 * @see ApiBase::getPossibleErrors
-	 *
-	 * @since 0.1
-	 *
-	 * @return array
-	 */
-	public function getPossibleErrors() {
-		return array(
-			array(
-				'code' => 'invalid-json',
-				'info' => self::ERR_INVALID_JSON,
-			),
-			array(
-				'code' => 'no-such-property',
-				'info' => self::ERR_NO_SUCH_PROPERTY,
-			)
-		);
-	}
-
-	/**
 	 * @see ApiBase::getHelpUrls
 	 *
 	 * @since 0.1
