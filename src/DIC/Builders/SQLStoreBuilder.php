@@ -2,7 +2,6 @@
 
 namespace Wikibase\Query\DIC\Builders;
 
-use Wikibase\Query\ByPropertyValueEntityFinder;
 use Wikibase\Query\DIC\DependencyBuilder;
 use Wikibase\Query\DIC\DependencyManager;
 use Wikibase\QueryEngine\SQLStore\SQLStore;
@@ -28,7 +27,7 @@ class SQLStoreBuilder extends DependencyBuilder {
 	 *
 	 * @param DependencyManager $dependencyManager
 	 *
-	 * @return ByPropertyValueEntityFinder
+	 * @return SQLStore
 	 */
 	public function buildObject( DependencyManager $dependencyManager ) {
 		return new SQLStore(
