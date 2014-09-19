@@ -22,11 +22,13 @@ dependency on `wikibase/query` to your project's `composer.json` file.
 Here is a minimal example of a `composer.json` file that just defines a dependency on
 Wikibase Query 1.0:
 
+```js
     {
         "require": {
             "wikibase/query": "1.0.*"
         }
     }
+```
 
 ## CLI
 
