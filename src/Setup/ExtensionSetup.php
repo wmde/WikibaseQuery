@@ -60,7 +60,8 @@ class ExtensionSetup {
 				'The Wikidata team',
 			),
 			'url' => 'https://github.com/wmde/WikibaseQuery',
-			'descriptionmsg' => 'wikibasequery-desc'
+			'descriptionmsg' => 'wikibasequery-desc',
+			'license-name' => 'GPL-2.0+'
 		);
 	}
 
