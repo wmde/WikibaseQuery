@@ -3,8 +3,8 @@
 namespace Wikibase\Query;
 
 use DataTypes\DataTypeFactory;
+use Wikibase\DataModel\Entity\PropertyDataTypeLookup;
 use Wikibase\DataModel\Entity\PropertyId;
-use Wikibase\Lib\PropertyDataTypeLookup;
 use Wikibase\QueryEngine\PropertyDataValueTypeLookup;
 
 /**

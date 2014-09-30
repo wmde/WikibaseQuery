@@ -5,7 +5,7 @@ namespace Wikibase\Query\Api;
 use ApiBase;
 use InvalidArgumentException;
 use Wikibase\DataModel\Entity\EntityId;
-use Wikibase\Lib\PropertyNotFoundException;
+use Wikibase\DataModel\Entity\PropertyNotFoundException;
 use Wikibase\Query\DIC\ExtensionAccess;
 
 /**
