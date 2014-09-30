@@ -1,27 +1,26 @@
 #!/usr/bin/env php
 <?php
 
-
 // This block takes care of autoloading via MediaWiki.
 // Unfortunately it cannot be properly scoped.
 
-call_user_func(function() {
-	$basePath = getenv( 'MW_INSTALL_PATH' ) !== false ? getenv( 'MW_INSTALL_PATH' ) : __DIR__ . '/../..';
+call_user_func( function() {
+	$basePath = getenv( 'MW_INSTALL_PATH' ) !== false
+		? getenv( 'MW_INSTALL_PATH' )
+		: __DIR__ . '/../..';
 
-	require_once $basePath . '/maintenance/Maintenance.php';
+	require_once( $basePath . '/maintenance/Maintenance.php' );
 
 	$GLOBALS['maintClass'] = 'TheJoyOfAutoloadingInMediaWiki';
-});
+} );
 
 class TheJoyOfAutoloadingInMediaWiki extends \Maintenance {
-	public function execute() {}
+	public function execute() {
+	}
 }
 
 require_once( RUN_MAINTENANCE_IF_MAIN );
 
 // End of MediaWiki autoloading block.
 
-
-
-\Wikibase\Query\DIC\ExtensionAccess::getWikibaseQuery()
-	->getCliApplication()->run();
+\Wikibase\Query\DIC\ExtensionAccess::getWikibaseQuery()->getCliApplication()->run();
