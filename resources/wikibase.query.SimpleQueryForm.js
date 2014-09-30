@@ -71,7 +71,7 @@
 		_getInputFieldValue: function( $valueJson, $property ) {
 			var dataValue;
 			try {
-				dataValue = $.parseJSON( $valueJson.val() );
+				dataValue = JSON.parse( $valueJson.val() );
 				dataValue = dv.newDataValue( dataValue.type, dataValue.value );
 			} catch( e ) {
 				dataValue = null;
@@ -85,7 +85,7 @@
 		_setInputFieldValue: function( $valueJson, $property, newValue ) {
 			var dataValue = newValue.datavalue;
 			$property.val( newValue.property );
-			$valueJson.val(  $.toJSON( {
+			$valueJson.val(  JSON.stringify( {
 				value: dataValue && dataValue.toJSON(),
 				type: dataValue && dataValue.getType()
 			} ) );
