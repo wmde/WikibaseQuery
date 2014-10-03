@@ -32,7 +32,7 @@ return call_user_func( function() {
 			),
 			'dependencies' => array(
 				'dataValues',
-				'jquery.json',
+				'json',
 				'jquery.wikibase.snakview',
 				'wikibase.common', // For the stylesheet
 				'wikibase.query'

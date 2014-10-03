@@ -20,7 +20,7 @@ class PropertyDataValueTypeFinderTest extends \PHPUnit_Framework_TestCase {
 		$dataTypeId = 'awesomeType';
 		$dataValueType = 'awesomeDvType';
 
-		$dtIdLookup = $this->getMock( 'Wikibase\Lib\PropertyDataTypeLookup' );
+		$dtIdLookup = $this->getMock( 'Wikibase\DataModel\Entity\PropertyDataTypeLookup' );
 
 		$dtIdLookup->expects( $this->once() )
 			->method( 'getDataTypeIdForProperty' )

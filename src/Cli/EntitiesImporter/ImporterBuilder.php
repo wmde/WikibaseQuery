@@ -5,13 +5,13 @@ namespace Wikibase\Query\Cli\EntitiesImporter;
 use BatchingIterator\BatchingIterator;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdParsingException;
-use Wikibase\EntityPerPage;
 use Wikibase\EntityStore\BatchingEntityFetcher;
 use Wikibase\EntityStore\BatchingEntityIdFetcherBuilder;
 use Wikibase\Lib\Store\EntityLookup;
 use Wikibase\QueryEngine\Importer\EntitiesImporter;
 use Wikibase\QueryEngine\Importer\ImportReporter;
 use Wikibase\QueryEngine\QueryStoreWriter;
+use Wikibase\Repo\Store\EntityPerPage;
 
 /**
  * @licence GNU GPL v2+
