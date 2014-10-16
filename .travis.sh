@@ -4,9 +4,9 @@ set -x
 
 cd ..
 
-wget https://github.com/wikimedia/mediawiki-core/archive/master.tar.gz
+wget https://github.com/wikimedia/mediawiki/archive/master.tar.gz
 tar -zxf master.tar.gz
-mv mediawiki-core-master phase3
+mv mediawiki-master phase3
 
 cd -
 cd ../phase3/extensions
