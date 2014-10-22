@@ -32,9 +32,9 @@
 		"ask/serialization": "~1.0.1",
 		"serialization/serialization": "~3.0",
 
-		"wikibase/data-model": "~1.0",
+		"wikibase/data-model": "~2.0|~1.0",
 		"wikibase/wikibase": "@dev",
-		"wikibase/query-engine": "~0.3.0@dev",
+		"wikibase/query-engine": "~0.4.0@dev",
 		"wikibase/entity-store": "~0.2.0@dev"
 	},
 	"require-dev": {
