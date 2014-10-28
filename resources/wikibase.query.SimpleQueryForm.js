@@ -1,4 +1,4 @@
-( function( $, query, dv, snakview ) {
+( function( $, query, dv ) {
 	'use strict';
 
 	var SimpleQueryForm = query.SimpleQueryForm = function( $form ) {
@@ -14,7 +14,7 @@
 		/**
 		 * Replace the form's input fields with a snakview
 		 *
-		 * @param Object options An object holding options for the snakview.
+		 * @param {Object} options An object holding options for the snakview.
 		 *                       Currently, only options.entityStore is used.
 		 */
 		enhance: function( options ) {
@@ -55,7 +55,7 @@
 		 * { property: String, datavalue: DataValue }
 		 * If the argument is not given, the current value is returned.
 		 *
-		 * @param [Object] newValue Optional value to set
+		 * @param {Object} [newValue] Optional value to set
 		 */
 		inputFieldValue: function( newValue ) {
 			var $valueJson = this.$form.find( '[name="valuejson"]' ),
@@ -92,4 +92,4 @@
 		}
 	} );
 
-}( jQuery, wikibase.query, dataValues, jQuery.wikibase.snakview ) );
+}( jQuery, wikibase.query, dataValues ) );
