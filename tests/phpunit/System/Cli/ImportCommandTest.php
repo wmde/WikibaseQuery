@@ -4,10 +4,11 @@ namespace Tests\System\Wikibase\Query\Cli;
 
 use DataValues\StringValue;
 use Symfony\Component\Console\Tester\CommandTester;
-use Wikibase\DataModel\Claim\Statement;
+use Wikibase\DataModel\Claim\Claim;
 use Wikibase\DataModel\Entity\Entity;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
+use Wikibase\DataModel\Statement\Statement;
 use Wikibase\Query\Cli\EntitiesImporter\ImportCommand;
 use Wikibase\Query\Cli\EntitiesImporter\ImporterBuilder;
 use Wikibase\Query\DIC\ExtensionAccess;
@@ -34,9 +35,12 @@ class ImportCommandTest extends \MediaWikiTestCase {
 
 		$item = Item::newEmpty();
 		$item->setId( 133742 );
-		$statement = new Statement( new PropertyValueSnak( 42, new StringValue( 'foo' ) ) );
-		$statement->setGuid( 'kittens' );
-		$item->addClaim( $statement );
+		$item->getStatements()->addNewStatement(
+			new PropertyValueSnak( 42, new StringValue( 'foo' ) ),
+			null,
+			null,
+			'kittens'
+		);
 		$this->saveEntity( $item );
 	}
 

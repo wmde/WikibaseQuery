@@ -4,12 +4,13 @@ namespace Tests\System\Wikibase\Query\Api;
 
 use DataValues\StringValue;
 use User;
-use Wikibase\DataModel\Claim\Statement;
+use Wikibase\DataModel\Claim\Claim;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\Property;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
+use Wikibase\DataModel\Statement\Statement;
 use Wikibase\Query\DIC\ExtensionAccess;
 use Wikibase\Query\DIC\WikibaseQueryBuilder;
 use Wikibase\Repo\WikibaseRepo;
@@ -60,19 +61,16 @@ class ApiTestSetup {
 
 	protected function newMockItem() {
 		$item = Item::newEmpty();
-
 		$item->setId( $this->itemId );
-
-		$claim = new Statement(
+		$item->getStatements()->addNewStatement(
 			new PropertyValueSnak(
 				$this->propertyId,
 				$this->newMockValue()
-			)
+			),
+			null,
+			null,
+			'foo'
 		);
-
-		$claim->setGuid( 'foo' );
-
-		$item->addClaim( $claim );
 
 		return $item;
 	}
