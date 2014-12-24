@@ -31,9 +31,7 @@ class SimpleQuery extends SpecialWikibaseQueryPage {
 	 * @since 0.1
 	 */
 	public function execute( $subPage ) {
-		if( !parent::execute( $subPage ) ) {
-			return false;
-		}
+		parent::execute( $subPage );
 
 		$this->extractRequestFields();
 
@@ -41,8 +39,6 @@ class SimpleQuery extends SpecialWikibaseQueryPage {
 
 		$this->addSearchForm();
 		$this->showQuery();
-
-		return true;
 	}
 
 	private function extractRequestFields() {
