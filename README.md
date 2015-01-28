@@ -79,3 +79,7 @@ You can view the [full list of contributors](https://www.ohloh.net/p/wikibaseque
 ## See also
 
 * [Wikibase QueryEngine](https://github.com/wmde/WikibaseQueryEngine)
+
+## Bugs on Phabricator
+
+https://phabricator.wikimedia.org/project/view/116/
