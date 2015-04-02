@@ -46,9 +46,7 @@ class ApiTestSetup {
 	}
 
 	protected function createNewProperty() {
-		$property = Property::newEmpty();
-		$property->setId( $this->propertyId );
-		$property->setDataTypeId( 'string' );
+		$property = new Property( $this->propertyId, null, 'string' );
 
 		$this->storeEntity( $property );
 	}
