@@ -1,3 +1,5 @@
+This extension is no longer maintained nor developed.
+
 # Wikibase Query
 
 [![Build Status](https://secure.travis-ci.org/wmde/WikibaseQuery.png?branch=master)](http://travis-ci.org/wmde/WikibaseQuery)
